@@ -1,74 +1,1913 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Тайна старой киностудии</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дело №001 — Последняя плёнка</title>
 
-    <style>
-        body {
-            margin: 0;
-            background: #0b0f14;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        .box {
-            margin: 100px auto;
-            max-width: 700px;
-            padding: 40px;
-            background: #121923;
-            border: 1px solid #344252;
-            border-radius: 12px;
-        }
+body {
+    margin: 0;
+    background: #070a0f;
+    color: #dce3eb;
+    font-family: Arial, sans-serif;
+}
 
-        h1 {
-            font-size: 32px;
-        }
+button,
+input {
+    font-family: inherit;
+}
 
-        p {
-            color: #9da9b5;
-            font-size: 18px;
-        }
+button {
+    cursor: pointer;
+}
 
-        button {
-            margin-top: 20px;
-            padding: 14px 25px;
-            background: #1d2936;
-            color: white;
-            border: 1px solid #526579;
-            border-radius: 7px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+/* ===== ЗАГРУЗКА ===== */
 
-        button:hover {
-            background: #2a3949;
-        }
-    </style>
+#loading {
+    position: fixed;
+    inset: 0;
+    background: #070a0f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.loading-box {
+    text-align: center;
+}
+
+.loading-title {
+    font-size: 24px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.loading-line {
+    width: 300px;
+    height: 3px;
+    background: #263442;
+    overflow: hidden;
+}
+
+.loading-line::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 40%;
+    background: #8b9caf;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: translateX(-120%);
+    }
+
+    to {
+        transform: translateX(350%);
+    }
+}
+
+/* ===== ОСНОВА ===== */
+
+#app {
+    display: none;
+    min-height: 100vh;
+}
+
+header {
+    height: 70px;
+    background: #0c1118;
+    border-bottom: 1px solid #26313d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.logo {
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.online {
+    color: #78d68a;
+    font-size: 13px;
+}
+
+.time {
+    color: #8896a5;
+    font-family: monospace;
+}
+
+.container {
+    width: min(1200px, 94%);
+    margin: 30px auto;
+}
+
+/* ===== ВЕРХ ДЕЛА ===== */
+
+.case-card {
+    background: #0d131b;
+    border: 1px solid #293542;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+.case-small {
+    color: #718092;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.case-title {
+    font-size: 34px;
+    margin: 10px 0;
+}
+
+.case-subtitle {
+    color: #8996a5;
+    max-width: 750px;
+    line-height: 1.6;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.stat {
+    background: #080c11;
+    border: 1px solid #202b37;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.stat-label {
+    color: #697787;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 23px;
+    margin-top: 8px;
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+
+.navigation {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.nav-button {
+    background: #101720;
+    border: 1px solid #293644;
+    color: #aeb9c5;
+    padding: 12px 18px;
+    border-radius: 7px;
+}
+
+.nav-button:hover {
+    background: #17212c;
+}
+
+.nav-button.active {
+    background: #1a2530;
+    color: white;
+    border-color: #68798c;
+}
+
+/* ===== СЕКЦИИ ===== */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.panel {
+    background: #0d131b;
+    border: 1px solid #293542;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 18px;
+}
+
+.panel-title {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+/* ===== ГЛАВНАЯ ===== */
+
+.warning {
+    border-left: 4px solid #a8874d;
+    background: #15120c;
+    padding: 17px;
+    color: #c8b58e;
+}
+
+.objectives {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.objective {
+    background: #0a0f15;
+    border: 1px solid #202c38;
+    padding: 18px;
+    border-radius: 8px;
+}
+
+.objective-number {
+    color: #6f8296;
+    font-size: 12px;
+}
+
+/* ===== МАТЕРИАЛЫ ===== */
+
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.evidence {
+    background: #0a0f15;
+    border: 1px solid #263341;
+    border-radius: 9px;
+    padding: 20px;
+    min-height: 190px;
+}
+
+.evidence.locked {
+    opacity: 0.5;
+}
+
+.evidence-number {
+    color: #657688;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+    -bottom: 10px;
+}
+
+.evidence p {
+    color: #909dab;
+    line-height: 1.5;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 8px;
+    font-size: 10px;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.badge-open {
+    background: #15321d;
+    color: #8bd59a;
+}
+
+.badge-lock {
+    background: #29200f;
+    color: #cdb477;
+}
+
+/* ===== КОДЫ ===== */
+
+.code-area {
+    display: flex;
+    gap: 10px;
+}
+
+.code-input {
+    flex: 1;
+    background: #080c11;
+    border: 1px solid #334251;
+    border-radius: 7px;
+    padding: 14px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.code-input:focus {
+    border-color: #8092a5;
+}
+
+.main-button {
+    background: #202d3a;
+    border: 1px solid #526579;
+    color: white;
+    border-radius: 7px;
+    padding: 12px 20px;
+}
+
+.main-button:hover {
+    background: #2b3b4b;
+}
+
+.code-result {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 7px;
+    display: none;
+    line-height: 1.5;
+}
+
+.code-success {
+    display: block;
+    background: #102117;
+    border: 1px solid #315d3b;
+    color: #9ce0a7;
+}
+
+.code-error {
+    display: block;
+    background: #201114;
+    border: 1px solid #63343c;
+    color: #e5a4ab;
+}
+
+/* ===== ХРОНОЛОГИЯ ===== */
+
+.timeline {
+    margin-top: 20px;
+}
+
+.timeline-item {
+    position: relative;
+    border-left: 2px solid #46596d;
+    padding: 0 0 25px 25px;
+    margin-left: 8px;
+}
+
+.timeline-item:last-child {
+    border-left-color: transparent;
+}
+
+.timeline-time {
+    color: #8494a5;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.timeline-title {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.timeline-text {
+    color: #8996a3;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+/* ===== ДОСЬЕ ===== */
+
+.person {
+    display: flex;
+    gap: 18px;
+    background: #0a0f15;
+    border: 1px solid #263341;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 12px;
+}
+
+.person-icon {
+    width: 55px;
+    height: 55px;
+    background: #17212c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.person-info h3 {
+    margin: 0 0 7px;
+}
+
+.person-info p {
+    margin: 0;
+    color: #8d9aa8;
+}
+
+/* ===== ВЕДУЩИЙ ===== */
+
+.host-panel {
+    border-color: #63502c;
+    background: #151209;
+}
+
+.host-button {
+    background: #201a0e;
+    color: #d9c28c;
+    border: 1px solid #64502a;
+    padding: 11px 15px;
+    border-radius: 6px;
+    margin: 4px;
+}
+
+.host-button:hover {
+    background: #2b2212;
+}
+
+.host-note {
+    color: #a8956c;
+    line-height: 1.5;
+}
+
+/* ===== УВЕДОМЛЕНИЕ ===== */
+
+#notification {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: #121a23;
+    border: 1px solid #47596c;
+    border-radius: 8px;
+    padding: 18px 22px;
+    max-width: 350px;
+    display: none;
+    box-shadow: 0 10px 30px #00000066;
+}
+
+#notification.show {
+    display: block;
+    animation: notification 0.3s;
+}
+
+@keyframes notification {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+footer {
+    text-align: center;
+    color: #46525f;
+    padding: 40px 0;
+    font-size: 12px;
+}
+
+/* ===== АДАПТАЦИЯ ===== */
+
+max-width: 800px {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .evidence-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .objectives {
+        grid-template-columns: 1fr;
+    }
+
+    .case-title {
+        font-size: 27px;
+    }
+}
+
+max-width: 550px {
+
+    header {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 13px;
+    }
+
+    .online {
+        display: none;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .code-area {
+        flex-direction: column;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="box">
+<!-- ===== ЭКРАН ЗАГРУЗКИ ===== -->
 
-    <h1>КИНОСТУДИЯ «ЗВЕЗДА»</h1>
+<div id="loading">
 
-    <p>ДЕЛО №001</p>
+    <div class="loading-box">
 
-    <p>«ПОСЛЕДНЯЯ ПЛЁНКА»</p>
+        <div class="loading-title">
+            АРХИВ «ЗВЕЗДА»
+        </div>
 
-    <button onclick="startGame()">
-        ОТКРЫТЬ ДЕЛО
+        <div class="loading-line"></div>
+
+        <p style="color:#667483;">
+            Инициализация защищённого архива...
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ===== ПРИЛОЖЕНИЕ ===== -->
+
+<div id="app">
+
+<header>
+
+    <div class="logo">
+        АРХИВ «ЗВЕЗДА»
+    </div>
+
+    <div class="header-right">
+
+        <div class="online">
+            ● СИСТЕМА В СЕТИ
+        </div>
+
+        <div class="time" id="clock">
+            00:00:00
+        </div>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+<!-- ===== ШАПКА ДЕЛА ===== -->
+
+<div class="case-card">
+
+    <div class="case-small">
+        ЗАКРЫТОЕ РАССЛЕДОВАНИЕ
+    </div>
+
+    <div class="case-title">
+        ДЕЛО №001
+    </div>
+
+    <h2 style="font-weight:normal;color:#a5b0bc;">
+        «ПОСЛЕДНЯЯ ПЛЁНКА»
+    </h2>
+
+    <div class="case-subtitle">
+
+        Из старого архива киностудии исчезла редкая
+        киноплёнка. Дверь не была взломана.
+        Камеры отключились ровно на несколько минут.
+        А последняя запись в журнале архива
+        вызывает вопросы.
+
+        
+
+        <b style="color:#d5dde6;">
+            Ваша задача — восстановить события.
+        </b>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                МАТЕРИАЛЫ
+            </div>
+
+            <div class="stat-value" id="materialsCount">
+                2 / 8
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-label">
+                ЗАБЛОКИРОВАНО
+            </div>
+
+            <div class="stat-value" id="lockedCount">
+                6
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-label">
+                СТАТУС
+            </div>
+
+            <div class="stat-value">
+                В РАБОТЕ
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-label">
+                ВРЕМЯ ДЕЛА
+            </div>
+
+            <div class="stat-value" id="gameTime">
+                00:00
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===== НАВИГАЦИЯ ===== -->
+
+<div class="navigation">
+
+    <button class="nav-button active"
+            onclick="openPage('case', this)">
+        ДЕЛО
+    </button>
+
+    <button class="nav-button"
+            onclick="openPage('evidence', this)">
+        МАТЕРИАЛЫ
+    </button>
+
+    <button class="nav-button"
+            onclick="openPage('timeline', this)">
+        ХРОНОЛОГИЯ
+    </button>
+
+    <button class="nav-button"
+            onclick="openPage('dossiers', this)">
+        ДОСЬЕ
+    </button>
+
+    <button class="nav-button"
+            onclick="openPage('codes', this)">
+        КОДЫ
+    </button>
+
+    <button class="nav-button"
+            onclick="openPage('host', this)">
+        ВЕДУЩИЙ
     </button>
 
 </div>
 
+<!-- ================================================= -->
+<!-- ДЕЛО -->
+<!-- ================================================= -->
+
+<section id="case" class="page active">
+
+<div class="panel">
+
+    <h2 class="panel-title">
+        Сводка дела
+    </h2>
+
+    <p style="line-height:1.7;color:#9ba7b4;">
+
+        14 октября 2026 года сотрудники старой
+        киностудии «Звезда» готовились к юбилейному
+        показу архивных материалов.
+
+        
+
+        В 18:40 архивариус обнаружил, что из
+        металлического шкафа исчезла плёнка
+        с маркировкой <b>«Последний кадр»</b>.
+
+        
+
+        При этом сама коробка осталась на месте.
+
+        Замок шкафа не повреждён.
+
+        Следов взлома нет.
+
+    </p>
+
+</div>
+
+<div class="panel warning">
+
+    <b>⚠ ВАЖНО</b>
+
+    <p>
+        Архив содержит неполные сведения.
+        Некоторые документы были удалены,
+        а некоторые файлы защищены кодами.
+    </p>
+
+    <p>
+        Не доверяйте первой найденной версии событий.
+    </p>
+
+</div>
+
+<div class="panel">
+
+    <h2 class="panel-title">
+        Цели расследования
+    </h2>
+
+    <div class="objectives">
+
+        <div class="objective">
+
+            <div class="objective-number">
+                ЦЕЛЬ 01
+            </div>
+            <h3>
+                Кто получил доступ?
+            </h3>
+
+            <p style="color:#84919f;">
+                Установите, кто мог попасть
+                в архив в нужное время.
+            </p>
+
+        </div>
+
+        <div class="objective">
+
+            <div class="objective-number">
+                ЦЕЛЬ 02
+            </div>
+
+            <h3>
+                Как исчезла плёнка?
+            </h3>
+
+            <p style="color:#84919f;">
+                Дверь не взламывали.
+                Значит, существует другой способ.
+            </p>
+
+        </div>
+
+        <div class="objective">
+
+            <div class="objective-number">
+                ЦЕЛЬ 03
+            </div>
+
+            <h3>
+                Зачем она понадобилась?
+            </h3>
+
+            <p style="color:#84919f;">
+                Мотив пока неизвестен.
+            </p>
+
+        </div>
+
+        <div class="objective">
+
+            <div class="objective-number">
+                ЦЕЛЬ 04
+            </div>
+
+            <h3>
+                Что произошло в 1963 году?
+            </h3>
+
+            <p style="color:#84919f;">
+                Некоторые документы ведут
+                к событиям шестидесятилетней давности.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- МАТЕРИАЛЫ -->
+<!-- ================================================= -->
+
+<section id="evidence" class="page">
+
+<div class="panel">
+
+    <h2 class="panel-title">
+        Архивные материалы
+    </h2>
+
+    <p style="color:#7f8c9a;">
+        Найдено материалов:
+        <b id="evidenceTextCount">2</b> из 8.
+    </p>
+
+<div class="evidence-grid">
+
+<!-- УЛИКА 1 -->
+
+<div class="evidence">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №01
+    </div>
+
+    <h3>
+        Журнал архива
+    </h3>
+
+    <p>
+
+        17:42 — архив открыт.
+
+        
+
+        17:58 — зарегистрирован посетитель №3.
+
+        
+
+        18:12 — последняя запись.
+
+        
+
+        18:20 — камеры переведены
+        в режим обслуживания.
+
+        
+
+        18:40 — обнаружено отсутствие плёнки.
+
+    </p>
+
+    <span class="badge badge-open">
+        ДОСТУПЕН
+    </span>
+
+</div>
+
+<!-- УЛИКА 2 -->
+
+<div class="evidence">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №02
+    </div>
+
+    <h3>
+        Фотография коробки
+    </h3>
+
+    <p>
+
+        На коробке отсутствуют следы
+        повреждения.
+
+        
+
+        На нижнем правом углу видна
+        маркировка:
+
+        
+
+        <b style="font-size:20px;">
+            К-17
+        </b>
+
+    </p>
+
+    <span class="badge badge-open">
+        ДОСТУПЕН
+    </span>
+
+</div>
+
+<!-- УЛИКА 3 -->
+
+<div id="evidence3" class="evidence locked">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №03
+    </div>
+
+    <h3>
+        Архивная запись
+    </h3>
+
+    <p id="evidence3Text">
+        🔒 Файл зашифрован.
+        
+
+        Для доступа необходим код.
+    </p>
+
+    <span class="badge badge-lock">
+        ЗАБЛОКИРОВАН
+    </span>
+
+</div>
+
+<!-- УЛИКА 4 -->
+
+<div id="evidence4" class="evidence locked">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №04
+    </div>
+
+    <h3>
+        Запись камеры
+    </h3>
+
+    <p id="evidence4Text">
+        🔒 Файл повреждён.
+        
+
+        Требуется восстановление.
+    </p>
+
+    <span class="badge badge-lock">
+        ЗАБЛОКИРОВАН
+    </span>
+
+</div>
+
+<!-- УЛИКА 5 -->
+
+<div id="evidence5" class="evidence locked">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №05
+    </div>
+
+    <h3>
+        Карточка сотрудника
+    </h3>
+
+    <p id="evidence5Text">
+        🔒 Доступ ограничен.
+    </p>
+
+    <span class="badge badge-lock">
+        ЗАБЛОКИРОВАН
+    </span>
+
+</div>
+
+<!-- УЛИКА 6 -->
+
+<div id="evidence6" class="evidence locked">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №06
+    </div>
+
+    <h3>
+        Служебная записка
+    </h3>
+
+    <p id="evidence6Text">
+        🔒 Документ находится
+        в закрытом разделе.
+    </p>
+
+    <span class="badge badge-lock">
+        ЗАБЛОКИРОВАН
+    </span>
+
+</div>
+
+<!-- УЛИКА 7 -->
+
+<div id="evidence7" class="evidence locked">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №07
+    </div>
+
+    <h3>
+        Фотография 1963 года
+    </h3>
+
+    <p id="evidence7Text">
+        🔒 Изображение находится
+        в старом архиве.
+    </p>
+
+    <span class="badge badge-lock">
+        ЗАБЛОКИРОВАН
+    </span>
+
+</div>
+
+<!-- УЛИКА 8 -->
+
+<div id="evidence8" class="evidence locked">
+
+    <div class="evidence-number">
+        МАТЕРИАЛ №08
+    </div>
+
+    <h3>
+        Последний файл
+    </h3>
+
+    <p id="evidence8Text">
+        🔒 Доступ будет открыт
+        только в конце расследования.
+    </p>
+
+    <span class="badge badge-lock">
+        ЗАБЛОКИРОВАН
+    </span>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- ХРОНОЛОГИЯ -->
+<!-- ================================================= -->
+
+<section id="timeline" class="page">
+
+<div class="panel">
+
+    <h2 class="panel-title">
+        Хронология событий
+    </h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+
+            <div class="timeline-time">
+                14.10.2026 — 17:42
+            </div>
+
+            <div class="timeline-title">
+                Архив открыт
+            </div>
+
+            <div class="timeline-text">
+                Архивариус начинает подготовку
+                материалов к юбилейному показу.
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-time">
+                14.10.2026 — 17:58
+            </div>
+
+            <div class="timeline-title">
+                Посетитель №3
+            </div>
+
+            <div class="timeline-text">
+                В журнале появляется запись
+                о неизвестном посетителе.
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-time">
+                14.10.2026 — 18:12
+            </div>
+
+            <div class="timeline-title">
+                Последняя запись
+            </div>
+
+            <div class="timeline-text">
+                В журнале появляется последняя
+                официальная запись.
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-time">
+                14.10.2026 — 18:20
+            </div>
+
+            <div class="timeline-title">
+                Камеры отключены
+            </div>
+
+            <div class="timeline-text">
+                Система сообщает о техническом
+                обслуживании.
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-time">
+                14.10.2026 — 18:40
+            </div>
+
+            <div class="timeline-title">
+                Исчезновение
+            </div>
+
+            <div class="timeline-text">
+                Архивариус обнаруживает,
+                что плёнка отсутствует.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- ДОСЬЕ -->
+<!-- ================================================= -->
+
+<section id="dossiers" class="page">
+
+<div class="panel">
+
+    <h2 class="panel-title">
+        Лица, связанные с архивом
+    </h2>
+
+    <p style="color:#7f8b98;">
+        Пока установлены четыре человека,
+        имевшие отношение к киностудии.
+    </p>
+
+<div class="person">
+
+    <div class="person-icon">
+        А
+    </div>
+
+    <div class="person-info">
+
+        <h3>
+            Алексей Орлов
+        </h3>
+
+        <p>
+            Архивариус.
+            Отвечает за хранение старых материалов.
+        </p>
+
+    </div>
+
+</div>
+
+<div class="person">
+
+    <div class="person-icon">
+        М
+    </div>
+
+    <div class="person-info">
+
+        <h3>
+            Марина Соколова
+        </h3>
+
+        <p>
+            Администратор студии.
+            Имеет доступ к служебным помещениям.
+        </p>
+
+    </div>
+
+</div>
+
+<div class="person">
+
+    <div class="person-icon">
+        В
+    </div>
+
+    <div class="person-info">
+
+        <h3>
+            Виктор Лебедев
+        </h3>
+
+        <p>
+            Монтажёр.
+            Работал на киностудии в 1963 году.
+        </p>
+
+    </div>
+
+</div>
+
+<div class="person">
+
+    <div class="person-icon">
+        И
+    </div>
+
+    <div class="person-info">
+
+        <h3>
+            Илья Морозов
+        </h3>
+
+        <p>
+            Технический специалист.
+            Отвечает за систему камер и архивное оборудование.
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- КОДЫ -->
+<!-- ================================================= -->
+
+<section id="codes" class="page">
+
+<div class="panel">
+
+    <h2 class="panel-title">
+        Защищённые файлы
+    </h2>
+
+    <p style="color:#8794a2;line-height:1.6;">
+
+        Некоторые документы невозможно открыть
+        обычным способом.
+
+        
+
+        Ищите коды на физических уликах,
+        документах и фотографиях.
+
+    </p>
+
+<div class="code-area">
+
+    <input
+        id="codeInput"
+        class="code-input"
+        placeholder="Введите найденный код..."
+        autocomplete="off"
+    >
+
+    <button
+        class="main-button"
+        onclick="checkCode()">
+        ПРОВЕРИТЬ
+    </button>
+
+</div>
+
+<div id="codeResult" class="code-result"></div>
+
+<div class="panel" style="margin-top:25px;background:#080c11;">
+
+    <h3>
+        Подсказка
+    </h3>
+
+    <p style="color:#7f8c99;">
+        Один из первых кодов уже находится
+        прямо перед вами.
+    </p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- ВЕДУЩИЙ -->
+<!-- ================================================= -->
+
+<section id="host" class="page">
+
+<div class="panel host-panel">
+
+    <h2 class="panel-title">
+        ⚠ ПАНЕЛЬ ВЕДУЩЕГО
+    </h2>
+
+    <p class="host-note">
+
+        Этот раздел предназначен для человека,
+        который ведёт игру.
+
+        
+
+        Здесь можно вручную открывать материалы,
+        когда игроки нашли нужную улику.
+
+    </p>
+
+<button class="host-button"
+        onclick="unlockEvidence(3)">
+    ОТКРЫТЬ №03
+</button>
+
+<button class="host-button"
+        onclick="unlockEvidence(4)">
+    ОТКРЫТЬ №04
+</button>
+
+<button class="host-button"
+        onclick="unlockEvidence(5)">
+    ОТКРЫТЬ №05
+</button>
+
+<button class="host-button"
+        onclick="unlockEvidence(6)">
+    ОТКРЫТЬ №06
+</button>
+
+<button class="host-button"
+        onclick="unlockEvidence(7)">
+    ОТКРЫТЬ №07
+</button>
+
+<button class="host-button"
+        onclick="unlockEvidence(8)">
+    ОТКРЫТЬ №08
+</button>
+
+<button class="host-button"
+        onclick="notify('Событие запущено: архив получил неизвестный сигнал.')">
+    ЗАПУСТИТЬ СОБЫТИЕ
+</button>
+
+<button class="host-button"
+        onclick="notify('Внимание: обнаружена попытка доступа к архиву.')">
+    ТРЕВОГА
+</button>
+
+</div>
+
+</section>
+
+<footer>
+
+    КИНОСТУДИЯ «ЗВЕЗДА»
+    · ЗАКРЫТЫЙ АРХИВ
+    · ДЕЛО №001
+
+</footer>
+
+</div>
+</div>
+
+<!-- ===== УВЕДОМЛЕНИЕ ===== -->
+
+<div id="notification"></div>
+
 <script>
-function startGame() {
-    alert("Расследование начинается...");
+
+/* ================================================
+   ЗАПУСК
+================================================ */
+
+window.addEventListener("load", function() {
+
+    setTimeout(function() {
+
+        document.getElementById("loading").style.display = "none";
+
+        document.getElementById("app").style.display = "block";
+
+    }, 1200);
+
+});
+
+/* ================================================
+   НАВИГАЦИЯ
+================================================ */
+
+function openPage(pageId, button) {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+
+        page.classList.remove("active");
+
+    });
+
+    const selected =
+        document.getElementById(pageId);
+
+    if (selected) {
+
+        selected.classList.add("active");
+
+    }
+
+    const buttons =
+        document.querySelectorAll(".nav-button");
+
+    buttons.forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+    });
+
+    if (button) {
+
+        button.classList.add("active");
+
+    }
+
 }
+
+/* ================================================
+   ЧАСЫ
+================================================ */
+
+function updateClock() {
+
+    const now = new Date();
+
+    const h =
+        String(now.getHours()).padStart(2, "0");
+
+    const m =
+        String(now.getMinutes()).padStart(2, "0");
+
+    const s =
+        String(now.getSeconds()).padStart(2, "0");
+
+    document.getElementById("clock").textContent =
+        h + ":" + m + ":" + s;
+
+}
+
+setInterval(updateClock, 1000);
+
+updateClock();
+
+/* ================================================
+   ТАЙМЕР ИГРЫ
+================================================ */
+
+let gameSeconds = 0;
+
+setInterval(function() {
+
+    gameSeconds++;
+
+    const minutes =
+        Math.floor(gameSeconds / 60);
+
+    const seconds =
+        gameSeconds % 60;
+
+    document.getElementById("gameTime").textContent =
+
+        String(minutes).padStart(2, "0")
+        + ":"
+        +
+        String(seconds).padStart(2, "0");
+
+}, 1000);
+
+/* ================================================
+   КОДЫ
+================================================ */
+
+function checkCode() {
+
+    const input =
+        document.getElementById("codeInput");
+
+    const result =
+        document.getElementById("codeResult");
+
+    const code =
+        input.value.trim().toUpperCase();
+
+    result.className = "code-result";
+
+    /* ===== КОД 1 ===== */
+
+    if (code === "K17") {
+
+        result.classList.add("code-success");
+
+        result.innerHTML =
+
+            "<b>ДОСТУП ПОЛУЧЕН</b>
+
+" +
+
+            "Архивная запись №K-17 найдена." +
+
+            "
+
+" +
+
+            "Дата: 03.06.1963." +
+
+            "
+" +
+
+            "Статус: удалено из основного архива.";
+
+        unlockEvidence(3);
+
+        notify("Открыт материал №03.");
+
+        return;
+
+    }
+
+    /* ===== КОД 2 ===== */
+
+    if (code === "1812") {
+
+        result.classList.add("code-success");
+
+        result.innerHTML =
+
+            "<b>ФАЙЛ ВОССТАНОВЛЕН</b>
+
+" +
+
+            "Первоначальная запись была изменена." +
+
+            "
+
+" +
+
+            "Время исходного сохранения: 18:12.";
+
+        unlockEvidence(4);
+
+        notify("Открыт материал №04.");
+
+        return;
+
+    }
+
+    /* ===== КОД 3 ===== */
+
+    if (code === "ZVEZDA") {
+
+        result.classList.add("code-success");
+
+        result.innerHTML =
+
+            "<b>СТАРЫЙ АРХИВ НАЙДЕН</b>
+
+" +
+
+            "Обнаружен раздел киностудии за 1963 год.";
+
+        unlockEvidence(5);
+
+        notify("Открыт материал №05.");
+
+        return;
+
+    }
+
+    /* ===== НЕВЕРНЫЙ КОД ===== */
+
+    result.classList.add("code-error");
+
+    result.innerHTML =
+
+        "<b>ДОСТУП ОТКЛОНЁН</b>
+
+" +
+
+        "Такого кода в архиве нет.";
+
+}
+
+/* ================================================
+   ОТКРЫТИЕ УЛИК
+================================================ */
+
+function unlockEvidence(number) {
+
+    const evidence =
+        document.getElementById(
+            "evidence" + number
+        );
+
+    if (!evidence) {
+
+        return;
+
+    }
+
+    evidence.classList.remove("locked");
+
+    const badge =
+        evidence.querySelector(".badge");
+
+    if (badge) {
+
+        badge.className =
+            "badge badge-open";
+
+        badge.textContent =
+            "ДОСТУПЕН";
+
+    }
+
+    const text =
+        document.getElementById(
+            "evidence" + number + "Text"
+        );
+
+    if (number === 3 && text) {
+
+        text.innerHTML =
+
+            "Архивная запись №K-17." +
+
+            "
+
+" +
+
+            "03.06.1963 — плёнка передана " +
+            "в специальное хранилище." +
+
+            "
+
+" +
+
+            "Примечание: дальнейшие записи отсутствуют.";
+
+    }
+
+    if (number === 4 && text) {
+
+        text.innerHTML =
+
+            "Фрагмент записи камеры восстановлен." +
+
+            "
+
+" +
+
+            "18:19:47 — изображение отсутствует." +
+
+            "
+" +
+
+            "18:20:03 — система сообщает " +
+                "о техническом обслуживании." +
+
+            "
+
+" +
+
+            "Кто запустил обслуживание — неизвестно.";
+
+    }
+
+    if (number === 5 && text) {
+
+        text.innerHTML =
+
+            "<b>ВИКТОР ЛЕБЕДЕВ</b>" +
+
+            "
+
+" +
+
+            "Должность: монтажёр." +
+
+            "
+" +
+
+            "Работал на киностудии в 1963 году." +
+
+            "
+
+" +
+
+            "Дополнительные сведения отсутствуют.";
+
+    }
+
+    if (number === 6 && text) {
+
+        text.innerHTML =
+
+            "<b>СЛУЖЕБНАЯ ЗАПИСКА</b>" +
+
+            "
+
+" +
+
+            "«Не использовать плёнку №44 " +
+            "для публичного показа " +
+            "без разрешения архива»." +
+
+            "
+
+" +
+
+            "Подпись отсутствует.";
+
+    }
+
+    if (number === 7 && text) {
+
+        text.innerHTML =
+
+            "<b>ФОТОГРАФИЯ — 1963</b>" +
+
+            "
+
+" +
+
+            "На обратной стороне фотографии " +
+            "обнаружена надпись:" +
+
+            "
+
+" +
+
+            "«Не забывайте последний кадр».";
+
+    }
+
+    if (number === 8 && text) {
+
+        text.innerHTML =
+
+            "<b>ФАЙЛ ПОВРЕЖДЁН</b>" +
+
+            "
+
+" +
+
+            "Для восстановления требуется " +
+            "завершить первую часть расследования.";
+
+    }
+
+    updateCounters();
+
+}
+
+/* ================================================
+   СЧЁТЧИК
+================================================ */
+
+function updateCounters() {
+
+    const all =
+        document.querySelectorAll(
+            ".evidence"
+        );
+
+    let unlocked = 0;
+
+    all.forEach(function(item) {
+
+        if (!item.classList.contains("locked")) {
+
+            unlocked++;
+
+        }
+
+    });
+
+    document.getElementById(
+        "materialsCount"
+    ).textContent =
+        unlocked + " / 8";
+
+    document.getElementById(
+        "lockedCount"
+    ).textContent =
+        8 - unlocked;
+
+    document.getElementById(
+        "evidenceTextCount"
+    ).textContent =
+        unlocked;
+
+}
+
+/* ================================================
+   УВЕДОМЛЕНИЯ
+================================================ */
+
+function notify(text) {
+
+    const box =
+        document.getElementById(
+            "notification"
+        );
+
+    box.textContent = text;
+
+    box.classList.add("show");
+
+    setTimeout(function() {
+
+        box.classList.remove("show");
+
+    }, 4000);
+
+}
+
+/* ================================================
+   ENTER В ПОЛЕ КОДА
+================================================ */
+
+document.getElementById(
+    "codeInput"
+).addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            checkCode();
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
 </html>
+        
+.evidence h3 {
+    margin
