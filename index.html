@@ -15,8 +15,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* ГЛАВНЫЙ ЭКРАН */
-
 .screen {
     min-height: 100vh;
     display: flex;
@@ -35,42 +33,46 @@ body {
 }
 
 h1 {
-    margin-top: 0;
     font-size: 28px;
 }
 
 .case {
     color: #aaa;
-    margin: 15px 0 30px;
+    margin: 20px 0 30px;
     line-height: 1.6;
 }
 
-button {
+.button {
+    display: inline-block;
     background: #eeeeee;
     color: #111;
-    border: none;
     padding: 14px 25px;
+    text-decoration: none;
     font-size: 16px;
     cursor: pointer;
 }
 
-button:hover {
+.button:hover {
     background: #cccccc;
 }
 
-/* ЭКРАН РАССЛЕДОВАНИЯ */
+/* ЭКРАН ДЕЛА */
 
-#investigation {
+#case {
     display: none;
     min-height: 100vh;
     padding: 30px;
     box-sizing: border-box;
 }
 
+#case:target {
+    display: block;
+}
+
 .header {
     border-bottom: 1px solid #444;
     padding-bottom: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .header h1 {
@@ -80,8 +82,6 @@ button:hover {
 .status {
     color: #999;
 }
-
-/* ОПИСАНИЕ ДЕЛА */
 
 .story {
     background: #181818;
@@ -98,8 +98,6 @@ button:hover {
 .story p {
     color: #cccccc;
 }
-
-/* КАРТОЧКИ */
 
 .cards {
     display: grid;
@@ -123,272 +121,11 @@ button:hover {
     margin: 10px 0;
 }
 
-/* АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНА */
-
-max-width: 600px {
-
-    #investigation {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    .story {
-        padding: 20px;
-    }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- ========================= -->
-<!-- ГЛАВНЫЙ ЭКРАН -->
-<!-- ========================= -->
-
-<div id="start" class="screen">
-
-    <div class="box">
-
-        <h1>АРХИВ «ЗВЕЗДА»</h1>
-
-        <div class="case">
-
-            ДЕЛО №001
-
-            «ПОСЛЕДНЯЯ ПЛЁНКА»
-
-        </div>
-
-        <button onclick="openCase()">
-
-            ОТКРЫТЬ ДЕЛО
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- ========================= -->
-<!-- ЭКРАН РАССЛЕДОВАНИЯ -->
-<!-- ========================= -->
-
-<div id="investigation">
-
-    <!-- ШАПКА -->
-
-    <div class="header">
-
-        <h1>ДЕЛО №001</h1>
-
-        <div class="status">
-
-            Последняя плёнка
-
-        </div>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- ОПИСАНИЕ ПРОИСШЕСТВИЯ -->
-    <!-- ========================= -->
-
-    <div class="story">
-
-        <h2>ДЕЛО</h2>
-
-        <p>
-            Вечером перед юбилейным показом на старой киностудии
-            «Звезда» обнаружили пропажу редкой киноплёнки.
-        </p>
-
-        <p>
-            Плёнка хранилась в архиве под замком.
-            Следов взлома нет.
-            Последний человек, который видел её на месте,
-            утверждает, что всё было в порядке.
-        </p>
-
-        <p>
-            Однако камеры наблюдения за несколько минут
-            до исчезновения зафиксировали странный сбой.
-            После этого архив оказался закрыт изнутри.
-        </p>
-
-        <p>
-            Полиция не нашла очевидного подозреваемого.
-            Ваша задача — выяснить,
-            <b>кто забрал плёнку, как он это сделал
-            и зачем она ему понадобилась.</b>
-        </p>
-
-        <p style="color:#999;">
-
-            В архиве осталось несколько документов,
-            записей и предметов, которые могут помочь
-            раскрыть дело.
-
-        </p>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- СТАТИСТИКА ДЕЛА -->
-    <!-- ========================= -->
-
-    <div class="cards">
-
-        <div class="card">
-
-            <h2>МАТЕРИАЛЫ</h2>
-
-            <div class="number">
-                0<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Архив «Звезда»</title>
-
-<style>
-
-body {
-    margin: 0;
-    background: #101010;
-    color: #eeeeee;
-    font-family: Arial, sans-serif;
-}
-
-/* ГЛАВНЫЙ ЭКРАН */
-
-.screen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.box {
-    width: 90%;
-    max-width: 600px;
-    padding: 35px;
-    border: 1px solid #555;
-    background: #181818;
-    box-sizing: border-box;
-}
-
-h1 {
-    margin-top: 0;
-    font-size: 28px;
-}
-
-.case {
+.back {
+    display: inline-block;
+    margin-top: 25px;
     color: #aaa;
-    margin: 15px 0 30px;
-    line-height: 1.6;
-}
-
-button {
-    background: #eeeeee;
-    color: #111;
-    border: none;
-    padding: 14px 25px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #cccccc;
-}
-
-/* ЭКРАН РАССЛЕДОВАНИЯ */
-
-#investigation {
-    display: none;
-    min-height: 100vh;
-    padding: 30px;
-    box-sizing: border-box;
-}
-
-.header {
-    border-bottom: 1px solid #444;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    margin-bottom: 8px;
-}
-
-.status {
-    color: #999;
-}
-
-/* ОПИСАНИЕ ДЕЛА */
-
-.story {
-    background: #181818;
-    border: 1px solid #444;
-    padding: 25px;
-    margin-bottom: 20px;
-    line-height: 1.7;
-}
-
-.story h2 {
-    margin-top: 0;
-}
-
-.story p {
-    color: #cccccc;
-}
-
-/* КАРТОЧКИ */
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-.card {
-    background: #181818;
-    border: 1px solid #444;
-    padding: 20px;
-}
-
-.card h2 {
-    font-size: 18px;
-    margin-top: 0;
-}
-
-.number {
-    font-size: 30px;
-    margin: 10px 0;
-}
-
-/* АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНА */
-
-max-width: 600px {
-
-    #investigation {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    .story {
-        padding: 20px;
-    }
-
+    text-decoration: none;
 }
 
 </style>
@@ -396,11 +133,9 @@ max-width: 600px {
 
 <body>
 
-<!-- ========================= -->
 <!-- ГЛАВНЫЙ ЭКРАН -->
-<!-- ========================= -->
 
-<div id="start" class="screen">
+<div class="screen">
 
     <div class="box">
 
@@ -414,54 +149,43 @@ max-width: 600px {
 
         </div>
 
-        <button onclick="openCase()">
-
+        <a href="#case" class="button">
             ОТКРЫТЬ ДЕЛО
-
-        </button>
+        </a>
 
     </div>
 
 </div>
 
-<!-- ========================= -->
 <!-- ЭКРАН РАССЛЕДОВАНИЯ -->
-<!-- ========================= -->
 
-<div id="investigation">
-
-    <!-- ШАПКА -->
+<div id="case">
 
     <div class="header">
 
         <h1>ДЕЛО №001</h1>
 
         <div class="status">
-
             Последняя плёнка
-
         </div>
 
     </div>
-
-    <!-- ========================= -->
-    <!-- ОПИСАНИЕ ПРОИСШЕСТВИЯ -->
-    <!-- ========================= -->
 
     <div class="story">
 
         <h2>ДЕЛО</h2>
 
         <p>
-            Вечером перед юбилейным показом на старой киностудии
-            «Звезда» обнаружили пропажу редкой киноплёнки.
+            Вечером перед юбилейным показом на старой
+            киностудии «Звезда» обнаружили пропажу
+            редкой киноплёнки.
         </p>
 
         <p>
             Плёнка хранилась в архиве под замком.
-            Следов взлома нет.
-            Последний человек, который видел её на месте,
-            утверждает, что всё было в порядке.
+            Следов взлома нет. Последний человек,
+            который видел её на месте, утверждает,
+            что всё было в порядке.
         </p>
 
         <p>
@@ -478,76 +202,40 @@ max-width: 600px {
         </p>
 
         <p style="color:#999;">
-
             В архиве осталось несколько документов,
             записей и предметов, которые могут помочь
             раскрыть дело.
-
         </p>
 
     </div>
 
-    <!-- ========================= -->
-    <!-- СТАТИСТИКА ДЕЛА -->
-    <!-- ========================= -->
-
     <div class="cards">
 
         <div class="card">
-
             <h2>МАТЕРИАЛЫ</h2>
-
-            <div class="number">
-                0
-                </div>
-
+            <div class="number">0</div>
             Найдено
-
         </div>
 
         <div class="card">
-
             <h2>ЗАБЛОКИРОВАНО</h2>
-
-            <div class="number">
-                8
-            </div>
-
+            <div class="number">8</div>
             Файлов
-
         </div>
 
         <div class="card">
-
             <h2>СТАТУС</h2>
-
-            <div class="number">
-                ?
-            </div>
-
+            <div class="number">?</div>
             Дело не раскрыто
-
         </div>
 
     </div>
 
+    <a href="#" class="back">
+        ← Вернуться
+    </a>
+
 </div>
-
-<!-- ========================= -->
-<!-- JAVASCRIPT -->
-<!-- ========================= -->
-
-<script>
-
-function openCase() {
-
-    document.getElementById("start").style.display = "none";
-
-    document.getElementById("investigation").style.display = "block";
-
-}
-
-</script>
 
 </body>
 </html>
