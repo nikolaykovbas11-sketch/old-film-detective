@@ -121,7 +121,7 @@ button {
 }
 
 .intro-text {
-    min-height: 230px;
+    min-height: 240px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,7 +134,7 @@ button {
     line-height: 1.7;
     color: #ddd;
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: opacity .7s ease;
 }
 
 .intro-line.show {
@@ -154,6 +154,17 @@ button {
     width: 0%;
     background: #d0a85c;
     transition: width .5s ease;
+}
+
+.intro-status {
+    color: #777;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-top: 20px;
+}
+
+.intro-status.active {
+    color: #b99a5c;
 }
 
 .skip-intro {
@@ -656,7 +667,7 @@ max-width:700px {
     <div class="intro-box">
 
         <div class="intro-case">
-            ДЕЛО №001
+            ДЕЛО №001 · 31 ОКТЯБРЯ 2026
         </div>
 
         <div class="intro-title">
@@ -671,6 +682,10 @@ max-width:700px {
             <div id="introProgress"
                  class="intro-progress-bar">
             </div>
+        </div>
+
+        <div id="introStatus" class="intro-status">
+            ● ВОСПРОИЗВЕДЕНИЕ...
         </div>
 
         <button
@@ -731,7 +746,6 @@ max-width:700px {
         </div>
 
         <div class="studio">
-
             <div class="room archive"
                  onclick="openRoom('archive')">
                 <span>📁
@@ -943,186 +957,61 @@ let currentCharacter = null;
 const introStory = [
 
     {
-        text: "1963 год. Старая киностудия переживала свои лучшие времена.",
-        pause: 1800
+        text: "Старая киностудия «Звезда». 31 октября 2026 года. 21 час 17 минут.",
+        pause: 1000
     },
 
     {
-        text: "В её павильонах снимались фильмы, которые потом годами крутили по всей стране. Здесь работали режиссёры, актёры, операторы и киномеханики, знавшие каждый метр огромного здания.",
-        pause: 2300
+        text: "Через несколько часов здесь должен состояться юбилейный показ фильма, который считался утраченным почти шестьдесят лет.",
+        pause: 1100
     },
 
     {
-        text: "Но в конце октября на студии произошло событие, о котором предпочли забыть.",
-        pause: 2000
+        text: "Всё началось ещё в 1963 году.",
+        pause: 900
     },
 
     {
-        text: "Во время работы над одним из фильмов была создана особенная киноплёнка. На ней находился оригинал материала, который больше нигде не существовал.",
-        pause: 2300
+        text: "Тогда на этой студии произошёл странный инцидент, после которого оригинал плёнки №17 исчез.",
+        pause: 1100
     },
 
     {
-        text: "Плёнку поместили в архив под номером 17-А.",
-        pause: 1600
+        text: "Официально считалось, что плёнка была утеряна. Но сегодня её нашли. Вернее… должны были найти.",
+        pause: 1200
     },
 
     {
-        text: "А уже на следующий день выяснилось, что оригинал исчез.",
-        pause: 1900
+        text: "Когда архивист открывает сейф, плёнки там уже нет. Дверь архива была заперта. Камеры отключились всего на четыре минуты.",
+        pause: 1200
     },
 
     {
-        text: "Дверь архива была заперта. Окна закрыты. Следов взлома не обнаружили.",
-        pause: 2000
+        text: "Последний человек, который видел плёнку, утверждает, что ничего не трогал.",
+        pause: 1000
     },
 
     {
-        text: "Несколько сотрудников утверждали, что ничего не видели и ничего не знали.",
-        pause: 1800
+        text: "Но в старых документах снова появляется дата 1963. Кто-то явно не хочет, чтобы прошлое было раскрыто.",
+        pause: 1200
     },
 
     {
-        text: "Однако после этого дня некоторые страницы архивных журналов исчезли, часть документов была переписана, а один из сотрудников внезапно уволился.",
-        pause: 2500
-    },
-
-    {
-        text: "Официально дело закрыли.",
-        pause: 1500
-    },
-
-    {
-        text: "Плёнку объявили утраченной.",
-        pause: 1500
-    },
-
-    {
-        text: "Но кое-кто всё это время продолжал искать оригинал.",
-        pause: 1800
-    },
-
-    {
-        text: "Прошло более шестидесяти лет.",
-        pause: 1500
-    },
-
-    {
-        text: "Старая киностудия давно перестала снимать новые фильмы. Многие помещения закрыли, а большая часть сотрудников разъехалась.",
-        pause: 2300
-    },
-
-    {
-        text: "Но архив остался.",
+        text: "Ваша задача — выяснить, куда исчезла плёнка №17, кто забрал её из архива и что на самом деле произошло здесь в 1963 году.",
         pause: 1400
     },
 
     {
-        text: "И вместе с ним осталась одна старая коробка с номером 17-А.",
-        pause: 1800
-    },
-
-    {
-        text: "Сегодня студия готовится к юбилейному показу. Впервые за много лет здесь должны показать материалы из старого архива.",
-        pause: 2300
-    },
-
-    {
-        text: "За несколько часов до начала мероприятия архивист Марина Соколова решила ещё раз проверить коллекцию.",
-        pause: 2100
-    },
-
-    {
-        text: "Она открыла шкаф, пересчитала катушки и сверила записи.",
-        pause: 1700
-    },
-
-    {
-        text: "Катушка №17 должна была находиться на месте.",
-        pause: 1500
-    },
-
-    {
-        text: "Но её не оказалось.",
-        pause: 1900
-    },
-
-    {
-        text: "На полке осталась только пыль и небольшой след от катушки.",
-        pause: 1700
-    },
-
-    {
-        text: "Самое странное было другое.",
-        pause: 1600
-    },
-
-    {
-        text: "Никто не мог объяснить, как плёнка покинула закрытый архив.",
-        pause: 2000
-    },
-
-    {
-        text: "Камера в коридоре перестала работать в 20:43.",
-        pause: 1700
-    },
-
-    {
-        text: "Через несколько минут кто-то видел человека, направлявшегося из архива в сторону проекционной.",
-        pause: 2200
-    },
-
-    {
-        text: "А часы в проекционной остановились на 20:47.",
-        pause: 1800
-    },
-
-    {
-        text: "Слишком много совпадений для одного вечера.",
-        pause: 1800
-    },
-
-    {
-        text: "Но расследование становится ещё страннее, когда выясняется, что исчезнувшая плёнка связана с событиями 1963 года.",
-        pause: 2400
-    },
-
-    {
-        text: "Кто-то явно не хотел, чтобы оригинал нашли.",
-        pause: 1800
-    },
-
-    {
-        text: "И, возможно, кто-то на студии знал об этой истории гораздо больше, чем говорил.",
-        pause: 2200
-    },
-
-    {
-        text: "Ваша задача — установить, кто забрал плёнку, как он это сделал и зачем.",
-        pause: 2300
-    },
-
-    {
-        text: "Но будьте внимательны.",
-        pause: 1500
-    },
-
-    {
-        text: "В этой истории не каждая улика означает то, чем кажется на первый взгляд.",
-        pause: 2200
-    },
-
-    {
         text: "Расследование начинается сейчас.",
-        pause: 2500
+        pause: 1800
     }
 
 ];
 
 let introIndex = 0;
 let introSkipped = false;
-let introSpeaking = false;
 let introUtterance = null;
+let introRunId = 0;
 
 /* =========================================================
    ЗАПУСК И ВСТУПЛЕНИЕ
@@ -1141,6 +1030,7 @@ function startGame() {
 
     introIndex = 0;
     introSkipped = false;
+    introRunId++;
 
     document.getElementById("introStart")
         .classList.remove("show");
@@ -1148,8 +1038,24 @@ function startGame() {
     document.getElementById("skipIntro")
         .classList.remove("hidden");
 
+    document.getElementById("introStatus")
+        .innerText = "● ВОСПРОИЗВЕДЕНИЕ...";
+
+    document.getElementById("introStatus")
+        .classList.add("active");
+
     document.getElementById("introProgress")
         .style.width = "0%";
+
+    document.getElementById("introLine")
+        .innerText = "";
+
+    document.getElementById("introLine")
+        .classList.remove("show");
+
+    if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+    }
 
     showIntroPart();
 }
@@ -1165,13 +1071,12 @@ function showIntroPart() {
     }
 
     if (introIndex >= introStory.length) {
-
         finishIntroStory();
         return;
     }
 
-    const part =
-        introStory[introIndex];
+    const currentIndex = introIndex;
+    const part = introStory[currentIndex];
 
     const line =
         document.getElementById("introLine");
@@ -1180,68 +1085,90 @@ function showIntroPart() {
 
     setTimeout(() => {
 
-        if (introSkipped) {
+        if (introSkipped || currentIndex !== introIndex) {
             return;
         }
 
         line.innerText = part.text;
-
         line.classList.add("show");
 
         const progress =
-            ((introIndex + 1) / introStory.length) * 100;
+            ((currentIndex + 1) / introStory.length) * 100;
 
         document.getElementById("introProgress")
             .style.width = progress + "%";
 
-        speakIntroPart(part.text);
+        speakIntroPart(part.text, currentIndex);
 
-    }, 300);
+    }, 250);
+}
+
+/* =========================================================
+   ПОИСК РУССКОГО ГОЛОСА
+========================================================= */
+
+function getRussianVoice() {
+
+    if (!("speechSynthesis" in window)) {
+        return null;
+    }
+
+    const voices =
+        window.speechSynthesis.
+        getVoices();
+
+    return voices.find(
+        voice =>
+            voice.lang &&
+            voice.lang.toLowerCase().startsWith("ru")
+    ) || null;
 }
 
 /* =========================================================
    ОЗВУЧКА
 ========================================================= */
 
-function speakIntroPart(text) {
+function speakIntroPart(text, storyIndex) {
+
+    if (introSkipped) {
+        return;
+    }
 
     if (!("speechSynthesis" in window)) {
 
         setTimeout(() => {
 
+            if (introSkipped || storyIndex !== introIndex) {
+                return;
+            }
+
             introIndex++;
             showIntroPart();
 
-        }, 2600);
+        }, 3000);
 
         return;
     }
 
     window.speechSynthesis.cancel();
 
-    introSpeaking = true;
-
     introUtterance =
         new SpeechSynthesisUtterance(text);
 
     introUtterance.lang = "ru-RU";
 
-    introUtterance.rate = 0.88;
+    /*
+       Скорость немного медленнее обычной,
+       чтобы русский текст звучал понятнее.
+    */
+    introUtterance.rate = 0.92;
 
-    introUtterance.pitch = 0.82;
+    introUtterance.pitch = 0.95;
 
     introUtterance.volume = 1;
 
-    const voices =
-        window.speechSynthesis.getVoices();
-
     const russianVoice =
-        voices.find(
-            voice =>
-                voice.lang &&
-                voice.lang.toLowerCase()
-                    .startsWith("ru")
-        );
+        getRussianVoice();
 
     if (russianVoice) {
         introUtterance.voice =
@@ -1250,43 +1177,59 @@ function speakIntroPart(text) {
 
     introUtterance.onend = function() {
 
-        if (introSkipped) {
+        if (introSkipped || storyIndex !== introIndex) {
             return;
         }
 
-        introSpeaking = false;
-
         setTimeout(() => {
 
-            introIndex++;
+            if (introSkipped || storyIndex !== introIndex) {
+                return;
+            }
 
+            introIndex++;
             showIntroPart();
 
-        }, introStory[introIndex].pause || 1200);
+        }, introStory[storyIndex].pause);
 
     };
 
     introUtterance.onerror = function() {
 
-        if (introSkipped) {
+        if (introSkipped || storyIndex !== introIndex) {
             return;
         }
 
-        introSpeaking = false;
-
         setTimeout(() => {
 
-            introIndex++;
+            if (introSkipped || storyIndex !== introIndex) {
+                return;
+            }
 
+            introIndex++;
             showIntroPart();
 
-        }, 1800);
+        }, 1000);
 
     };
 
     window.speechSynthesis.speak(
         introUtterance
     );
+}
+
+/*
+   Иногда браузер загружает список голосов
+   чуть позже. Когда он появляется,
+   русский голос будет доступен для следующего
+   запуска вступления.
+*/
+if ("speechSynthesis" in window) {
+
+    window.speechSynthesis.onvoiceschanged =
+        function() {
+            getRussianVoice();
+        };
 }
 
 /* =========================================================
@@ -1299,7 +1242,7 @@ function finishIntroStory() {
         return;
     }
 
-    introSpeaking = false;
+    introSkipped = true;
 
     if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
@@ -1315,11 +1258,30 @@ function finishIntroStory() {
     document.getElementById("introProgress")
         .style.width = "100%";
 
+    document.getElementById("introStatus")
+        .innerText = "● РАССЛЕДОВАНИЕ НАЧИНАЕТСЯ";
+
     document.getElementById("skipIntro")
         .classList.add("hidden");
 
-    document.getElementById("introStart")
-        .classList.add("show");
+    /*
+       Автоматически переходим к игре.
+    */
+    setTimeout(() => {
+
+        if (!document.getElementById("intro")) {
+            return;
+        }
+
+        document.getElementById("intro")
+            .classList.add("hidden");
+
+        document.getElementById("game")
+            .classList.remove("hidden");
+
+        updateCounter();
+
+    }, 1800);
 }
 
 /* =========================================================
@@ -1343,6 +1305,9 @@ function skipIntro() {
 
     document.getElementById("introProgress")
         .style.width = "100%";
+
+    document.getElementById("introStatus")
+        .innerText = "● ВСТУПЛЕНИЕ ПРОПУЩЕНО";
 
     document.getElementById("skipIntro")
         .classList.add("hidden");
@@ -1510,7 +1475,7 @@ const rooms = {
                 rewardClue: {
                     text:
                         "На проекторе обнаружена записка: «20:45 — выключить свет»."
-                }
+                    }
             },
 
             {
@@ -1801,8 +1766,7 @@ const rooms = {
                 question:
                     "Почему дверную ручку делают далеко от петель?",
 
-                rewardClue
-                : {
+                rewardClue: {
                     text:
                         "В журнале: 20:40 — Виктор в проекционной; 20:43 — сбой камеры."
                 }
@@ -1821,7 +1785,8 @@ const rooms = {
                     "Почему при нажатии на рычаг дальше от точки опоры его легче повернуть?",
 
                 rewardItem: {
-                    name: "Дубликат ключа С-2",
+                    name: "Дубликат ключа С-2"
+                    ,
                     description:
                         "Ключ от служебной двери."
                 },
@@ -1965,7 +1930,8 @@ const rooms = {
                     "Почему мокрый пол позволяет заметить следы человека?",
 
                 rewardClue: {
-                    text: "Следы идут от архива в сторону проекционной."
+                    text:
+                        "Следы идут от архива в сторону проекционной."
                 }
             },
 
@@ -1987,7 +1953,6 @@ const rooms = {
             {
                 id: "corridor_notice",
                 name: "Доска объявлений",
-
                 description:
                     "Старые объявления сотрудников.",
 
@@ -2144,7 +2109,8 @@ const characters = {
 
         answer: "секрет",
 
-        hint1: "Его часто скрывают.",
+        hint1:
+            "Его часто скрывают.",
 
         hint2:
             "Если его раскрыть — тайна перестаёт быть тайной.",
@@ -2170,8 +2136,7 @@ const characters = {
         hint1:
             "Она связана с прошлым.",
 
-        hint2:
-            "Мы изучаем её в школе.",
+        hint2: "Мы изучаем её в школе.",
 
         dialogue:
             "Николай говорит, что в день исчезновения плёнки видел человека у архива.",
@@ -2323,7 +2288,8 @@ function openRoom(roomId) {
 
         const solved =
             solvedCharacters.includes(
-                room.character);
+                room.character
+            );
 
         html += `
 
@@ -2343,8 +2309,7 @@ function openRoom(roomId) {
                         ? "✓ Уже допрошен"
                         : "У него может быть важная информация"
                     }
-
-                </div>
+                    </div>
 
             </div>
         `;
@@ -2394,6 +2359,7 @@ function openQuestion(roomId, spotId) {
 
 /* =========================================================
    ОТВЕТИЛИ ПРАВИЛЬНО
+   ОКНО ЗАКРЫВАЕТСЯ ЧЕРЕЗ 10 СЕКУНД
 ========================================================= */
 
 function answerCorrect() {
@@ -2474,11 +2440,12 @@ function answerCorrect() {
             openRoom(currentRoom);
         }
 
-    }, 1000);
+    }, 10000);
 }
 
 /* =========================================================
    НЕ ОТВЕТИЛИ
+   ОКНО ЗАКРЫВАЕТСЯ ЧЕРЕЗ 10 СЕКУНД
 ========================================================= */
 
 function answerWrong() {
@@ -2528,7 +2495,7 @@ function answerWrong() {
             openRoom(currentRoom);
         }
 
-    }, 1000);
+    }, 10000);
 }
 
 /* =========================================================
@@ -2544,7 +2511,8 @@ function collectWithoutQuestion(roomId, spotId) {
             x => x.id === spotId
         );
 
-    if (searchedSpots.includes(spot.id)) {
+    if (searchedSpots.includes(spot.id))
+        {
         return;
     }
 
@@ -2754,9 +2722,7 @@ function checkRiddle() {
     if (
         answer ===
         character.answer.toLowerCase()
-    ) {
-
-        solvedCharacters.push(
+    ) { solvedCharacters.push(
             currentCharacter
         );
 
@@ -2786,7 +2752,7 @@ function checkRiddle() {
                 openRoom(currentRoom);
             }
 
-        }, 1500);
+        }, 10000);
 
         return;
     }
@@ -2839,7 +2805,7 @@ function checkRiddle() {
 
         closeModal("characterModal");
 
-    }, 1800);
+    }, 10000);
 }
 
 /* =========================================================
