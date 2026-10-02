@@ -85,6 +85,104 @@ button {
 }
 
 /* =========================
+   ВСТУПЛЕНИЕ
+========================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background:
+        radial-gradient(circle at center, #1c1d1e 0%, #080909 75%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.intro-box {
+    width: 100%;
+    max-width: 850px;
+    text-align: center;
+}
+
+.intro-case {
+    color: #b99a5c;
+    font-size: 14px;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+.intro-title {
+    font-family: Georgia, serif;
+    font-size: clamp(30px, 6vw, 58px);
+    letter-spacing: 2px;
+    margin-bottom: 45px;
+}
+
+.intro-text {
+    min-height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-line {
+    max-width: 760px;
+    font-family: Georgia, serif;
+    font-size: clamp(20px, 3vw, 28px);
+    line-height: 1.7;
+    color: #ddd;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.intro-line.show {
+    opacity: 1;
+}
+
+.intro-progress {
+    margin: 30px auto 20px;
+    max-width: 500px;
+    height: 2px;
+    background: #333;
+    overflow: hidden;
+}
+
+.intro-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #d0a85c;
+    transition: width .5s ease;
+}
+
+.skip-intro {
+    border: 1px solid #555;
+    background: transparent;
+    color: #999;
+    padding: 10px 18px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.skip-intro:hover {
+    color: white;
+    border-color: #888;
+}
+
+.intro-start {
+    margin-top: 25px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .8s ease;
+}
+
+.intro-start.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* =========================
    ИГРА
 ========================= */
 
@@ -250,8 +348,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2
-    0px;
+    padding: 20px;
     z-index: 100;
 }
 
@@ -507,6 +604,14 @@ max-width:700px {
     .question {
         font-size: 18px;
     }
+
+    .intro-text {
+        min-height: 300px;
+    }
+
+    .intro-line {
+        font-size: 19px;
+    }
 }
 </style>
 </head>
@@ -528,7 +633,7 @@ max-width:700px {
         <div class="menu-title">
             ПОСЛЕДНЯЯ
 ПЛЁНКА
-            </div>
+        </div>
 
         <div class="menu-subtitle">
             Тайна старой киностудии
@@ -537,6 +642,52 @@ max-width:700px {
         <button class="start-btn" onclick="startGame()">
             НАЧАТЬ РАССЛЕДОВАНИЕ
         </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     ВСТУПЛЕНИЕ
+========================= -->
+
+<div id="intro" class="hidden">
+
+    <div class="intro-box">
+
+        <div class="intro-case">
+            ДЕЛО №001
+        </div>
+
+        <div class="intro-title">
+            ПОСЛЕДНЯЯ ПЛЁНКА
+        </div>
+
+        <div class="intro-text">
+            <div id="introLine" class="intro-line"></div>
+        </div>
+
+        <div class="intro-progress">
+            <div id="introProgress"
+                 class="intro-progress-bar">
+            </div>
+        </div>
+
+        <button
+            id="skipIntro"
+            class="skip-intro"
+            onclick="skipIntro()">
+            ПРОПУСТИТЬ ВСТУПЛЕНИЕ
+        </button>
+
+        <div>
+            <button
+                id="introStart"
+                class="start-btn intro-start"
+                onclick="finishIntro()">
+                НАЧАТЬ РАССЛЕДОВАНИЕ
+            </button>
+        </div>
 
     </div>
 
@@ -560,7 +711,8 @@ max-width:700px {
                 Допрошено: <span id="solvedCounter">0</span>/7
             </div>
 
-            <button class="header-btn" onclick="openNotebook()">
+            <button class="header-btn"
+                    onclick="openNotebook()">
                 📓 БЛОКНОТ
             </button>
 
@@ -642,7 +794,9 @@ max-width:700px {
             ×
         </button>
 
-        <div id="roomTitle" class="modal-title"></div>
+        <div id="roomTitle"
+             class="modal-title">
+        </div>
 
         <div id="roomSubtitle"
              class="modal-subtitle">
@@ -783,6 +937,442 @@ let currentQuestion = null;
 let currentCharacter = null;
 
 /* =========================================================
+   ВСТУПИТЕЛЬНАЯ ИСТОРИЯ
+========================================================= */
+
+const introStory = [
+
+    {
+        text: "1963 год. Старая киностудия переживала свои лучшие времена.",
+        pause: 1800
+    },
+
+    {
+        text: "В её павильонах снимались фильмы, которые потом годами крутили по всей стране. Здесь работали режиссёры, актёры, операторы и киномеханики, знавшие каждый метр огромного здания.",
+        pause: 2300
+    },
+
+    {
+        text: "Но в конце октября на студии произошло событие, о котором предпочли забыть.",
+        pause: 2000
+    },
+
+    {
+        text: "Во время работы над одним из фильмов была создана особенная киноплёнка. На ней находился оригинал материала, который больше нигде не существовал.",
+        pause: 2300
+    },
+
+    {
+        text: "Плёнку поместили в архив под номером 17-А.",
+        pause: 1600
+    },
+
+    {
+        text: "А уже на следующий день выяснилось, что оригинал исчез.",
+        pause: 1900
+    },
+
+    {
+        text: "Дверь архива была заперта. Окна закрыты. Следов взлома не обнаружили.",
+        pause: 2000
+    },
+
+    {
+        text: "Несколько сотрудников утверждали, что ничего не видели и ничего не знали.",
+        pause: 1800
+    },
+
+    {
+        text: "Однако после этого дня некоторые страницы архивных журналов исчезли, часть документов была переписана, а один из сотрудников внезапно уволился.",
+        pause: 2500
+    },
+
+    {
+        text: "Официально дело закрыли.",
+        pause: 1500
+    },
+
+    {
+        text: "Плёнку объявили утраченной.",
+        pause: 1500
+    },
+
+    {
+        text: "Но кое-кто всё это время продолжал искать оригинал.",
+        pause: 1800
+    },
+
+    {
+        text: "Прошло более шестидесяти лет.",
+        pause: 1500
+    },
+
+    {
+        text: "Старая киностудия давно перестала снимать новые фильмы. Многие помещения закрыли, а большая часть сотрудников разъехалась.",
+        pause: 2300
+    },
+
+    {
+        text: "Но архив остался.",
+        pause: 1400
+    },
+
+    {
+        text: "И вместе с ним осталась одна старая коробка с номером 17-А.",
+        pause: 1800
+    },
+
+    {
+        text: "Сегодня студия готовится к юбилейному показу. Впервые за много лет здесь должны показать материалы из старого архива.",
+        pause: 2300
+    },
+
+    {
+        text: "За несколько часов до начала мероприятия архивист Марина Соколова решила ещё раз проверить коллекцию.",
+        pause: 2100
+    },
+
+    {
+        text: "Она открыла шкаф, пересчитала катушки и сверила записи.",
+        pause: 1700
+    },
+
+    {
+        text: "Катушка №17 должна была находиться на месте.",
+        pause: 1500
+    },
+
+    {
+        text: "Но её не оказалось.",
+        pause: 1900
+    },
+
+    {
+        text: "На полке осталась только пыль и небольшой след от катушки.",
+        pause: 1700
+    },
+
+    {
+        text: "Самое странное было другое.",
+        pause: 1600
+    },
+
+    {
+        text: "Никто не мог объяснить, как плёнка покинула закрытый архив.",
+        pause: 2000
+    },
+
+    {
+        text: "Камера в коридоре перестала работать в 20:43.",
+        pause: 1700
+    },
+
+    {
+        text: "Через несколько минут кто-то видел человека, направлявшегося из архива в сторону проекционной.",
+        pause: 2200
+    },
+
+    {
+        text: "А часы в проекционной остановились на 20:47.",
+        pause: 1800
+    },
+
+    {
+        text: "Слишком много совпадений для одного вечера.",
+        pause: 1800
+    },
+
+    {
+        text: "Но расследование становится ещё страннее, когда выясняется, что исчезнувшая плёнка связана с событиями 1963 года.",
+        pause: 2400
+    },
+
+    {
+        text: "Кто-то явно не хотел, чтобы оригинал нашли.",
+        pause: 1800
+    },
+
+    {
+        text: "И, возможно, кто-то на студии знал об этой истории гораздо больше, чем говорил.",
+        pause: 2200
+    },
+
+    {
+        text: "Ваша задача — установить, кто забрал плёнку, как он это сделал и зачем.",
+        pause: 2300
+    },
+
+    {
+        text: "Но будьте внимательны.",
+        pause: 1500
+    },
+
+    {
+        text: "В этой истории не каждая улика означает то, чем кажется на первый взгляд.",
+        pause: 2200
+    },
+
+    {
+        text: "Расследование начинается сейчас.",
+        pause: 2500
+    }
+
+];
+
+let introIndex = 0;
+let introSkipped = false;
+let introSpeaking = false;
+let introUtterance = null;
+
+/* =========================================================
+   ЗАПУСК И ВСТУПЛЕНИЕ
+========================================================= */
+
+function startGame() {
+
+    document.getElementById("menu")
+        .classList.add("hidden");
+
+    document.getElementById("intro")
+        .classList.remove("hidden");
+
+    document.getElementById("game")
+        .classList.add("hidden");
+
+    introIndex = 0;
+    introSkipped = false;
+
+    document.getElementById("introStart")
+        .classList.remove("show");
+
+    document.getElementById("skipIntro")
+        .classList.remove("hidden");
+
+    document.getElementById("introProgress")
+        .style.width = "0%";
+
+    showIntroPart();
+}
+
+/* =========================================================
+   ПОКАЗ ЧАСТИ ИСТОРИИ
+========================================================= */
+
+function showIntroPart() {
+
+    if (introSkipped) {
+        return;
+    }
+
+    if (introIndex >= introStory.length) {
+
+        finishIntroStory();
+        return;
+    }
+
+    const part =
+        introStory[introIndex];
+
+    const line =
+        document.getElementById("introLine");
+
+    line.classList.remove("show");
+
+    setTimeout(() => {
+
+        if (introSkipped) {
+            return;
+        }
+
+        line.innerText = part.text;
+
+        line.classList.add("show");
+
+        const progress =
+            ((introIndex + 1) / introStory.length) * 100;
+
+        document.getElementById("introProgress")
+            .style.width = progress + "%";
+
+        speakIntroPart(part.text);
+
+    }, 300);
+}
+
+/* =========================================================
+   ОЗВУЧКА
+========================================================= */
+
+function speakIntroPart(text) {
+
+    if (!("speechSynthesis" in window)) {
+
+        setTimeout(() => {
+
+            introIndex++;
+            showIntroPart();
+
+        }, 2600);
+
+        return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    introSpeaking = true;
+
+    introUtterance =
+        new SpeechSynthesisUtterance(text);
+
+    introUtterance.lang = "ru-RU";
+
+    introUtterance.rate = 0.88;
+
+    introUtterance.pitch = 0.82;
+
+    introUtterance.volume = 1;
+
+    const voices =
+        window.speechSynthesis.getVoices();
+
+    const russianVoice =
+        voices.find(
+            voice =>
+                voice.lang &&
+                voice.lang.toLowerCase()
+                    .startsWith("ru")
+        );
+
+    if (russianVoice) {
+        introUtterance.voice =
+            russianVoice;
+    }
+
+    introUtterance.onend = function() {
+
+        if (introSkipped) {
+            return;
+        }
+
+        introSpeaking = false;
+
+        setTimeout(() => {
+
+            introIndex++;
+
+            showIntroPart();
+
+        }, introStory[introIndex].pause || 1200);
+
+    };
+
+    introUtterance.onerror = function() {
+
+        if (introSkipped) {
+            return;
+        }
+
+        introSpeaking = false;
+
+        setTimeout(() => {
+
+            introIndex++;
+
+            showIntroPart();
+
+        }, 1800);
+
+    };
+
+    window.speechSynthesis.speak(
+        introUtterance
+    );
+}
+
+/* =========================================================
+   КОНЕЦ ИСТОРИИ
+========================================================= */
+
+function finishIntroStory() {
+
+    if (introSkipped) {
+        return;
+    }
+
+    introSpeaking = false;
+
+    if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+    }
+
+    document.getElementById("introLine")
+        .classList.add("show");
+
+    document.getElementById("introLine")
+        .innerText =
+        "РАССЛЕДОВАНИЕ НАЧИНАЕТСЯ.";
+
+    document.getElementById("introProgress")
+        .style.width = "100%";
+
+    document.getElementById("skipIntro")
+        .classList.add("hidden");
+
+    document.getElementById("introStart")
+        .classList.add("show");
+}
+
+/* =========================================================
+   ПРОПУСК ВСТУПЛЕНИЯ
+========================================================= */
+
+function skipIntro() {
+
+    introSkipped = true;
+
+    if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+    }
+
+    document.getElementById("introLine")
+        .classList.add("show");
+
+    document.getElementById("introLine")
+        .innerText =
+        "РАССЛЕДОВАНИЕ НАЧИНАЕТСЯ.";
+
+    document.getElementById("introProgress")
+        .style.width = "100%";
+
+    document.getElementById("skipIntro")
+        .classList.add("hidden");
+
+    document.getElementById("introStart")
+        .classList.add("show");
+}
+
+/* =========================================================
+   ПЕРЕХОД К ИГРЕ
+========================================================= */
+
+function finishIntro() {
+
+    introSkipped = true;
+
+    if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+    }
+
+    document.getElementById("intro")
+        .classList.add("hidden");
+
+    document.getElementById("game")
+        .classList.remove("hidden");
+
+    updateCounter();
+}
+
+/* =========================================================
    ПРЕДМЕТЫ
 ========================================================= */
 
@@ -903,8 +1493,7 @@ const rooms = {
         description:
             "Старый проектор, катушки и оборудование.",
 
-        character: "viktor"
-        ,
+        character: "viktor",
 
         spots: [
 
@@ -1212,7 +1801,8 @@ const rooms = {
                 question:
                     "Почему дверную ручку делают далеко от петель?",
 
-                rewardClue: {
+                rewardClue
+                : {
                     text:
                         "В журнале: 20:40 — Виктор в проекционной; 20:43 — сбой камеры."
                 }
@@ -1375,10 +1965,10 @@ const rooms = {
                     "Почему мокрый пол позволяет заметить следы человека?",
 
                 rewardClue: {
-                    text:
-                        "Следы идут от архива в сторону проекционной."
+                    text: "Следы идут от архива в сторону проекционной."
                 }
             },
+
             {
                 id: "corridor_door",
                 name: "Служебная дверь",
@@ -1427,7 +2017,6 @@ const characters = {
     marina: {
 
         name: "Марина Соколова",
-
         job: "Архивист",
 
         riddle:
@@ -1435,9 +2024,11 @@ const characters = {
 
         answer: "обещание",
 
-        hint1: "Это связано с тем, что человек может дать другому.",
+        hint1:
+            "Это связано с тем, что человек может дать другому.",
 
-        hint2: "Когда человек говорит «я обязательно это сделаю», он даёт это.",
+        hint2:
+            "Когда человек говорит «я обязательно это сделаю», он даёт это.",
 
         dialogue:
             "Марина нервничает и постоянно смотрит на дверь архива.",
@@ -1450,7 +2041,6 @@ const characters = {
     viktor: {
 
         name: "Виктор Лебедев",
-
         job: "Киномеханик",
 
         riddle:
@@ -1458,9 +2048,11 @@ const characters = {
 
         answer: "фильм",
 
-        hint1: "Это связано с кино.",
+        hint1:
+            "Это связано с кино.",
 
-        hint2: "Его показывают в кинотеатре.",
+        hint2:
+            "Его показывают в кинотеатре.",
 
         dialogue:
             "Виктор выглядит спокойно, но явно не хочет долго разговаривать.",
@@ -1473,7 +2065,6 @@ const characters = {
     alexey: {
 
         name: "Алексей Орлов",
-
         job: "Режиссёр",
 
         riddle:
@@ -1481,9 +2072,11 @@ const characters = {
 
         answer: "дыра",
 
-        hint1: "Это отсутствие чего-либо.",
+        hint1:
+            "Это отсутствие чего-либо.",
 
-        hint2: "Если вырезать часть стены, она появится.",
+        hint2:
+            "Если вырезать часть стены, она появится.",
 
         dialogue:
             "Режиссёр отвечает коротко и явно что-то скрывает.",
@@ -1496,7 +2089,6 @@ const characters = {
     elena: {
 
         name: "Елена Воронова",
-
         job: "Костюмер",
 
         riddle:
@@ -1504,9 +2096,11 @@ const characters = {
 
         answer: "роль",
 
-        hint1: "Актёр получает её в фильме.",
+        hint1:
+            "Актёр получает её в фильме.",
 
-        hint2: "Её играют.",
+        hint2:
+            "Её играют.",
 
         dialogue:
             "Елена говорит, что в старых костюмах сохранились странные следы.",
@@ -1519,7 +2113,6 @@ const characters = {
     sergey: {
 
         name: "Сергей Крылов",
-
         job: "Охранник",
 
         riddle:
@@ -1527,9 +2120,11 @@ const characters = {
 
         answer: "тень",
 
-        hint1: "Она появляется из-за света.",
+        hint1:
+            "Она появляется из-за света.",
 
-        hint2: "Ты видишь её на полу или стене.",
+        hint2:
+            "Ты видишь её на полу или стене.",
 
         dialogue:
             "Сергей показывает журнал дежурств.",
@@ -1542,7 +2137,6 @@ const characters = {
     ilya: {
 
         name: "Илья Морозов",
-
         job: "Журналист",
 
         riddle:
@@ -1552,7 +2146,8 @@ const characters = {
 
         hint1: "Его часто скрывают.",
 
-        hint2: "Если его раскрыть — тайна перестаёт быть тайной.",
+        hint2:
+            "Если его раскрыть — тайна перестаёт быть тайной.",
 
         dialogue:
             "Илья слишком заинтересован расследованием.",
@@ -1565,7 +2160,6 @@ const characters = {
     nikolay: {
 
         name: "Николай Белов",
-
         job: "Водитель",
 
         riddle:
@@ -1573,9 +2167,11 @@ const characters = {
 
         answer: "история",
 
-        hint1: "Она связана с прошлым.",
+        hint1:
+            "Она связана с прошлым.",
 
-        hint2: "Мы изучаем её в школе.",
+        hint2:
+            "Мы изучаем её в школе.",
 
         dialogue:
             "Николай говорит, что в день исчезновения плёнки видел человека у архива.",
@@ -1586,19 +2182,6 @@ const characters = {
     }
 
 };
-
-/* =========================================================
-   ЗАПУСК
-========================================================= */
-
-function startGame() {
-
-    document.getElementById("menu").classList.add("hidden");
-
-    document.getElementById("game").classList.remove("hidden");
-
-    updateCounter();
-}
 
 /* =========================================================
    КОМНАТА
@@ -1624,7 +2207,9 @@ function openRoom(roomId) {
             searchedSpots.includes(spot.id);
 
         const blocked =
-            searchedSpots.includes("blocked_" + spot.id);
+            searchedSpots.includes(
+                "blocked_" + spot.id
+            );
 
         const locked =
             spot.requires &&
@@ -1634,7 +2219,6 @@ function openRoom(roomId) {
 
             html += `
                 <div class="spot done">
-
                     <div class="spot-title">
                         ✓ ${spot.name}
                     </div>
@@ -1642,7 +2226,6 @@ function openRoom(roomId) {
                     <div class="spot-description">
                         Уже осмотрено.
                     </div>
-
                 </div>
             `;
 
@@ -1652,7 +2235,8 @@ function openRoom(roomId) {
         if (locked) {
 
             const needed =
-                items[spot.requires]?.name || "необходимый предмет";
+                items[spot.requires]?.name ||
+                "необходимый предмет";
 
             html += `
                 <div class="spot locked">
@@ -1676,8 +2260,7 @@ function openRoom(roomId) {
             html += `
                 <div
                     class="spot"
-                    onclick="openQuestion('${roomId}', '${spot.id}')"
-                >
+                    onclick="openQuestion('${roomId}', '${spot.id}')">
 
                     <div class="spot-title">
                         🔄 ${spot.name}
@@ -1698,8 +2281,7 @@ function openRoom(roomId) {
             html += `
                 <div
                     class="spot"
-                    onclick="openQuestion('${roomId}', '${spot.id}')"
-                >
+                    onclick="openQuestion('${roomId}', '${spot.id}')">
 
                     <div class="spot-title">
                         🔎 ${spot.name}
@@ -1717,8 +2299,7 @@ function openRoom(roomId) {
             html += `
                 <div
                     class="spot"
-                    onclick="collectWithoutQuestion('${roomId}', '${spot.id}')"
-                >
+                    onclick="collectWithoutQuestion('${roomId}', '${spot.id}')">
 
                     <div class="spot-title">
                         🔎 ${spot.name}
@@ -1740,15 +2321,16 @@ function openRoom(roomId) {
         const character =
             characters[room.character];
 
-          const solved =solvedCharacters.includes(room.character);
+        const solved =
+            solvedCharacters.includes(
+                room.character);
 
         html += `
 
             <div
                 class="spot"
                 style="border-color:#806638;margin-top:20px;"
-                onclick="openCharacter('${room.character}')"
-            >
+                onclick="openCharacter('${room.character}')">
 
                 <div class="spot-title">
                     👤 Поговорить: ${character.name}
@@ -1765,9 +2347,7 @@ function openRoom(roomId) {
                 </div>
 
             </div>
-
         `;
-
     }
 
     document.getElementById("roomContent").innerHTML =
@@ -1786,7 +2366,9 @@ function openQuestion(roomId, spotId) {
     const room = rooms[roomId];
 
     const spot =
-        room.spots.find(x => x.id === spotId);
+        room.spots.find(
+            x => x.id === spotId
+        );
 
     currentQuestion = {
         roomId,
@@ -1837,7 +2419,9 @@ function answerCorrect() {
     if (spot.rewardItem) {
 
         const item =
-            createItemFromReward(spot.rewardItem);
+            createItemFromReward(
+                spot.rewardItem
+            );
 
         if (item) {
 
@@ -1890,7 +2474,7 @@ function answerCorrect() {
             openRoom(currentRoom);
         }
 
-    }, 10000);
+    }, 1000);
 }
 
 /* =========================================================
@@ -1904,10 +2488,6 @@ function answerWrong() {
     const spot =
         currentQuestion.spot;
 
-    // Важно:
-    // вопрос НЕ закрывается навсегда.
-    // Он просто помечается как нерешённый.
-
     if (!searchedSpots.includes(spot.id)) {
 
         if (
@@ -1919,9 +2499,7 @@ function answerWrong() {
             searchedSpots.push(
                 "blocked_" + spot.id
             );
-
         }
-
     }
 
     document.getElementById("questionResult").innerHTML = `
@@ -1962,7 +2540,9 @@ function collectWithoutQuestion(roomId, spotId) {
     const room = rooms[roomId];
 
     const spot =
-        room.spots.find(x => x.id === spotId);
+        room.spots.find(
+            x => x.id === spotId
+        );
 
     if (searchedSpots.includes(spot.id)) {
         return;
@@ -1973,7 +2553,9 @@ function collectWithoutQuestion(roomId, spotId) {
     if (spot.rewardItem) {
 
         const item =
-            createItemFromReward(spot.rewardItem);
+            createItemFromReward(
+                spot.rewardItem
+            );
 
         if (item) {
             inventory.push(item);
@@ -1985,7 +2567,6 @@ function collectWithoutQuestion(roomId, spotId) {
         foundClues.push(
             spot.rewardClue.text
         );
-
     }
 
     updateNotebook();
@@ -2077,7 +2658,6 @@ function openCharacter(characterId) {
             <div class="dialogue">
                 ${character.dialogue}
             </div>
-
     `;
 
     if (solved) {
@@ -2093,7 +2673,6 @@ function openCharacter(characterId) {
                 </p>
 
             </div>
-
         `;
 
     } else {
@@ -2110,13 +2689,11 @@ function openCharacter(characterId) {
                     id="riddleInput"
                     type="text"
                     placeholder="Ответ ведущего..."
-                    autocomplete="off"
-                >
+                    autocomplete="off">
 
                 <button
                     class="small-btn"
-                    onclick="checkRiddle()"
-                >
+                    onclick="checkRiddle()">
                     ПРОВЕРИТЬ
                 </button>
 
@@ -2124,11 +2701,9 @@ function openCharacter(characterId) {
 
             <div
                 id="riddleResult"
-                style="margin-top:15px;"
-            ></div>
-
+                style="margin-top:15px;">
+            </div>
         `;
-
     }
 
     html += `</div>`;
@@ -2156,7 +2731,9 @@ function checkRiddle() {
         characters[currentCharacter];
 
     const input =
-        document.getElementById("riddleInput");
+        document.getElementById(
+            "riddleInput"
+        );
 
     if (!input) {
         return;
@@ -2170,7 +2747,6 @@ function checkRiddle() {
     if (!characterAttempts[currentCharacter]) {
 
         characterAttempts[currentCharacter] = 0;
-
     }
 
     characterAttempts[currentCharacter]++;
@@ -2200,7 +2776,6 @@ function checkRiddle() {
                 </p>
 
             </div>
-
         `;
 
         setTimeout(() => {
@@ -2234,7 +2809,6 @@ function checkRiddle() {
                 </p>
 
             </div>
-
         `;
 
         return;
@@ -2259,7 +2833,6 @@ function checkRiddle() {
             </p>
 
         </div>
-
     `;
 
     setTimeout(() => {
@@ -2313,7 +2886,6 @@ function updateNotebook() {
                     </div>
                 `
             ).join("");
-
     }
 
     if (inventory.length === 0) {
@@ -2341,7 +2913,6 @@ function updateNotebook() {
                     </div>
                 `
             ).join("");
-
     }
 
     if (solvedCharacters.length === 0) {
@@ -2359,7 +2930,7 @@ function updateNotebook() {
                     </div>
                 `
             ).join("");
-        }
+    }
 
     updateCounter();
 }
@@ -2379,9 +2950,7 @@ function updateCounter() {
 
         counter.innerText =
             solvedCharacters.length;
-
     }
-
 }
 
 /* =========================================================
@@ -2392,7 +2961,6 @@ function closeModal(id) {
 
     document.getElementById(id)
         .classList.add("hidden");
-
 }
 
 /* =========================================================
@@ -2423,11 +2991,8 @@ document.addEventListener(
             ) {
 
                 element.classList.add("hidden");
-
             }
-
         });
-
     }
 );
 
@@ -2435,4 +3000,3 @@ document.addEventListener(
 
 </body>
 </html>
-       
