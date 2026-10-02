@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Тайна старой киностудии</title>
+<title>Дело №001 — Последняя плёнка</title>
 
 <style>
 
@@ -14,69 +14,66 @@
 
 body {
     margin: 0;
-    background: #0b0b0b;
+    background: #111318;
     color: #eee;
     font-family: Arial, sans-serif;
 }
 
-/* ВЕРХНЯЯ ПАНЕЛЬ */
-
-.header {
-    background: #151515;
-    border-bottom: 1px solid #444;
+header {
+    background: #181b22;
     padding: 18px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-bottom: 2px solid #292e38;
+    position: relative;
 }
 
-.logo {
-    font-size: 20px;
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 6px 0;
+    color: #999;
+}
+
+.counter {
+    color: #c9a86a;
     font-weight: bold;
 }
 
-.case-number {
-    color: #888;
-    font-size: 14px;
+/* БЛОКНОТ */
+
+.notebook-button {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+
+    width: auto;
+    padding: 12px 18px;
+
+    background: #75613e;
+    border: 1px solid #a88b55;
 }
 
-/* ОСНОВА */
-
-.main {
-    padding: 25px;
-    max-width: 1100px;
-    margin: auto;
-}
-
-.intro {
-    background: #151515;
-    border: 1px solid #444;
-    padding: 25px;
-    margin-bottom: 25px;
-}
-
-.intro h1 {
-    margin-top: 0;
-}
-
-.intro p {
-    color: #bbb;
-    line-height: 1.6;
+.notebook-button:hover {
+    background: #907648;
 }
 
 /* КАРТА */
 
-.map-title {
-    color: #888;
-    margin-bottom: 12px;
-}
-
 .map {
     position: relative;
+
     width: 100%;
-    min-height: 600px;
-    background: #151515;
-    border: 2px solid #555;
+    max-width: 1100px;
+    height: 680px;
+
+    margin: 25px auto;
+
+    background: #242832;
+
+    border: 3px solid #414754;
+
     overflow: hidden;
 }
 
@@ -84,252 +81,306 @@ body {
 
 .room {
     position: absolute;
-    background: #202020;
-    border: 2px solid #666;
-    color: white;
+
+    background: #303641;
+
+    border: 2px solid #737b89;
+
+    border-radius: 6px;
+
+    padding: 12px;
+
     cursor: pointer;
-    transition: 0.2s;
-    padding: 15px;
+
+    transition: .2s;
+
+    user-select: none;
 }
 
 .room:hover {
-    background: #292929;
-    border-color: #aaa;
+    background: #3b4350;
     transform: scale(1.02);
 }
 
-.room-name {
-    font-size: 18px;
-    font-weight: bold;
+.room h3 {
+    margin: 0 0 5px;
 }
 
-.room-info {
-    color: #888;
-    font-size: 12px;
-    margin-top: 6px;
+.room small {
+    color: #aaa;
 }
 
 /* РАСПОЛОЖЕНИЕ */
 
 .archive {
-    left: 5%;
-    top: 7%;
-    width: 40%;
-    height: 27%;
-}
-
-.hall {
-    left: 45%;
-    top: 7%;
-    width: 50%;
-    height: 14%;
+    left: 25px;
+    top: 25px;
+    width: 250px;
+    height: 160px;
 }
 
 .projection {
-    left: 5%;
-    top: 36%;
-    width: 40%;
-    height: 27%;
+    left: 310px;
+    top: 25px;
+    width: 250px;
+    height: 160px;
 }
 
-.office {
-    left: 45%;
-    top: 25%;
-    width: 24%;
-    height: 38%;
+.director {
+    right: 25px;
+    top: 25px;
+    width: 250px;
+    height: 160px;
 }
 
-.dressing {
-    left: 72%;
-    top: 25%;
-    width: 23%;
-    height: 38%;
-}
-
-.corridor {
-    left: 5%;
-    top: 66%;
-    width: 90%;
-    height: 10%;
-}
-
-.backstage {
-    left: 5%;
-    top: 79%;
-    width: 28%;
-    height: 15%;
-}
-
-.exit {
-    left: 37%;
-    top: 79%;
-    width: 28%;
-    height: 15%;
+.costume {
+    left: 25px;
+    top: 225px;
+    width: 250px;
+    height: 150px;
 }
 
 .security {
-    left: 69%;
-    top: 79%;
-    width: 26%;
-    height: 15%;
+    right: 25px;
+    top: 225px;
+    width: 250px;
+    height: 150px;
 }
 
-/* ОКНА */
+.backstage {
+    left: 25px;
+    bottom: 25px;
+    width: 250px;
+    height: 190px;
+}
 
-.modal {
+.corridor {
+    left: 310px;
+    bottom: 25px;
+    width: 250px;
+    height: 190px;
+}
+
+.exit {
+    right: 25px;
+    bottom: 25px;
+    width: 250px;
+    height: 190px;
+}
+
+/* ПЕРСОНАЖ */
+
+.npc {
+    margin-top: 15px;
+
+    padding: 8px;
+
+    background: #1d2027;
+
+    border-radius: 5px;
+
+    color: #d9c18a;
+}
+
+/* МОДАЛКА */
+
+.modal-bg {
     display: none;
+
     position: fixed;
+
     inset: 0;
-    background: rgba(0,0,0,0.82);
-    align-items: center;
+
+    background: rgba(0,0,0,.78);
+
     justify-content: center;
+    align-items: center;
+
     padding: 20px;
+
     z-index: 10;
 }
 
-.modal-box {
-    background: #171717;
-    border: 1px solid #666;
+.modal {
     width: 100%;
-    max-width: 650px;
-    padding: 30px;
+    max-width: 700px;
+
     max-height: 90vh;
+
     overflow-y: auto;
+
+    background: #1c2027;
+
+    border: 2px solid #555d6d;
+
+    border-radius: 8px;
+
+    padding: 25px;
 }
 
-.modal-box h2 {
+.modal h2 {
     margin-top: 0;
 }
 
-.description {
-    color: #bbb;
-    line-height: 1.7;
+/* ПРЕДМЕТЫ */
+
+.objects {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 20px;
 }
 
-/* УЛИКИ */
+.object {
+    padding: 15px;
+
+    background: #292e37;
+
+    border: 1px solid #464d5b;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.object:hover {
+    background: #3b4350;
+}
+
+.object.found {
+    border-color: #719b76;
+}
+
+/* УЛИКА */
 
 .clue {
-    margin-top: 20px;
-    padding: 18px;
-    background: #202020;
-    border-left: 3px solid #888;
+    margin: 15px 0;
+
+    padding: 14px;
+
+    background: #292e37;
+
+    border-left: 4px solid #b89555;
+
+    line-height: 1.5;
 }
 
-.clue-title {
-    font-weight: bold;
-    margin-bottom: 8px;
-}
+/* ПОДСКАЗКА */
 
-.clue-text {
-    color: #aaa;
-}
+.hint {
+    background: #4a412d;
 
-/* ПЕРСОНАЖИ */
+    color: #e7d39e;
 
-.people {
-    margin-top: 25px;
-}
-
-.people-title {
-    color: #888;
-    margin-bottom: 12px;
-}
-
-.people-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.person {
-    background: #181818;
-    border: 1px solid #444;
-    padding: 20px;
-    cursor: pointer;
-}
-
-.person:hover {
-    background: #242424;
-    border-color: #888;
-}
-
-.person-name {
-    font-size: 19px;
-    font-weight: bold;
-}
-
-.person-job {
-    color: #888;
-    font-size: 13px;
-    margin-top: 5px;
-}
-
-/* ДИАЛОГ */
-
-.dialogue {
-    background: #111;
-    border: 1px solid #444;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.dialogue-character {
-    color: #fff;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.dialogue-text {
-    color: #bbb;
-    line-height: 1.7;
-}
-
-.dialogue-choice {
-    display: block;
-    width: 100%;
-    margin-top: 12px;
     padding: 12px;
-    background: #202020;
-    border: 1px solid #555;
-    color: #eee;
-    text-align: left;
+
+    margin-top: 12px;
+
+    border-radius: 5px;
+}
+
+/* КНОПКИ */
+
+button {
+    width: 100%;
+
+    padding: 12px;
+
+    margin-top: 10px;
+
+    border: 0;
+
+    border-radius: 5px;
+
+    background: #343b48;
+
+    color: white;
+
+    font-size: 15px;
+
     cursor: pointer;
 }
 
-.dialogue-choice:hover {
-    background: #303030;
-    border-color
-    : #999;
+button:hover {
+    background: #454e5d;
 }
 
-/* КНОПКА */
+.correct {
+    background: #31583e;
+}
+
+.wrong {
+    background: #633b3b;
+}
 
 .close {
-    margin-top: 25px;
-    background: #eee;
-    color: #111;
-    border: none;
-    padding: 12px 20px;
-    cursor: pointer;
-    font-size: 15px;
+    background: #20242b;
 }
 
-.close:hover {
-    background: #ccc;
+/* БЛОКНОТ */
+
+.notebook {
+    background: #ded5bc;
+
+    color: #25231f;
+
+    border-radius: 5px;
+
+    padding: 20px;
+
+    min-height: 400px;
+
+    font-family: Georgia, serif;
 }
 
-/* МОБИЛЬНЫЙ */
+.notebook h2 {
+    text-align: center;
 
-max-width: 700px {
+    border-bottom: 2px solid
+    #9d9278;
 
-    .map {
-        min-height: 900px;
-    }
+    padding-bottom: 10px;
+}
 
-    .people-grid {
-        grid-template-columns: 1fr;
-    }
+.note {
+    padding: 12px 0;
 
+    border-bottom: 1px dashed #9d9278;
+
+    line-height: 1.5;
+}
+
+.note-title {
+    font-weight: bold;
+
+    color: #4d3920;
+}
+
+.empty {
+    text-align: center;
+
+    color: #777;
+
+    margin-top: 100px;
+}
+
+/* РЕШЁННАЯ КОМНАТА */
+
+.room.solved {
+    border-color: #668f6e;
+}
+
+.room.solved::after {
+    content: " ✓";
+
+    color: #75c783;
+
+    font-weight: bold;
 }
 
 </style>
@@ -337,1013 +388,1306 @@ max-width: 700px {
 
 <body>
 
-<!-- ВЕРХ -->
+<header>
 
-<div class="header">
+<h1>🎞 ДЕЛО №001 — ПОСЛЕДНЯЯ ПЛЁНКА</h1>
 
-    <div class="logo">
-        КИНОСТУДИЯ «ЗВЕЗДА»
-    </div>
+<p>
+Старая киностудия. 21:15.
+До премьеры осталось несколько часов.
+</p>
 
-    <div class="case-number">
-        ДЕЛО №001
-    </div>
-
+<div class="counter">
+Раскрыто персонажей:
+<span id="counter">0</span> / 7
 </div>
 
-<div class="main">
+<button
+class="notebook-button"
+onclick="openNotebook()">
+📓 БЛОКНОТ
+</button>
 
-<!-- ВСТУПЛЕНИЕ -->
+</header>
 
-<div class="intro">
-
-    <h1>Последняя плёнка</h1>
-
-    <p>
-        Сегодня вечером на киностудии «Звезда» должна была
-        состояться юбилейная премьера старого фильма.
-    </p>
-
-    <p>
-        За несколько часов до показа из закрытого архива
-        исчезла единственная сохранившаяся копия редкой
-        киноплёнки.
-    </p>
-
-    <p>
-        Дверь архива была заперта. Окно закрыто.
-        Следов взлома нет.
-    </p>
-
-    <p>
-        Четыре человека находились на территории студии
-        в момент исчезновения.
-    </p>
-
-    <p>
-        <b>
-            Осматривайте помещения, разговаривайте
-            с людьми и проверяйте их слова.
-        </b>
-    </p>
-
-</div>
-
-<!-- КАРТА -->
-
-<div class="map-title">
-    ПЛАН КИНОСТУДИИ — нажмите на помещение
-</div>
+<!-- =========================
+     КАРТА
+========================= -->
 
 <div class="map">
 
-<div class="room archive"
+<div
+class="room archive"
 onclick="openRoom('archive')">
 
-    <div class="room-name">
-        📁 Архив
-    </div>
+<h3>📁 Архив</h3>
 
-    <div class="room-info">
-        Место исчезновения плёнки
-    </div>
+<small>
+Старые плёнки и документы
+</small>
+
+<div class="npc">
+👩 Марина Соколова
+</div>
 
 </div>
 
-<div class="room hall"
-onclick="openRoom('hall')">
-
-    <div class="room-name">
-        🚪 Главный коридор
-    </div>
-
-    <div class="room-info">
-        Камера наблюдения
-    </div>
-
-</div>
-
-<div class="room projection"
+<div
+class="room projection"
 onclick="openRoom('projection')">
 
-    <div class="room-name">
-        🎞 Проекционная
-    </div>
+<h3>🎞 Проекционная</h3>
 
-    <div class="room-info">
-        Кинопроектор
-    </div>
+<small>
+Старое оборудование
+</small>
+
+<div class="npc">
+👨 Виктор Лебедев
+</div>
 
 </div>
 
-<div class="room office"
-onclick="openRoom('office')">
+<div
+class="room director"
+onclick="openRoom('director')">
 
-    <div class="room-name">
-        🗄 Кабинет директора
-    </div>
+<h3>🗄 Кабинет директора</h3>
 
-    <div class="room-info">
-        Старые документы
-    </div>
+<small>
+Документы руководства
+</small>
+
+<div class="npc">
+👨 Алексей Орлов
+</div>
 
 </div>
 
-<div class="room dressing"
-onclick="openRoom('dressing')">
+<div
+class="room costume"
+onclick="openRoom('costume')">
 
-    <div class="room-name">
-        🎭 Гримёрка
-    </div>
+<h3>🎭 Гримёрка</h3>
 
-    <div class="room-info">
-        Личные вещи сотрудников
-    </div>
+<small>
+Костюмы и реквизит
+</small>
+
+<div class="npc">
+👩 Елена Воронова
+</div>
 
 </div>
 
-<div class="room corridor"
-onclick="openRoom('corridor')">
-
-    <div class="room-name">
-        Длинный коридор
-    </div>
-
-</div>
-
-<div class="room backstage"
-onclick="openRoom('backstage')">
-
-    <div class="room-name">
-        🎬 Закулисье
-    </div>
-
-</div>
-
-<div class="room exit"
-onclick="openRoom('exit')">
-
-    <div class="room-name">
-        🚪 Запасной выход
-    </div>
-
-</div>
-
-<div class="room security"
+<div
+class="room security"
 onclick="openRoom('security')">
 
-    <div class="room-name">
-        🔒 Охрана
-    </div>
+<h3>🔒 Охрана</h3>
+
+<small>
+Мониторы наблюдения
+</small>
+
+<div class="npc">
+👮 Сергей Крылов
+</div>
+
+</div>
+
+<div
+class="room backstage"
+onclick="openRoom('backstage')">
+
+<h3>🎬 Закулисье</h3>
+
+<small>
+Старые декорации
+</small>
+
+<div class="npc">
+📰 Илья Морозов
+</div>
+
+</div>
+
+<div
+class="room corridor"
+onclick="openRoom('corridor')">
+
+<h3>🚪 Главный коридор</h3>
+
+<small>
+Соединяет помещения
+</small>
+
+<div class="npc">
+🚗 Николай Белов
+</div>
+
+</div>
+
+<div
+class="room exit"
+onclick="openRoom('exit')">
+
+<h3>🚨 Выход</h3>
+
+<small>
+Запасной выход
+</small>
 
 </div>
 
 </div>
 
-<!-- ПЕРСОНАЖИ -->
+<!-- МОДАЛКА -->
 
-<div class="people">
+<div
+class="modal-bg"
+id="modalBg">
 
-    <div class="people-title">
-        ЛЮДИ НА ТЕРРИТОРИИ СТУДИИ
-    </div>
-
-    <div class="people-grid">
-
-        <div class="person"
-        onclick="openPerson('victor')">
-
-            <div class="person-name">
-                Виктор Лебедев
-            </div>
-
-            <div class="person-job">
-                Киномеханик
-            </div>
-
-        </div>
-
-        <div class="person"
-        onclick="openPerson('marina')">
-
-            <div class="person-name">
-                Марина Соколова
-            </div>
-
-            <div class="person-job">
-                Архивариус
-            </div>
-
-        </div>
-
-        <div class="person"
-        onclick="openPerson('alex')">
-
-            <div class="person-name">
-                Алексей Орлов
-            </div>
-
-            <div class="person-job">
-                Режиссёр
-            </div>
-
-        </div>
-
-        <div class="person"
-        onclick="openPerson('ilya')">
-
-            <div class="person-name">
-                Илья Морозов
-            </div>
-
-            <div class="person-job">
-                Журналист
-            </div>
-
-        </div>
-
-    </div>
+<div
+class="modal"
+id="modal">
 
 </div>
-
-</div>
-
-<!-- ОКНО -->
-
-<div id="modal" class="modal">
-
-    <div class="modal-box">
-
-        <h2 id="modalTitle"></h2>
-
-        <div id="modalContent"></div>
-
-        <button class="close"
-        onclick="closeModal()">
-
-            ЗАКРЫТЬ
-
-        </button>
-
-    </div>
 
 </div>
 
 <script>
 
-/* =========================
-   КОМНАТЫ
-========================= */
+/* =====================================================
+   ПЕРСОНАЖИ
+===================================================== */
+
+const characters = {
+
+archive: {
+
+name: "Марина Соколова",
+
+role: "архивариус",
+
+description:
+"Марина работает в архиве больше двадцати лет. Она знает расположение почти каждой плёнки.",
+
+riddle:
+"Я могу быть дана, но меня нельзя положить на стол. " +
+"Я могу быть нарушена, хотя у меня нет замка. " +
+"Иногда человек ждёт её годами, а иногда забывает через минуту. " +
+"Что это?",
+
+answer: "обещание",
+
+hint1:
+"Это связано с тем, что один человек говорит или делает для другого.",
+
+hint2:
+"Когда человек говорит: «Я обязательно это сделаю», он даёт именно это.",
+
+info:
+"Вечером Марина лично проверяла архив. Плёнка была на месте. Но около 20:30 она заметила, что кто-то оставил на столе старый ключ."
+
+},
+
+projection: {
+
+name: "Виктор Лебедев",
+
+role: "киномеханик",
+
+description:
+"Виктор отвечает за проекторы и старые киноплёнки.",
+
+riddle:
+"У меня нет голоса, но я могу рассказать целую историю. " +
+"У меня нет памяти, но я храню прошлое. " +
+"Меня можно остановить, перемотать и снова запустить. " +
+"Что это?",
+
+answer: "фильм",
+
+hint1:
+"Это связано с кинематографом.",
+
+hint2:
+"Его смотрят на экране.",
+
+info:
+"Виктор утверждает, что около 20:40 был в проекционной. Но камера наблюдения заметила его возле архива."
+
+},
+
+director: {
+
+name: "Алексей Орлов",
+
+role: "режиссёр",
+
+description:
+"Директор студии. Именно он должен был представить пропавшую плёнку.",
+
+riddle:
+"Чем больше из меня убирают, тем больше я становлюсь. " +
+"Меня можно найти в земле, в стене и даже в дороге. " +
+"Что я?",
+
+answer: "яма",
+
+hint1:
+"Чем больше чего-то из меня забирают, темсильнее меня становится.",
+
+hint2:
+"Если убрать землю — получится именно это.",
+
+info:
+"Алексей говорит, что ничего не знает о событиях 1963 года. Но в его кабинете находится старый документ с этой датой."
+
+},
+
+costume: {
+
+name: "Елена Воронова",
+
+role: "художник по костюмам",
+
+description:
+"Елена отвечает за костюмы и реквизит.",
+
+riddle:
+"Меня надевают перед зеркалом, но снимают не руками. " +
+"У одного человека их может быть много. " +
+"Иногда я полностью меняю то, каким тебя видят другие. " +
+"Что это?",
+
+answer: "роль",
+
+hint1:
+"Актёр может иметь их несколько.",
+
+hint2:
+"На сцене человек становится кем-то другим.",
+
+info:
+"Елена говорит, что старые плёнки её не интересуют. Но в её шкафчике найден кусок старой киноплёнки."
+
+},
+
+security: {
+
+name: "Сергей Крылов",
+
+role: "охранник",
+
+description:
+"Сергей следит за камерами и входами в студию.",
+
+riddle:
+"Я следую за тобой, пока есть свет. " +
+"Я повторяю каждое твоё движение, но никогда не опережаю тебя. " +
+"В темноте я исчезаю. Что это?",
+
+answer: "тень",
+
+hint1:
+"Она появляется благодаря свету.",
+
+hint2:
+"Посмотри под ноги при яркой лампе.",
+
+info:
+"В 20:37 камеры действительно отключились примерно на четыре минуты. После восстановления изображения Сергей увидел Виктора возле архивного коридора."
+
+},
+
+backstage: {
+
+name: "Илья Морозов",
+
+role: "журналист",
+
+description:
+"Илья приехал брать интервью у директора. Однако слишком быстро узнал об исчезновении.",
+
+riddle:
+"Чем больше людей обо мне говорят, тем меньше во мне остаётся тайны. " +
+"Меня можно хранить годами, но достаточно одного человека, чтобы я исчез. " +
+"Что это?",
+
+answer: "секрет",
+
+hint1:
+"Если о нём узнают все, он перестаёт им быть.",
+
+hint2:
+"Это то, что человек не хочет рассказывать другим.",
+
+info:
+"Илья утверждает, что случайно узнал об исчезновении. Но он оказался возле архива почти сразу после отключения камер."
+
+},
+
+corridor: {
+
+name: "Николай Белов",
+
+role: "водитель киностудии",
+
+description:
+"Николай работает здесь много лет. Он знает все служебные проходы здания.",
+
+riddle:
+"Я не человек, но у меня есть прошлое. " +
+"У меня могут быть страницы, но я не обязательно книга. " +
+"Меня изучают, чтобы понять, что произошло раньше. " +
+"Что это?",
+
+answer: "история",
+
+hint1:
+"Она связана с прошлым.",
+
+hint2:
+"У каждого события есть именно она.",
+
+info:
+"Николай видел человека в длинном пальто возле запасного выхода. Он не смог рассмотреть лицо, но заметил старый металлический чемодан."
+
+}
+
+};
+
+/* =====================================================
+   ПРЕДМЕТЫ КОМНАТ
+===================================================== */
+
+const objects = {
+
+archive: [
+
+{
+name: "🎞 Старая киноплёнка",
+text:
+"На коробке написано: «1963. Архив №17». Плёнка выглядит очень старой.",
+clue:
+"Улика: плёнка относится к 1963 году.",
+id: "film1963"
+},
+
+{
+name: "🔑 Старый ключ",
+text:
+"Небольшой металлический ключ. На кольце выгравировано число «17».",
+clue:
+"Улика: найден ключ с номером 17.",
+id: "key17"
+},
+
+{
+name: "📋 Журнал выдачи",
+text:
+"Последняя запись: «20:31 — просмотрено». Подписи рядом нет.",
+clue:
+"Улика: в 20:31 кто-то получил доступ к архивному материалу без подписи.",
+id: "archiveLog"
+},
+
+{
+name: "📦 Пустая коробка",
+text:
+"Коробка из-под киноплёнки. Внутри ничего нет, но на дне виден свежий след пыли.",
+clue:
+"Улика: коробку недавно открывали.",
+id: "emptyBox"
+}
+
+],
+
+projection: [
+
+{
+name: "🎥 Проектор",
+text:
+"Старый проектор. На металлической части осталась свежая царапина.",
+clue:
+"Улика: проектор недавно открывали или перемещали.",
+id: "projector"
+},
+
+{
+name: "🎞 Обрывок плёнки",
+text:
+"Небольшой кусок плёнки. На нём виден край изображения и часть номера 17.",
+clue:
+"Улика: номер 17 связан не только с архивным ключом.",
+id: "filmPiece"
+},
+
+{
+name: "🧰 Ящик инструментов",
+text:
+"Внутри инструменты киномеханика. Один небольшой ключ отсутствует.",
+clue:
+"Улика: из набора Виктора пропал небольшой ключ.",
+id: "tools"
+},
+
+{
+name: "🕒 Часы",
+text:
+"Часы остановились на 20:43.",
+clue:
+"Улика: часы в проекционной остановились на 20:43.",
+id: "clock"
+}
+
+],
+
+director: [
+
+{
+name: "📄 Документ 1963 года",
+text:
+"Старый договор. Несколько фамилий зачёркнуты.",
+clue:
+"Улика: руководство студии что-то скрывало в документах 1963 года.",
+id: "document1963"
+},
+
+{
+name: "🔒 Сейф",
+text:
+"Сейф закрыт. На замке выгравировано число 17.",
+clue:
+"Улика: номер 17 встречается и в кабинете директора.",
+id: "safe17"
+},
+
+{
+name: "📷 Фотография",
+text:
+"На фотографии сотрудники студии 1963 года. Один человек вырезан из снимка.",
+clue:
+"Улика: с фотографии 1963 года кто-то был удалён.",
+id: "photo1963"
+},
+
+{
+name: "✉️ Конверт",
+text:
+"На конверте написано: «Не показывать Орлову».",
+clue:
+"Улика: кто-то специально не хотел, чтобы директор увидел содержимое.",
+id: "envelope"
+}
+
+],
+
+costume: [
+
+{
+name: "👗 Старый костюм",
+text:
+"Костюм из фильма 1963 года. В кармане что-то лежит.",
+clue:
+"Улика: костюм использовался во время съёмок 1963 года.",
+id: "costume1963"
+},
+
+{
+name: "🎞 Кусок плёнки",
+text:
+"В кармане найден маленький кусок киноплёнки.",
+clue:
+"Улика: кто-то спрятал плёнку внутри костюма.",
+id: "costumeFilm"
+},
+
+{
+name: "🗄 Шкафчик Елены",
+text:
+"Шкафчик заперт. На замке свежая царапина.",
+clue:
+"Улика: шкафчик недавно пытались открыть.",
+id: "locker"
+},
+
+{
+name: "🧵 Нитка",
+text:
+"На ручке шкафчика зацепилась тёмная нитка.",
+clue:
+"Улика: на шкафчике остался кусок ткани.",
+id: "thread"
+}
+
+],
+
+security: [
+
+{
+name: "📹 Камера №3",
+text:
+"Камера отключалась с 20:37 до 20:41.",
+clue:
+"Улика: наблюдение было отключено на четыре минуты.",
+id: "camera3"
+},
+
+{
+name: "📺 Монитор",
+text:
+"На записи перед отключением камеры виден человек возле архива.",
+clue:
+"Улика: перед отключением камеры возле архива находился человек.",
+id: "monitor"
+},
+
+{
+name: "🔌 Кабель",
+text:
+"Кабель камеры был вынут вручную.",
+clue:
+"Улика: камера отключилась не случайно.",
+id: "cable"
+},
+
+{
+name: "📝 Журнал охраны",
+text:
+"Последняя запись Сергея сделана в 20:36.",
+clue:
+"Улика: Сергей записывал события непосредственно перед отключением камер.",
+id: "guardLog"
+}
+
+],
+
+backstage: [
+
+{
+name: "🎭 Старая декорация",
+text:
+"За декорацией спрятан небольшой металлический контейнер.",
+clue:
+"Улика: кто-то использовал декорации как тайник.",
+id: "container"
+},
+
+{
+name: "🧳 Чемодан",
+text:
+"Старый металлический чемодан. Он пуст.",
+clue:
+"Улика: найден металлический чемодан, похожий на тот, который видел Николай.",
+id: "suitcase"
+},
+
+{
+name: "📰 Газета",
+text:
+"Газета за 1963 год. В статье говорится о закрытии одного проекта студии.",
+clue:
+"Улика: в 1963 году один проект студии был внезапно закрыт.",
+id: "newspaper"
+},
+
+{
+name: "✏️ Записка",
+text:
+"На клочке бумаги написано: «Плёнка — это только начало».",
+clue:
+"Улика: пропавшая плёнка может быть не главным объектом расследования.",
+id: "noteBeginning"
+}
+
+],
+
+corridor: [
+
+{
+name: "🚪 Служебная дверь",
+text:
+"Дверь ведёт к запасному выходу. Замок недавно использовали.",
+clue:
+"Улика: служебной дверью недавно пользовались.",
+id: "serviceDoor"
+},
+
+{
+name: "👞 Следы",
+text:
+"На полу видны слабые следы грязи.",
+clue:
+"Улика: кто-то прошёл сюда с улицы.",
+id: "footprints"
+},
+
+{
+name: "🧥 Вешалка",
+text:
+"На вешалке остался один длинный тёмный плащ.",
+clue:
+"Улика: в здании действительно находился человек в длинном пальто.",
+id: "coat"
+},
+
+{
+name: "🗝 Дубликат ключа",
+text:
+"За старой доской найден запасной ключ от служебной двери.",
+clue:
+"Улика: существует дубликат ключа от служебного прохода.",
+id: "duplicateKey"
+}
+
+]
+
+};
+
+/* =====================================================
+   СОСТОЯНИЕ
+===================================================== */
+
+let foundClues = [];
+
+let attempts = {};
+
+let solved = {};
+
+Object.keys(characters).forEach(room => {
+
+    attempts[room] = 0;
+
+    solved[room] = false;
+
+});
+
+/* =====================================================
+   ОТКРЫТИЕ КОМНАТЫ
+===================================================== */
 
 function openRoom(room) {
 
-    let title = "";
-    let content = "";
+    if (!characters[room]) {
 
-    if (room === "archive") {
+        document.getElementById("modal").innerHTML = `
+        <h2>🚪 Помещение</h2>
 
-        title = "📁 Архив";
+        <p>
+        Здесь пока ничего интересного.
+        </p>
 
-        content = `
-
-        <div class="description">
-
-            <p>
-            В комнате стоят металлические стеллажи
-            с коробками старых киноплёнок.
-            </p>
-
-            <p>
-            Именно здесь хранилась пропавшая плёнка.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Улика
-            </div>
-
-            <div class="clue-text">
-                Замок на двери не повреждён.
-                Похоже, тот, кто вошёл,
-                использовал ключ.
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "hall") {
-
-        title = "🚪 Главный коридор";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            В коридоре установлена камера наблюдения.
-            </p>
-
-            <p>
-            На стене висит старое расписание сотрудников.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Запись камеры
-            </div>
-
-            <div class="clue-text">
-                Между 20:41 и 20:47 запись отсутствует.
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "projection") {
-
-        title = "🎞 Проекционная";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            Здесь находится старый кинопроектор.
-            </p>
-
-            <p>
-            На столе лежат инструменты для ремонта
-            киноплёнки.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Странная деталь
-            </div>
-
-            <div class="clue-text">
-                Один из инструментов выглядит так,
-                будто им пользовались совсем недавно.
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "office") {
-
-        title = "🗄 Кабинет директора";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            Старый кабинет директора.
-            На стенах фотографии киностудии
-            разных лет.
-            </p>
-
-            <p>
-            На столе лежит папка с надписью:
-            «1963».
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Закрытая папка
-            </div>
-
-            <div class="clue-text">
-                Папка заперта. На обложке написано:
-                «Не показывать до юбилея».
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "dressing") {
-
-        title = "🎭 Гримёрка";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            В гримёрке находятся личные шкафчики
-            сотрудников.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Шкафчик
-            </div>
-
-            <div class="clue-text">
-                Один шкафчик заперт.
-                На нём инициалы В.Л.
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "corridor") {
-
-        title = "Длинный коридор";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            На стенах висят старые афиши фильмов.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Надпись
-            </div>
-
-            <div class="clue-text">
-                На обратной стороне старой афиши
-                кто-то написал: «20:45».
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "backstage") {
-
-        title = "🎬 Закулисье";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            Здесь стоят старые декорации
-            и реквизит.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Следы
-            </div>
-
-            <div class="clue-text">
-                На полу видны свежие следы обуви.
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "exit") {
-
-        title = "🚪 Запасной выход";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            Дверь ведёт во двор студии.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Проверка
-            </div>
-
-            <div class="clue-text">
-                Дверь закрыта изнутри.
-                Через неё плёнку, скорее всего,
-                не выносили.
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    else if (room === "security") {
-
-        title = "🔒 Охрана";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            На стене несколько мониторов
-            с камерами студии.
-            </p>
-
-        </div>
-
-        <div class="clue">
-
-            <div class="clue-title">
-                Запись
-            </div>
-
-            <div class="clue-text">
-                Несколько минут видео были удалены.
-            </div>
-
-        </div>
-
-        `;
-
-    }
-
-    document.getElementById("modalTitle").innerHTML = title;
-
-    document.getElementById("modalContent").innerHTML = content;
-
-    document.getElementById("modal").style.display = "flex";
-
-}
-
-/* =========================
-   ПЕРСОНАЖИ
-========================= */
-
-function openPerson(person) {
-
-    let title = "";
-    let content = "";
-
-    if (person === "victor") {
-
-        title = "Виктор Лебедев";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            <b>Киномеханик, 57 лет.</b>
-            </p>
-
-            <p>
-            Работает на студии больше двадцати лет.
-            Хорошо знает старое оборудование
-            и архив.
-            </p>
-
-        </div>
-
-        <div class="dialogue">
-
-            <div class="dialogue-character">
-                Виктор:
-            </div>
-
-            <div class="dialogue-text">
-
-                «Я весь вечер был в проекционной.
-                Готовил оборудование к завтрашнему показу.
-                В архив я не заходил».
-
-            </div>
-
-        </div>
-
-        <button class="dialogue-choice"
-        onclick="victorQuestion1()">
-
-            Где вы были в 20:45?
-
+        <button onclick="closeModal()">
+        ЗАКРЫТЬ
         </button>
 
-        <button class="dialogue-choice"
-        onclick="victorQuestion2()">
+        `;
 
-            У вас есть ключ от архива?
+        document.getElementById("modalBg").style.display = "flex";
 
-        </button>
+        return;
+    }
 
-        <div id="dialogueAnswer"></div>
+    const data = characters[room];
+
+    const roomObjects = objects[room];
+
+    let objectHTML = "";
+
+    roomObjects.forEach((obj, index) => {
+
+        const isFound =
+            foundClues.includes(obj.id);
+
+        objectHTML += `
+
+        <div
+        class="object ${isFound ? "found" : ""}"
+        onclick="inspectObject('${room}', ${index})">
+
+        ${obj.name}
+
+        ${isFound ? " ✓" : ""}
+
+        </div>
 
         `;
 
-    }
+    });
 
-    else if (person === "marina") {
+    document.getElementById("modal").innerHTML = `
 
-        title = "Марина Соколова";
+    <h2>
+    ${getRoomName(room)}
+    </h2>
 
-        content = `
+    <p class="description">
 
-        <div class="description">
+    В комнате находится
+    <b>${data.name}</b>,
+    ${data.role}.
 
-            <p>
-            <b>Архивариус, 42 года.</b>
-            </p>
+    </p>
 
-            <p>
-            Отвечает за хранение документов
-            и киноплёнок.
-            </p>
+    <h3>🔎 Что осмотреть?</h3>
 
-        </div>
+    <div class="objects">
 
-        <div class="dialogue">
-
-            <div class="dialogue-character">
-                Марина:
-            </div>
-
-            <div class="dialogue-text">
-
-                «Плёнка была на месте вечером.
-                Я лично проверяла шкаф».
-
-            </div>
-
-        </div>
-
-        <button class="dialogue-choice"
-        onclick="marinaQuestion1()">
-
-            Кто ещё имеет доступ к архиву?
-
-        </button>
-
-        <button class="dialogue-choice"
-        onclick="marinaQuestion2()">
-
-            Почему вы проверяли плёнку?
-
-        </button>
-
-        <div id="dialogueAnswer"></div>`;
-
-    }
-
-    else if (person === "alex") {
-
-        title = "Алексей Орлов";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            <b>Режиссёр, 38 лет.</b>
-            </p>
-
-            <p>
-            Руководит подготовкой юбилейного показа.
-            </p>
-
-        </div>
-
-        <div class="dialogue">
-
-            <div class="dialogue-character">
-                Алексей:
-            </div>
-
-            <div class="dialogue-text">
-
-                «Для меня эта плёнка очень важна.
-                Без неё завтрашний показ сорвётся».
-
-            </div>
-
-        </div>
-
-        <button class="dialogue-choice"
-        onclick="alexQuestion1()">
-
-            Где вы были во время исчезновения?
-
-        </button>
-
-        <button class="dialogue-choice"
-        onclick="alexQuestion2()">
-
-            Вы знали о старой папке 1963 года?
-
-        </button>
-
-        <div id="dialogueAnswer"></div>
-
-        `;
-
-    }
-
-    else if (person === "ilya") {
-
-        title = "Илья Морозов";
-
-        content = `
-
-        <div class="description">
-
-            <p>
-            <b>Журналист, 29 лет.</b>
-            </p>
-
-            <p>
-            Приехал на студию для материала
-            о юбилейном показе.
-            </p>
-
-        </div>
-
-        <div class="dialogue">
-
-            <div class="dialogue-character">
-                Илья:
-            </div>
-
-            <div class="dialogue-text">
-
-                «Я здесь ради статьи.
-                Мне нет никакого смысла красть плёнку».
-
-            </div>
-
-        </div>
-
-        <button class="dialogue-choice"
-        onclick="ilyaQuestion1()">
-
-            Что вы делали возле архива?
-
-        </button>
-
-        <button class="dialogue-choice"
-        onclick="ilyaQuestion2()">
-
-            Вы знали, что плёнка исчезла?
-
-        </button>
-
-        <div id="dialogueAnswer"></div>
-
-        `;
-
-    }
-
-    document.getElementById("modalTitle").innerHTML = title;
-
-    document.getElementById("modalContent").innerHTML = content;
-
-    document.getElementById("modal").style.display = "flex";
-
-}
-
-/* =========================
-   ДИАЛОГИ
-========================= */
-
-function victorQuestion1() {
-
-    document.getElementById("dialogueAnswer").innerHTML = `
-
-    <div class="dialogue">
-
-        <div class="dialogue-character">
-            Виктор:
-        </div>
-
-        <div class="dialogue-text">
-
-            «В 20:45? Я... кажется, был
-            возле проекционной.
-            Точно не помню».
-
-        </div>
+    ${objectHTML}
 
     </div>
+
+    <h3 style="margin-top:25px;">
+    👤 Человек в комнате
+    </h3>
+
+    <button onclick="talkToCharacter('${room}')">
+
+    ПОГОВОРИТЬ С ${data.name.toUpperCase()}
+
+    </button>
+
+    <button
+    class="close"
+    onclick="closeModal()">
+
+    ВЕРНУТЬСЯ НА КАРТУ
+
+    </button>
+
+    `;
+
+    document.getElementById("modalBg").style.display = "flex";
+
+}
+
+/* =====================================================
+   ОСМОТР ПРЕДМЕТА
+===================================================== */
+
+function inspectObject(room, index) {
+
+    const obj = objects[room][index];
+
+    if (!foundClues.includes(obj.id)) {
+
+        foundClues.push(obj.id);
+
+    }
+
+    document.getElementById("modal").innerHTML = `
+
+    <h2>
+    ${obj.name}
+    </h2>
+
+    <p class="description">
+
+    ${obj.text}
+
+    </p>
+
+    <div class="clue">
+
+    📓 <b>Улика записана в блокнот:</b>
+
+    
+
+    ${obj.clue}
+
+    </div>
+
+    <button
+    onclick="openRoom('${room}')">
+
+    ПРОДОЛЖИТЬ ОСМОТР
+
+    </button>
+
+    `;
+
+    updateNotebookCounter();
+
+}
+
+/* =====================================================
+   ДИАЛОГ
+===================================================== */
+
+function talkToCharacter(room) {
+
+    const data = characters[room];
+
+    if (solved[room]) {
+
+        showSolved(room);
+
+        return;
+
+    }
+
+    document.getElementById("modal").innerHTML = `
+
+    <h2>
+    👤 ${data.name}
+    </h2>
+
+    <p class="description">
+
+    ${data.description}
+
+    </p>
+
+    <div class="clue">
+
+    <b>Загадка:</b>
+
+    
+
+    ${data.riddle}
+
+    </div>
+
+    <button
+    class="correct"
+    onclick="correctAnswer('${room}')">
+
+    ✓ ОТГАДАЛИ
+
+    </button>
+
+    <button
+    class="wrong"
+    onclick="wrongAnswer('${room}')">
+
+    ✕ НЕ ОТГАДАЛИ
+
+    </button>
+
+    <button
+    class="close"
+    onclick="openRoom('${room}')">
+
+    НАЗАД В КОМНАТУ
+
+    </button>
 
     `;
 
 }
 
-function victorQuestion2() {
+/* =====================================================
+   ПРАВИЛЬНЫЙ ОТВЕТ
+===================================================== */
 
-    document.getElementById("dialogueAnswer").innerHTML = `
+function correctAnswer(room) {
 
-    <div class="dialogue">
+    const data = characters[room];
 
-        <div class="dialogue-character">
-            Виктор:
-        </div>
+    solved[room] = true;
 
-        <div class="dialogue-text">
+    const infoId = "npc_" + room;
 
-            «Ключ? Да, конечно.
-            Я много лет работаю здесь.
-            Но сегодня я им не пользовался».
+    if (!foundClues.includes(infoId)) {
 
-        </div>
+        foundClues.push(infoId);
+
+    }
+
+    document.getElementById("modal").innerHTML = `
+
+    <h2>
+    ✓ Правильно
+    </h2>
+
+    <p class="description">
+
+    ${data.name} некоторое время молчит,
+    а затем решает, что вам можно доверять.
+
+    </p>
+
+    <div class="clue">
+
+    📓 <b>Новая запись в блокноте:</b>
+
+    
+
+    ${data.info}
 
     </div>
+
+    <button
+    onclick="finishConversation('${room}')">
+
+    ЗАПИСАТЬ В ДЕЛО
+
+    </button>
 
     `;
 
 }
 
-function marinaQuestion1() {
+/* =====================================================
+   ОШИБКА
+===================================================== */
 
-    document.getElementById("dialogueAnswer").innerHTML = `
+function wrongAnswer(room) {
 
-    <div class="dialogue">
+    const data = characters[room];
 
-        <div class="dialogue-character">
-            Марина:
+    attempts[room]++;
+
+    if (attempts[room] === 1) {
+
+        document.getElementById("modal").innerHTML = `
+
+        <h2>
+        ✕ Неверно
+        </h2>
+
+        <p>
+
+        ${data.name} качает головой.
+
+        
+
+        «Нет. Попробуйте ещё раз».
+
+        </p>
+
+        <div class="hint">
+
+        💡 <b>Подсказка №1:</b>
+
+        
+
+        ${data.hint1}
+
         </div>
 
-        <div class="dialogue-text">
+        <button
+        onclick="talkToCharacter('${room}')">
 
-            «Ключи есть у меня, у директора
-            и ещё у киномеханика.
-            Так было всегда».
+        ПОПРОБОВАТЬ ЕЩЁ РАЗ
+
+        </button>
+
+        <button
+        onclick="openRoom('${room}')">
+
+        НАЗАД В КОМНАТУ
+
+        </button>
+
+        `;
+
+        return;
+
+    }
+
+    if (attempts[room] === 2) {
+
+        document.getElementById("modal").innerHTML = `
+
+        <h2>
+        ✕ Снова неверно
+        </h2>
+
+        <p>
+
+        ${data.name} перестаёт улыбаться.
+
+        
+
+        «Больше подсказок не будет».
+
+        </p>
+
+        <div class="hint">
+
+        💡 <b>Последняя подсказка:</b>
+
+        
+
+        ${data.hint2}
 
         </div>
+
+        <div class="clue">
+
+        🔒 <b>Разговор закрыт.</b>
+
+        
+
+        Придётся искать другие улики.
+        Возможно, найденные предметы помогут
+        вам понять ответ.
+
+        </div>
+
+        <button
+        onclick="openRoom('${room}')">
+
+        ПРОДОЛЖИТЬ РАССЛЕДОВАНИЕ
+
+        </button>
+
+        `;
+
+    }
+
+}
+
+/* =====================================================
+   РАЗГОВОР ЗАВЕРШЁН
+===================================================== */
+
+function finishConversation(room) {
+
+    document
+    .querySelector("." + room)
+    .classList
+    .add("solved");
+
+    updateCounter();
+
+    openRoom(room);
+
+}
+
+/* =====================================================
+   УЖЕ ДОПРОШЕН
+===================================================== */
+
+function showSolved(room) {
+
+    const data = characters[room];
+
+    document.getElementById("modal").innerHTML = `
+
+    <h2>
+    ✓ ${data.name}
+    </h2>
+
+    <div class="clue">
+
+    📓 <b>Запись из разговора:</b>
+
+    
+
+    ${data.info}
 
     </div>
+
+    <button
+    onclick="openRoom('${room}')">
+
+    НАЗАД
+
+    </button>
 
     `;
 
 }
 
-function marinaQuestion2() {
+/* =====================================================
+   БЛОКНОТ
+===================================================== */
 
-    document.getElementById("dialogueAnswer").innerHTML = `
+function openNotebook() {
 
-    <div class="dialogue">
+    let notes = "";
 
-        <div class="dialogue-character">
-            Марина:
+    /* УЛИКИ ОТ ПРЕДМЕТОВ */
+
+    Object.values(objects).forEach(roomObjects => {
+
+        roomObjects.forEach(obj => {
+
+            if (foundClues.includes(obj.id)) {
+
+                notes += `
+
+                <div class="note">
+
+                <div class="note-title">
+                🔎 ${obj.name}
+                </div>
+
+                ${obj.clue}
+
+                </div>
+
+                `;
+
+            }
+
+        });
+
+    });
+
+    /* ИНФОРМАЦИЯ ОТ ПЕРСОНАЖЕЙ */
+
+    Object.keys(characters).forEach(room => {
+
+        const id = "npc_" + room;
+
+        if (foundClues.includes(id)) {
+
+            const data = characters[room];
+
+            notes += `
+
+            <div class="note">
+
+            <div class="note-title">
+
+            👤 ${data.name}
+
+            </div>
+
+            ${data.info}
+
+            </div>
+
+            `;
+
+        }
+
+    });
+
+    if (notes === "") {
+
+        notes = `
+
+        <div class="empty">
+
+        📓 Блокнот пока пуст.
+
+        
+
+        Отправляйтесь в комнаты,
+        осматривайте предметы и разговаривайте
+        с людьми.
+
         </div>
 
-        <div class="dialogue-text">
+        `;
 
-            «Потому что директор попросил
-            убедиться, что всё готово
-            к юбилейному показу».
+    }
 
-        </div>
+    document.getElementById("modal").innerHTML = `
+
+    <div class="notebook">
+
+    <h2>
+    📓 БЛОКНОТ РАССЛЕДОВАНИЯ
+    </h2>
+
+    ${notes}
 
     </div>
 
-    `;
+    <button
+    onclick="closeModal()">
 
-}
+    ЗАКРЫТЬ БЛОКНОТ
 
-function alexQuestion1() {
-
-    document.getElementById("dialogueAnswer").innerHTML = `
-
-    <div class="dialogue">
-
-        <div class="dialogue-character">
-            Алексей:
-        </div>
-
-        <div class="dialogue-text">
-
-            «Я был в своём кабинете.
-            Потом вышел в коридор.
-            Больше ничего особенного».
-
-        </div>
-
-    </div>
+    </button>
 
     `;
 
-}
-
-function alexQuestion2() {
-
-    document.getElementById("dialogueAnswer").innerHTML = `
-
-    <div class="dialogue">
-
-        <div class="dialogue-character">
-            Алексей:
-        </div>
-
-        <div class="dialogue-text">
-
-            «1963? Нет.
-            Не знаю, почему вы спрашиваете
-            именно об этом».
-
-        </div>
-
-    </div>
-
-    `;
+    document.getElementById("modalBg").style.display = "flex";
 
 }
 
-function ilyaQuestion1() {
+/* =====================================================
+   НАЗВАНИЯ КОМНАТ
+===================================================== */
 
-    document.getElementById("dialogueAnswer").innerHTML = `
+function getRoomName(room) {
 
-    <div class="dialogue">
+    const names = {
 
-        <div class="dialogue-character">
-            Илья:
-        </div>
+        archive: "📁 Архив",
 
-        <div class="dialogue-text">
+        projection: "🎞 Проекционная",
 
-            «Я искал директора.
-            Хотел задать ему несколько вопросов
-            для статьи».
+        director: "🗄 Кабинет директора",
 
-        </div>
+        costume: "🎭 Гримёрка",
 
-    </div>
+        security: "🔒 Охрана",
 
-    `;
+        backstage: "🎬 Закулисье",
+
+        corridor: "🚪 Главный коридор"
+
+    };
+
+    return names[room] || "Помещение";
+
+}
+    /* =====================================================
+   СЧЁТЧИК
+===================================================== */
+
+function updateCounter() {
+
+    let count = 0;
+
+    Object.values(solved).forEach(value => {
+
+        if (value) count++;
+
+    });
+
+    document.getElementById("counter").textContent = count;
 
 }
 
-function ilyaQuestion2() {
+/* =====================================================
+   СЧЁТЧИК УЛИК
+===================================================== */
 
-    document.getElementById("dialogueAnswer").innerHTML = `
+function updateNotebookCounter() {
 
-    <div class="dialogue">
-
-        <div class="dialogue-character">
-            Илья:
-        </div>
-
-        <div class="dialogue-text">
-
-            «Нет... то есть...
-            Я узнал об этом почти сразу».
-
-        </div>
-
-    </div>
-
-    `;
+    // Пока счётчик персонажей остаётся отдельно.
+    // Все найденные предметы автоматически попадают в блокнот.
 
 }
 
-/* ЗАКРЫТЬ */
+/* =====================================================
+   ЗАКРЫТЬ
+===================================================== */
 
 function closeModal() {
 
-    document.getElementById("modal").style.display = "none";
+    document
+    .getElementById("modalBg")
+    .style.display = "none";
 
 }
+
+/* =====================================================
+   КЛИК ПО ФОНУ
+===================================================== */
+
+document
+.getElementById("modalBg")
+.addEventListener("click", function(e) {
+
+    if (e.target === this) {
+
+        closeModal();
+
+    }
+
+});
 
 </script>
 
