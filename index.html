@@ -1818,32 +1818,48 @@ let introSkipped = false;
 ОЗВУЧКА
 ========================================================= */
 
-function getRussianVoice() {
-
+    function getRussianVoices() {
     if (!("speechSynthesis" in window)) {
-        return null;
+        return [];
     }
 
-    const voices = speechSynthesis.getVoices();
-
-    const russian = voices.filter(
+    return speechSynthesis.getVoices().filter(
         voice =>
             voice.lang &&
             voice.lang.toLowerCase().startsWith("ru")
     );
+}
+
+function getRussianVoice(gender = "male") {
+
+    const russian = getRussianVoices();
+
+    if (!russian.length) {
+        return null;
+    }
+
+    if (gender === "female") {
+        return (
+            russian.find(voice =>
+                /irina|svetlana|milena|alena|anna|female|жен/i
+                    .test(voice.name)
+            )
+            || russian[0]
+            || null
+        );
+    }
 
     return (
-        russian.find(
-            voice =>
-                /dmitry|pavel|irina|svetlana|google/i
-                    .test(voice.name)
+        russian.find(voice =>
+            /dmitry|pavel|alex|alexey|maxim|male|муж/i
+                .test(voice.name)
         )
         || russian[0]
         || null
     );
 }
 
-function speak(text, rate = 0.88, pitch = 0.92) {
+function speak(text, rate = 0.88, pitch = 0.92, gender = "male") {
 
     if (!("speechSynthesis" in window)) {
         return;
@@ -1859,7 +1875,7 @@ function speak(text, rate = 0.88, pitch = 0.92) {
     utterance.pitch = pitch;
     utterance.volume = 1;
 
-    const voice = getRussianVoice();
+    const voice = getRussianVoice(gender);
 
     if (voice) {
         utterance.voice = voice;
@@ -1867,7 +1883,7 @@ function speak(text, rate = 0.88, pitch = 0.92) {
 
     speechSynthesis.speak(utterance);
 }
-
+    
 /* =========================================================
 СТАРТ
 ========================================================= */
