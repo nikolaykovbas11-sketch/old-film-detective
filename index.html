@@ -244,9 +244,7 @@ button {
 ========================= */
 
 .map-area {
-
-
-padding: 25px;
+    padding: 25px;
     max-width: 1100px;
     margin: auto;
 }
@@ -512,9 +510,7 @@ padding: 25px;
 }
 
 .character-name {
-
-
-font-size: 25px;
+    font-size: 25px;
     font-family: Georgia, serif;
     margin-bottom: 5px;
 }
@@ -750,10 +746,7 @@ max-width: 700px {
             Выберите помещение для расследования
         </div>
 
-        <div
-
-
-class="studio">
+        <div class="studio">
 
             <div class="room archive"
                  onclick="openRoom('archive')">
@@ -953,10 +946,7 @@ let solvedCharacters = [];
 
 let currentRoom = null;
 let currentQuestion = null;
-let c
-
-
-urrentCharacter = null;
+let currentCharacter = null;
 
 /* =========================================================
    ВСТУПИТЕЛЬНАЯ ИСТОРИЯ
@@ -1138,10 +1128,7 @@ function showIntroPart() {
         line.innerText = part.text;
         line.classList.add("show");
 
-        cons
-
-
-t progress =
+        const progress =
             ((currentIndex + 1) /
             introStory.length) * 100;
 
@@ -1351,10 +1338,7 @@ function finishIntroStory() {
 
 /* =========================================================
    ПРОПУСК ВСТУПЛЕНИЯ
-==============================
-
-
-=========================== */
+========================================================= */
 
 function skipIntro() {
 
@@ -1520,9 +1504,7 @@ const rooms = {
                     text:
                         "На дне коробки остался след от катушки."
                 }
-
-
-}
+                }
 
         ]
     },
@@ -1680,10 +1662,7 @@ const rooms = {
             },
 
             {
-                id: "director_bo
-
-
-oks",
+                id: "director_books",
                 name: "Книжный шкаф",
 
                 description:
@@ -1846,9 +1825,7 @@ oks",
                     "Журнал дежурств.",
 
                 subject: "Физика",
-
-
-question:
+                question:
                     "Почему дверную ручку делают далеко от петель?",
 
                 rewardClue: {
@@ -2009,10 +1986,7 @@ question:
                 subject: "Физика",
 
                 question:
-                    "Почему мокрый
-
-
-пол позволяет заметить следы человека?",
+                    "Почему мокрый пол позволяет заметить следы человека?",
 
                 rewardClue: {
                     text:
@@ -2184,10 +2158,7 @@ const characters = {
         job: "Журналист",
 
         riddle:
-            "Его можно зна
-
-
-ть, но нельзя увидеть. Его можно хранить и раскрыть. Что это?",
+            "Его можно знать, но нельзя увидеть. Его можно хранить и раскрыть. Что это?",
 
         answer: "секрет",
 
@@ -2363,10 +2334,7 @@ function openRoom(roomId) {
     if (room.character) {
 
         const character =
-            cha
-
-
-racters[room.character];
+            characters[room.character];
 
         const solved =
             solvedCharacters.includes(
@@ -2550,13 +2518,7 @@ function answerWrong() {
             </p>
 
             <p style="color:#999;">
-                К этому во
-Character dot Name: premium domain name (Buy now) - character.name
-Character dot Name: premium domain name (Buy now) - character.name
-character.name
-
-
-просу можно вернуться позже.
+                К этому вопросу можно вернуться позже.
             </p>
 
         </div>
@@ -2759,12 +2721,7 @@ function openCharacter(characterId) {
 
 let characterAttempts = {};
 
-function checkRi
-reward.name
-reward.name
-
-
-ddle() {
+function checkRiddle() {
 
     if (!currentCharacter) {
         return;
@@ -2972,10 +2929,7 @@ function updateNotebook() {
     updateCounter();
 }
 
-/* ============
-
-
-=============================================
+/* =========================================================
    СЧЁТЧИК
 ========================================================= */
 
@@ -3045,5 +2999,3 @@ document.addEventListener(
 
 </body>
 </html>
-
-
