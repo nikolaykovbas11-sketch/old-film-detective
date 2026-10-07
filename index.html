@@ -3494,16 +3494,27 @@ function openCharacter(id) {
 
     setTimeout(() => {
 
-        speak(
-            character.dialogue +
-            " " +
-            character.riddle,
+      /* Озвучка персонажа */
 
-            .92,
-            .95
-        );
+setTimeout(() => {
 
-    }, 150);
+    const femaleCharacters = ["marina", "elena"];
+
+    const gender = femaleCharacters.includes(id)
+        ? "female"
+        : "male";
+
+    speak(
+        character.dialogue +
+        " " +
+        character.riddle,
+
+        .92,
+        .95,
+        gender
+    );
+
+}, 150);
 
 }
 
