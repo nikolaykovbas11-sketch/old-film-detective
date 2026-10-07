@@ -10,24 +10,99 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg: #08090a;
+    --panel: #121416;
+    --panel2: #181a1d;
+    --panel3: #202328;
+    --gold: #c8a15a;
+    --gold-light: #e3c47b;
+    --red: #9e4d43;
+    --text: #e8e4db;
+    --muted: #8b8b86;
+    --line: rgba(205,175,112,.25);
+    --green: #64856b;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    background: #101214;
-    color: #eee;
+    background:
+        radial-gradient(circle at 50% -10%, #27231c 0%, #101112 35%, #070808 100%);
+    color: var(--text);
     font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: .13;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 3px,
+            rgba(255,255,255,.025) 4px
+        );
+}
+
+button,
+input {
+    font-family: inherit;
 }
 
 button {
-    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* =========================
+/* =========================================================
+   ОБЩИЕ ЭФФЕКТЫ
+========================================================= */
+
+.gold {
+    color: var(--gold);
+}
+
+.fade-in {
+    animation: fadeIn .5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseGold {
+    0%,100% {
+        box-shadow: 0 0 0 rgba(200,161,90,0);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(200,161,90,.16);
+    }
+}
+
+/* =========================================================
    ГЛАВНОЕ МЕНЮ
-========================= */
+========================================================= */
 
 #menu {
     min-height: 100vh;
@@ -35,65 +110,157 @@ button {
     justify-content: center;
     align-items: center;
     padding: 25px;
+    position: relative;
+    overflow: hidden;
+
     background:
-        radial-gradient(circle at center, #252525 0%, #111 65%);
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(188,151,86,.14),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #080909,
+            #171513 50%,
+            #070808
+        );
+}
+
+#menu::before {
+    content: "FILM 17";
+    position: absolute;
+    top: 8%;
+    left: -5%;
+    font-family: Georgia, serif;
+    font-size: clamp(90px, 20vw, 260px);
+    letter-spacing: 10px;
+    color: rgba(255,255,255,.018);
+    transform: rotate(-12deg);
+}
+
+#menu::after {
+    content: "ЗВЕЗДА • 1963 • АРХИВ • 17";
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: rgba(255,255,255,.18);
+    letter-spacing: 5px;
+    font-size: 10px;
 }
 
 .menu-box {
     width: 100%;
-    max-width: 700px;
+    max-width: 820px;
     text-align: center;
-    border: 1px solid #555;
-    padding: 50px 30px;
-    background: rgba(20,20,20,.96);
-    box-shadow: 0 0 40px #000;
+    padding: 65px 35px;
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(29,28,25,.98),
+            rgba(12,13,14,.98)
+        );
+
+    border: 1px solid rgba(207,170,96,.35);
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.8),
+        inset 0 0 80px rgba(200,161,90,.025);
+
+    animation: pulseGold 5s infinite;
+}
+
+.menu-box::before,
+.menu-box::after {
+    content: "";
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-color: var(--gold);
+    opacity: .65;
+}
+
+.menu-box::before {
+    top: 14px;
+    left: 14px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+.menu-box::after {
+    right: 14px;
+    bottom: 14px;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
 }
 
 .menu-case {
-    color: #aaa;
-    font-size: 15px;
-    letter-spacing: 3px;
-    margin-bottom: 20px;
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 7px;
+    margin-bottom: 25px;
 }
 
 .menu-title {
-    font-family: Georgia, serif;
-    font-size: clamp(35px, 7vw, 65px);
-    line-height: 1;
-    margin-bottom: 20px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(42px, 8vw, 82px);
+    line-height: .94;
+    letter-spacing: 4px;
+    text-shadow: 0 5px 30px #000;
+    margin-bottom: 25px;
 }
 
 .menu-subtitle {
-    color: #aaa;
-    margin-bottom: 40px;
+    color: #9e9b92;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 48px;
 }
 
 .start-btn {
-    border: none;
-    background: #d0a85c;
-    color: #151515;
-    padding: 18px 35px;
-    font-size: 18px;
+    border: 1px solid var(--gold);
+    background:
+        linear-gradient(
+            135deg,
+            #cba75e,
+            #a9823f
+        );
+    color: #17130c;
+    padding: 17px 32px;
+    font-size: 14px;
+    letter-spacing: 2px;
     font-weight: bold;
     cursor: pointer;
-    transition: .2s;
+    transition: .25s;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
 .start-btn:hover {
-    background: #e1bd72;
-    transform: translateY(-2px);
+    background: linear-gradient(135deg,#e1c37b,#bd9852);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.55);
 }
 
-/* =========================
+/* =========================================================
    ВСТУПЛЕНИЕ
-========================= */
+========================================================= */
 
 #intro {
     position: fixed;
     inset: 0;
     z-index: 1000;
     background:
-        radial-gradient(circle at center, #1c1d1e 0%, #080909 75%);
+        radial-gradient(
+            circle at center,
+            #24211b 0%,
+            #0c0d0e 58%,
+            #050606 100%
+        );
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,21 +269,21 @@ button {
 
 .intro-box {
     width: 100%;
-    max-width: 850px;
+    max-width: 900px;
     text-align: center;
 }
 
 .intro-case {
-    color: #b99a5c;
-    font-size: 14px;
-    letter-spacing: 5px;
-    margin-bottom: 20px;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 6px;
+    margin-bottom: 22px;
 }
 
 .intro-title {
     font-family: Georgia, serif;
-    font-size: clamp(30px, 6vw, 58px);
-    letter-spacing: 2px;
+    font-size: clamp(35px, 7vw, 68px);
+    letter-spacing: 3px;
     margin-bottom: 45px;
 }
 
@@ -128,13 +295,14 @@ button {
 }
 
 .intro-line {
-    max-width: 760px;
+    max-width: 790px;
     font-family: Georgia, serif;
-    font-size: clamp(20px, 3vw, 28px);
-    line-height: 1.7;
-    color: #ddd;
+    font-size: clamp(20px, 3vw, 29px);
+    line-height: 1.65;
+    color: #dedbd2;
     opacity: 0;
-    transition: opacity .25s ease;
+    transition: opacity .3s ease;
+    text-shadow: 0 2px 15px #000;
 }
 
 .intro-line.show {
@@ -143,42 +311,44 @@ button {
 
 .intro-progress {
     margin: 30px auto 20px;
-    max-width: 500px;
+    max-width: 540px;
     height: 2px;
-    background: #333;
+    background: #292a2a;
     overflow: hidden;
 }
 
 .intro-progress-bar {
     height: 100%;
     width: 0%;
-    background: #d0a85c;
+    background: linear-gradient(90deg,#8d6936,#e0bd72);
     transition: width .3s ease;
 }
 
 .intro-status {
-    color: #777;
-    font-size: 11px;
-    letter-spacing: 2px;
+    color: #666;
+    font-size: 10px;
+    letter-spacing: 3px;
     margin-top: 20px;
 }
 
 .intro-status.active {
-    color: #b99a5c;
+    color: var(--gold);
 }
 
 .skip-intro {
-    border: 1px solid #555;
+    border: 1px solid #454545;
     background: transparent;
-    color: #999;
+    color: #777;
     padding: 10px 18px;
     cursor: pointer;
     margin-top: 15px;
+    font-size: 11px;
+    letter-spacing: 1px;
 }
 
 .skip-intro:hover {
     color: white;
-    border-color: #888;
+    border-color: var(--gold);
 }
 
 .intro-start {
@@ -193,110 +363,342 @@ button {
     pointer-events: auto;
 }
 
-/* =========================
+/* =========================================================
    ИГРА
-========================= */
+========================================================= */
 
 #game {
     min-height: 100vh;
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            rgba(151,120,65,.08),
+            transparent 45%
+        );
 }
 
+/* =========================================================
+   ШАПКА
+========================================================= */
+
 .header {
-    min-height: 65px;
-    background: #17191b;
-    border-bottom: 1px solid #444;
+    min-height: 72px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(27,27,25,.98),
+            rgba(14,15,16,.98)
+        );
+    border-bottom: 1px solid var(--line);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
-    gap: 15px;
+    padding: 12px 24px;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(12px);
 }
 
 .header-title {
-    font-weight: bold;
+    font-family: Georgia, serif;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+.header-title::first-letter {
+    color: var(--gold);
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.header-btn {
-    border: 1px solid #555;
-    background: #242628;
-    color: #eee;
-    padding: 10px 14px;
-    cursor: pointer;
-}
-
-.header-btn:hover {
-    background: #303235;
+    gap: 14px;
 }
 
 .counter {
-    color: #aaa;
-    font-size: 14px;
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
 
-/* =========================
+.counter span {
+    color: var(--gold);
+    font-weight: bold;
+}
+
+.header-btn {
+    border: 1px solid #48433a;
+    background: #1c1d1e;
+    color: #ddd;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.header-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+    background: #24231f;
+}
+
+/* =========================================================
    КАРТА
-========================= */
+========================================================= */
 
 .map-area {
-    padding: 25px;
-    max-width: 1100px;
+    padding: 35px 25px 70px;
+    max-width: 1250px;
     margin: auto;
 }
 
-.map-title {
+.map-heading {
     text-align: center;
+    margin-bottom: 25px;
+}
+
+.map-title {
     font-family: Georgia, serif;
-    font-size: 30px;
-    margin: 10px 0 5px;
+    font-size: clamp(28px,5vw,42px);
+    letter-spacing: 4px;
+    margin: 5px 0 8px;
 }
 
 .map-subtitle {
     text-align: center;
-    color: #888;
+    color: #777;
+    margin-bottom: 28px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.map-meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
     margin-bottom: 25px;
+}
+
+.meta-chip {
+    border: 1px solid #363631;
+    background: rgba(22,23,23,.8);
+    padding: 7px 12px;
+    color: #888;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.meta-chip strong {
+    color: var(--gold);
+}
+
+/* =========================================================
+   ПЛАН СТУДИИ
+========================================================= */
+
+.studio-wrap {
+    position: relative;
+    max-width: 1050px;
+    margin: auto;
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(65,58,45,.22),
+            rgba(10,11,12,.95)
+        );
+
+    border: 1px solid rgba(202,166,91,.35);
+
+    box-shadow:
+        0 35px 90px rgba(0,0,0,.65),
+        inset 0 0 70px rgba(0,0,0,.5);
+}
+
+.studio-wrap::before {
+    content: "АРХИВНАЯ КОПИЯ • СТУДИЯ «ЗВЕЗДА»";
+    position: absolute;
+    top: 6px;
+    left: 20px;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: #625b4d;
 }
 
 .studio {
     position: relative;
-    max-width: 900px;
-    height: 600px;
+    width: 100%;
+    height: 650px;
     margin: auto;
-    border: 3px solid #555;
-    background:
-        linear-gradient(90deg, transparent 49.7%, #333 49.7%, #333 50.3%, transparent 50.3%),
-        linear-gradient(transparent 49.7%, #333 49.7%, #333 50.3%, transparent 50.3%),
-        #1a1c1e;
     overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(202,166,91,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(202,166,91,.035) 1px,
+            transparent 1px
+        ),
+        #111415;
+
+    background-size: 30px 30px;
+
+    border: 1px solid #4d493f;
 }
+
+/* линии коридоров */
+
+.studio::before {
+    content: "";
+    position: absolute;
+    left: 31%;
+    right: 31%;
+    top: 29%;
+    bottom: 29%;
+    background:
+        linear-gradient(
+            90deg,
+            transparent 49.6%,
+            rgba(186,151,84,.13) 49.6%,
+            rgba(186,151,84,.13) 50.4%,
+            transparent 50.4%
+        );
+    border-top: 1px dashed rgba(200,161,90,.18);
+    border-bottom: 1px dashed rgba(200,161,90,.18);
+    pointer-events: none;
+}
+
+/* центральная дорожка */
+
+.studio::after {
+    content: "CENTRAL CORRIDOR";
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%,-50%) rotate(-90deg);
+    color: rgba(200,161,90,.13);
+    font-size: 9px;
+    letter-spacing: 4px;
+    pointer-events: none;
+}
+
+/* =========================================================
+   КОМНАТЫ
+========================================================= */
 
 .room {
     position: absolute;
-    border: 2px solid #666;
-    background: #202326;
+    border: 1px solid #57544c;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34,35,34,.97),
+            rgba(19,20,21,.98)
+        );
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 10px;
-    transition: .2s;
+    transition: .25s;
+    overflow: hidden;
+}
+
+.room::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(255,255,255,.035);
+    pointer-events: none;
+}
+
+.room::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(200,161,90,.05);
+    filter: blur(15px);
+    opacity: 0;
+    transition: .3s;
 }
 
 .room:hover {
-    background: #292c2f;
-    border-color: #d0a85c;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(46,43,35,.98),
+            rgba(23,24,25,.98)
+        );
+    border-color: var(--gold);
+    transform: translateY(-2px);
     z-index: 5;
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.5),
+        inset 0 0 35px rgba(200,161,90,.06);
 }
 
-.room span {
-    pointer-events: none;
+.room:hover::after {
+    opacity: 1;
 }
+
+.room-content {
+    position: relative;
+    z-index: 2;
+}
+
+.room-icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 9px;
+    filter: grayscale(.2);
+}
+
+.room-name {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #dedbd2;
+}
+
+.room-number {
+    display: block;
+    margin-top: 7px;
+    color: #6e6a60;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.room-status {
+    margin-top: 9px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #6e6e69;
+}
+
+.room-status::before {
+    content: "●";
+    color: #75623e;
+    margin-right: 4px;
+}
+
+.room:hover .room-status {
+    color: var(--gold-light);
+}
+
+/* расположение */
 
 .archive {
     left: 2%;
@@ -306,9 +708,9 @@ button {
 }
 
 .projection {
-    left: 35%;
+    left: 35.5%;
     top: 3%;
-    width: 30%;
+    width: 29%;
     height: 28%;
 }
 
@@ -327,9 +729,9 @@ button {
 }
 
 .security {
-    left: 35%;
+    left: 35.5%;
     bottom: 3%;
-    width: 30%;
+    width: 29%;
     height: 28%;
 }
 
@@ -341,21 +743,73 @@ button {
 }
 
 .corridor {
-    left: 35%;
-    top: 38%;
-    width: 30%;
-    height: 24%;
-    background: #151718;
+    left: 35.5%;
+    top: 37%;
+    width: 29%;
+    height: 26%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,.018) 0,
+            rgba(255,255,255,.018) 2px,
+            transparent 2px,
+            transparent 18px
+        ),
+        #151718;
 }
 
-/* =========================
+/* =========================================================
+   ЛЕГЕНДА КАРТЫ
+========================================================= */
+
+.map-legend {
+    max-width: 1050px;
+    margin: 15px auto 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #6e6d68;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.legend-left,
+.legend-right {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.legend-dot.gold {
+    background: var(--gold);
+}
+
+.legend-dot.gray {
+    background: #555;
+}
+
+.legend-dot.red {
+    background: var(--red);
+}
+
+/* =========================================================
    МОДАЛЬНЫЕ ОКНА
-========================= */
+========================================================= */
 
 .modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.78);
+    background: rgba(0,0,0,.84);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -365,56 +819,115 @@ button {
 
 .modal-box {
     width: 100%;
-    max-width: 700px;
+    max-width: 760px;
     max-height: 90vh;
     overflow-y: auto;
-    background: #1b1d1f;
-    border: 1px solid #555;
-    padding: 25px;
-    box-shadow: 0 15px 60px #000;
+    background:
+        linear-gradient(
+            145deg,
+            #1b1c1d,
+            #101112
+        );
+    border: 1px solid #514a3d;
+    padding: 30px;
+    box-shadow:
+        0 30px 100px #000,
+        inset 0 0 50px rgba(200,161,90,.025);
+    animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(.97) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .modal-title {
     font-family: Georgia, serif;
-    font-size: 28px;
-    margin-bottom: 5px;
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
 }
 
 .modal-subtitle {
-    color: #999;
-    margin-bottom: 20px;
+    color: #85847d;
+    margin-bottom: 25px;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .close-btn {
     float: right;
     background: transparent;
-    border: none;
-    color: #aaa;
-    font-size: 25px;
+    border: 1px solid transparent;
+    color: #777;
+    font-size: 26px;
     cursor: pointer;
+    width: 35px;
+    height: 35px;
+    transition: .2s;
 }
 
-/* =========================
+.close-btn:hover {
+    color: var(--gold);
+    border-color: #514a3d;
+}
+
+/* =========================================================
    ТОЧКИ ПОИСКА
-========================= */
+========================================================= */
 
 .spot {
-    border: 1px solid #444;
-    background: #242628;
-    padding: 16px;
+    position: relative;
+    border: 1px solid #35383a;
+    background:
+        linear-gradient(
+            100deg,
+            #202224,
+            #181a1c
+        );
+    padding: 17px 18px 17px 21px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: .15s;
+    transition: .2s;
+    overflow: hidden;
+}
+
+.spot::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    opacity: 0;
+    transition: .2s;
 }
 
 .spot:hover {
-    background: #2c2f32;
-    border-color: #777;
+    border-color: #706343;
+    transform: translateX(3px);
+}
+
+.spot:hover::before {
+    opacity: 1;
 }
 
 .spot.done {
     opacity: .45;
     cursor: default;
+}
+
+.spot.done::before {
+    background: var(--green);
+    opacity: 1;
 }
 
 .spot.locked {
@@ -425,16 +938,18 @@ button {
 .spot-title {
     font-weight: bold;
     margin-bottom: 6px;
+    letter-spacing: .4px;
 }
 
 .spot-description {
-    color: #999;
-    font-size: 14px;
+    color: #858680;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
-/* =========================
-   ВОПРОС
-========================= */
+/* =========================================================
+   ВОПРОСЫ
+========================================================= */
 
 .question-box {
     text-align: center;
@@ -442,17 +957,22 @@ button {
 
 .subject {
     display: inline-block;
-    padding: 5px 10px;
-    background: #34373a;
-    color: #d0a85c;
+    padding: 6px 12px;
+    background: rgba(200,161,90,.08);
+    border: 1px solid rgba(200,161,90,.25);
+    color: var(--gold);
     margin: 10px 0 20px;
-    font-size: 13px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .question {
-    font-size: 22px;
-    line-height: 1.45;
+    font-family: Georgia, serif;
+    font-size: 23px;
+    line-height: 1.5;
     margin: 20px 0 30px;
+    color: #e5e1d8;
 }
 
 .question-buttons {
@@ -463,74 +983,115 @@ button {
 }
 
 .answer-btn {
-    border: none;
-    padding: 15px 25px;
+    border: 1px solid transparent;
+    padding: 14px 23px;
     color: white;
     font-weight: bold;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: .2s;
 }
 
 .correct-btn {
-    background: #477a52;
+    background: #3f6147;
+    border-color: #5f8065;
 }
 
 .correct-btn:hover {
-    background: #579563;
+    background: #507957;
+    transform: translateY(-2px);
 }
 
 .wrong-btn {
-    background: #803f3f;
+    background: #633b38;
+    border-color: #80504b;
 }
 
 .wrong-btn:hover {
-    background: #a04e4e;
+    background: #774640;
+    transform: translateY(-2px);
 }
 
 .question-result {
     margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #555;
-    background: #242628;
+    padding: 17px;
+    border: 1px solid #444;
+    background:
+        linear-gradient(
+            135deg,
+            #252729,
+            #1b1d1f
+        );
+    line-height: 1.55;
 }
 
 .reward {
     margin-top: 10px;
-    color: #d0a85c;
+    color: var(--gold-light);
 }
 
-/* =========================
-   ПЕРСОНАЖ
-========================= */
+/* =========================================================
+   ПЕРСОНАЖИ
+========================================================= */
 
 .character-box {
-    background: #222426;
-    border: 1px solid #444;
-    padding: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            #222426,
+            #17191a
+        );
+    border: 1px solid #42413b;
+    padding: 24px;
+    position: relative;
+}
+
+.character-box::before {
+    content: "ДОПРОС";
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    color: #514b40;
+    font-size: 9px;
+    letter-spacing: 3px;
 }
 
 .character-name {
-    font-size: 25px;
+    font-size: 29px;
     font-family: Georgia, serif;
     margin-bottom: 5px;
 }
 
 .character-job {
-    color: #999;
-    margin-bottom: 20px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
 }
 
 .dialogue {
-    line-height: 1.6;
-    margin-bottom: 20px;
+    line-height: 1.7;
+    color: #bbb9b1;
+    margin-bottom: 22px;
+    padding-left: 15px;
+    border-left: 1px solid #62583f;
 }
 
 .riddle {
-    border-left: 3px solid #d0a85c;
-    padding: 15px;
-    background: #292b2d;
-    margin: 15px 0;
+    border-left: 3px solid var(--gold);
+    padding: 17px;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(200,161,90,.07),
+            rgba(255,255,255,.015)
+        );
+    margin: 18px 0;
+    font-family: Georgia, serif;
     font-size: 17px;
+    line-height: 1.55;
 }
 
 .riddle-answer {
@@ -542,78 +1103,177 @@ button {
 .riddle-answer input {
     flex: 1;
     min-width: 180px;
-    background: #151617;
-    border: 1px solid #555;
+    background: #101112;
+    border: 1px solid #454641;
     color: white;
     padding: 13px;
     font-size: 16px;
+    outline: none;
+}
+
+.riddle-answer input:focus {
+    border-color: var(--gold);
 }
 
 .small-btn {
-    border: 1px solid #555;
-    background: #303235;
-    color: white;
+    border: 1px solid #635638;
+    background: #2b2924;
+    color: #eee;
     padding: 12px 18px;
     cursor: pointer;
+    transition: .2s;
 }
 
 .small-btn:hover {
-    background: #3b3d40;
+    background: #3a3429;
+    color: var(--gold-light);
 }
 
-/* =========================
+/* =========================================================
    БЛОКНОТ
-========================= */
+========================================================= */
+
+#notebookModal .modal-box {
+    background:
+        linear-gradient(
+            145deg,
+            #211f1b,
+            #151514
+        );
+}
 
 .notebook-section {
-    margin-bottom: 25px;
+    margin-bottom: 28px;
 }
 
 .notebook-section h3 {
-    color: #d0a85c;
-    margin-bottom: 10px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    letter-spacing: 1px;
 }
 
 .clue {
-    padding: 12px;
-    border-bottom: 1px solid #333;
-    color: #ddd;
+    padding: 13px 14px;
+    border-bottom: 1px solid #302f2b;
+    color: #d0cec7;
+    line-height: 1.5;
 }
 
 .item {
-    padding: 12px;
-    border: 1px solid #444;
+    padding: 14px;
+    border: 1px solid #3d3b35;
     margin-bottom: 8px;
-    background: #242628;
+    background: rgba(255,255,255,.025);
+}
+
+.item b {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.item span {
+    display: block;
+    color: #777;
+    font-size: 13px;
 }
 
 .empty {
-    color: #777;
+    color: #666;
     font-style: italic;
+    padding: 10px 0;
 }
 
-/* =========================
+/* =========================================================
+   СКРОЛЛБАР
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0d0e0e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #454038;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #75633e;
+}
+
+/* =========================================================
    АДАПТАЦИЯ
-========================= */
+========================================================= */
 
 max-width: 700px {
 
-    .studio {
-        height: 500px;
-    }
-
-    .room {
-        font-size: 12px;
-    }
-
     .header {
-        height: auto;
         padding: 12px;
         flex-wrap: wrap;
     }
 
+    .header-title {
+        font-size: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .map-area {
+        padding: 25px 12px 50px;
+    }
+
+    .studio-wrap {
+        padding: 10px;
+    }
+
+    .studio {
+        height: 540px;
+        background-size: 20px 20px;
+    }
+
+    .room {
+        padding: 6px;
+    }
+
+    .room-icon {
+        font-size: 23px;
+        margin-bottom: 5px;
+    }
+
+    .room-name {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .room-number {
+        font-size: 7px;
+    }
+
+    .room-status {
+        font-size: 6px;
+    }
+
+    .studio::after {
+        display: none;
+    }
+
+    .modal-box {
+        padding: 21px;
+    }
+
+    .modal-title {
+        font-size: 24px;
+    }
+
     .question {
-        font-size: 18px;
+        font-size: 19px;
     }
 
     .intro-text {
@@ -623,15 +1283,56 @@ max-width: 700px {
     .intro-line {
         font-size: 19px;
     }
+
+    .menu-box {
+        padding: 50px 22px;
+    }
+
+    .menu-title {
+        font-size: 43px;
+    }
+
+    .map-legend {
+        font-size: 8px;
+    }
+}
+
+max-width: 450px {
+
+    .studio {
+        height: 480px;
+    }
+
+    .room-icon {
+        font-size: 19px;
+    }
+
+    .room-name {
+        font-size: 8px;
+    }
+
+    .room-status,
+    .room-number {
+        display: none;
+    }
+
+    .map-title {
+        font-size: 25px;
+        letter-spacing: 2px;
+    }
+
+    .map-subtitle {
+        font-size: 9px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
+<!-- =====================================================
      ГЛАВНОЕ МЕНЮ
-========================= -->
+===================================================== -->
 
 <div id="menu">
 
@@ -658,9 +1359,9 @@ max-width: 700px {
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      ВСТУПЛЕНИЕ
-========================= -->
+===================================================== -->
 
 <div id="intro" class="hidden">
 
@@ -708,9 +1409,9 @@ max-width: 700px {
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      ИГРА
-========================= -->
+===================================================== -->
 
 <div id="game" class="hidden">
 
@@ -723,12 +1424,13 @@ max-width: 700px {
         <div class="header-right">
 
             <div class="counter">
-                Допрошено:
+                ДОПРОШЕНО:
                 <span id="solvedCounter">0</span>/7
             </div>
 
-            <button class="header-btn"
-                    onclick="openNotebook()">
+            <button
+                class="header-btn"
+                onclick="openNotebook()">
                 📓 БЛОКНОТ
             </button>
 
@@ -738,57 +1440,265 @@ max-width: 700px {
 
     <main class="map-area">
 
-        <div class="map-title">
-            СТАРАЯ КИНОСТУДИЯ
+        <div class="map-heading">
+
+            <div class="map-title">
+                СТУДИЯ «ЗВЕЗДА»
+            </div>
+
+            <div class="map-subtitle">
+                Архивный план здания · выберите помещение
+            </div>
+
+            <div class="map-meta">
+
+                <div class="meta-chip">
+                    ДАТА: <strong>31.10.2026</strong>
+                </div>
+
+                <div class="meta-chip">
+                    ВРЕМЯ: <strong>21:17</strong>
+                </div>
+
+                <div class="meta-chip">
+                    ДЕЛО: <strong>001</strong>
+                </div>
+
+                <div class="meta-chip">
+                    ОБЪЕКТ: <strong>ПЛЁНКА №17</strong>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="map-subtitle">
-            Выберите помещение для расследования
+        <div class="studio-wrap">
+
+            <div class="studio">
+
+                <!-- АРХИВ -->
+
+                <div
+                    class="room archive"
+                    onclick="openRoom('archive')">
+
+                    <div class="room-content">
+
+                        <span class="room-icon">
+                            📁
+                        </span>
+
+                        <span class="room-name">
+                            АРХИВ
+                        </span>
+
+                        <span class="room-number">
+                            ПОМЕЩЕНИЕ 01
+                        </span>
+
+                        <div class="room-status">
+                            ДОКУМЕНТЫ · ПЛЁНКИ
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ПРОЕКЦИОННАЯ -->
+
+                <div
+                    class="room projection"
+                    onclick="openRoom('projection')">
+
+                    <div class="room-content">
+
+                        <span class="room-icon">
+                            📽️
+                        </span>
+
+                        <span class="room-name">
+                            ПРОЕКЦИОННАЯ
+                        </span>
+
+                        <span class="room-number">
+                            ПОМЕЩЕНИЕ 02
+                        </span>
+
+                        <div class="room-status">
+                            ПРОЕКТОР · КАТУШКИ
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- КАБИНЕТ -->
+
+                <div
+                    class="room director"
+                    onclick="openRoom('director')">
+
+                    <div class="room-content">
+
+                        <span class="room-icon">
+                            🎬
+                        </span>
+
+                        <span class="room-name">
+                            КАБИНЕТ
+РЕЖИССЁРА
+                        </span>
+
+                        <span class="room-number">
+                            ПОМЕЩЕНИЕ 03
+                        </span>
+
+                        <div class="room-status">
+                            СЕЙФ · ДОКУМЕНТЫ
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- КОСТЮМЕРНАЯ -->
+
+                <div
+                    class="room costume"
+                    onclick="openRoom('costume')">
+
+                    <div class="room-content">
+
+                        <span class="room-icon">
+                            🎭
+                        </span>
+
+                        <span class="room-name">
+                            КОСТЮМЕРНАЯ
+                        </span>
+
+                        <span class="room-number">
+                            ПОМЕЩЕНИЕ 04
+                        </span>
+
+                        <div class="room-status">
+                            КОСТЮМЫ · ЗЕРКАЛО
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ОХРАНА -->
+
+                <div
+                    class="room security"
+                    onclick="openRoom('security')">
+
+                    <div class="room-content">
+
+                        <span class="room-icon">
+                            📹
+                        </span>
+
+                        <span class="room-name">
+                            ОХРАНА
+                        </span>
+
+                        <span class="room-number">
+                            ПОМЕЩЕНИЕ 05
+                        </span>
+
+                        <div class="room-status">
+                            КАМЕРЫ · КЛЮЧИ
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ЗАКУЛИСЬЕ -->
+
+                <div
+                    class="room backstage"
+                    onclick="openRoom('backstage')">
+
+                    <div class="room-content">
+
+                        <span class="room-icon">
+                            🎭
+                        </span>
+
+                        <span class="room-name">
+                            ЗАКУЛИСЬЕ
+                        </span>
+
+                        <span class="room-number">
+                            ПОМЕЩЕНИЕ 06
+                        </span>
+
+                        <div class="room-status">
+                            ДЕКОРАЦИИ · СКЛАД
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- КОРИДОР -->
+
+                <div
+                    class="room corridor"
+                    onclick="openRoom('corridor')">
+
+                    <div class="room-content">
+
+                        <span class="room-icon">
+                            🚪
+                        </span>
+
+                        <span class="room-name">
+                            КОРИДОР
+                        </span>
+
+                        <span class="room-number">
+                            СЕКТОР C
+                        </span>
+
+                        <div class="room-status">
+                            ЦЕНТРАЛЬНЫЙ ПРОХОД
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="studio">
+        <div class="map-legend">
 
-            <div class="room archive"
-                 onclick="openRoom('archive')">
-                <span>📁
-АРХИВ</span>
+            <div class="legend-left">
+
+                <span>
+                    <i class="legend-dot gold"></i>
+                    ДОСТУПНО ДЛЯ ОСМОТРА
+                </span>
+
+                <span>
+                    <i class="legend-dot gray"></i>
+                    ОБЫЧНАЯ ЗОНА
+                </span>
+
+                <span>
+                    <i class="legend-dot red"></i>
+                    ОСОБОЕ ВНИМАНИЕ
+                </span>
+
             </div>
 
-            <div class="room projection"
-                 onclick="openRoom('projection')">
-                <span>🎥
-ПРОЕКЦИОННАЯ</span>
-            </div>
-
-            <div class="room director"
-                 onclick="openRoom('director')">
-                <span>🎬
-КАБИНЕТ
-РЕЖИССЁРА</span>
-            </div>
-
-            <div class="room costume"
-                 onclick="openRoom('costume')">
-                <span>👗
-КОСТЮМЕРНАЯ</span>
-            </div>
-
-            <div class="room security"
-                 onclick="openRoom('security')">
-                <span>🔐
-ОХРАНА</span>
-            </div>
-
-            <div class="room backstage"
-                 onclick="openRoom('backstage')">
-                <span>🎭
-ЗАКУЛИСЬЕ</span>
-            </div>
-
-            <div class="room corridor"
-                 onclick="openRoom('corridor')">
-                <span>🚪
-КОРИДОР</span>
+            <div class="legend-right">
+                АРХИВНАЯ СХЕМА №17-А
             </div>
 
         </div>
@@ -797,24 +1707,27 @@ max-width: 700px {
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      ОКНО КОМНАТЫ
-========================= -->
+===================================================== -->
 
 <div id="roomModal" class="modal hidden">
 
     <div class="modal-box">
 
-        <button class="close-btn"
-                onclick="closeModal('roomModal')">
+        <button
+            class="close-btn"
+            onclick="closeModal('roomModal')">
             ×
         </button>
 
         <div id="roomTitle"
-             class="modal-title"></div>
+             class="modal-title">
+        </div>
 
         <div id="roomSubtitle"
-             class="modal-subtitle"></div>
+             class="modal-subtitle">
+        </div>
 
         <div id="roomContent"></div>
 
@@ -822,39 +1735,42 @@ max-width: 700px {
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      ОКНО ВОПРОСА
-========================= -->
+===================================================== -->
 
 <div id="questionModal" class="modal hidden">
 
     <div class="modal-box question-box">
 
-        <button class="close-btn"
-                onclick="closeModal('questionModal')">
+        <button
+            class="close-btn"
+            onclick="closeModal('questionModal')">
             ×
         </button>
 
         <div id="questionTitle"
-             class="modal-title"></div>
+             class="modal-title">
+        </div>
 
         <div id="questionSubject"></div>
 
         <div id="questionText"
-             class="question"></div>
+             class="question">
+        </div>
 
         <div class="question-buttons">
 
             <button
                 class="answer-btn correct-btn"
                 onclick="answerCorrect()">
-                ✅ ОТВЕТИЛИ
+                ✓ ОТВЕТ ЗАСЧИТАН
             </button>
 
             <button
                 class="answer-btn wrong-btn"
                 onclick="answerWrong()">
-                ❌ НЕ ОТВЕТИЛИ
+                ✕ НЕ ЗНАЮ
             </button>
 
         </div>
@@ -865,16 +1781,17 @@ max-width: 700px {
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      ОКНО ПЕРСОНАЖА
-========================= -->
+===================================================== -->
 
 <div id="characterModal" class="modal hidden">
 
     <div class="modal-box">
 
-        <button class="close-btn"
-                onclick="closeModal('characterModal')">
+        <button
+            class="close-btn"
+            onclick="closeModal('characterModal')">
             ×
         </button>
 
@@ -884,30 +1801,31 @@ max-width: 700px {
 
 </div>
 
-<!-- =========================
+<!-- =====================================================
      БЛОКНОТ
-========================= -->
+===================================================== -->
 
 <div id="notebookModal" class="modal hidden">
 
     <div class="modal-box">
 
-        <button class="close-btn"
-                onclick="closeModal('notebookModal')">
+        <button
+            class="close-btn"
+            onclick="closeModal('notebookModal')">
             ×
         </button>
 
         <div class="modal-title">
-            📓 БЛОКНОТ
+            📓 БЛОКНОТ СЛЕДОВАТЕЛЯ
         </div>
 
         <div class="modal-subtitle">
-            Материалы расследования
+            Материалы дела №001
         </div>
 
         <div class="notebook-section">
 
-            <h3>🔎 Улики</h3>
+            <h3>🔎 УЛИКИ</h3>
 
             <div id="notebookClues"></div>
 
@@ -915,7 +1833,7 @@ max-width: 700px {
 
         <div class="notebook-section">
 
-            <h3>🎒 Предметы</h3>
+            <h3>🎒 ПРЕДМЕТЫ</h3>
 
             <div id="notebookItems"></div>
 
@@ -923,7 +1841,7 @@ max-width: 700px {
 
         <div class="notebook-section">
 
-            <h3>👤 Персонажи</h3>
+            <h3>👤 ДОПРОШЕННЫЕ</h3>
 
             <div id="notebookCharacters"></div>
 
@@ -936,7 +1854,7 @@ max-width: 700px {
 <script>
 
 /* =========================================================
-   СОСТОЯНИЕ ИГРЫ
+   СОСТОЯНИЕ
 ========================================================= */
 
 let inventory = [];
@@ -949,94 +1867,77 @@ let currentQuestion = null;
 let currentCharacter = null;
 
 /* =========================================================
-   ВСТУПИТЕЛЬНАЯ ИСТОРИЯ
+   ВСТУПЛЕНИЕ
 ========================================================= */
 
 const introStory = [
 
     {
-        text: "Старая киностудия «Звезда». Тридцать первое октября две тысячи двадцать шестого года. Двадцать один час семнадцать минут.",
-        pause: 0
+        text: "Старая киностудия «Звезда». Тридцать первое октября две тысячи двадцать шестого года. Двадцать один час семнадцать минут."
     },
 
     {
-        text: "Через несколько часов здесь должен состояться юбилейный показ фильма, который считался утраченным почти шестьдесят лет.",
-        pause: 0
+        text: "Через несколько часов здесь должен состояться юбилейный показ фильма, который считался утраченным почти шестьдесят лет."
     },
 
     {
-        text: "Всё началось ещё в тысяча девятьсот шестьдесят третьем году.",
-        pause: 0
+        text: "Всё началось ещё в тысяча девятьсот шестьдесят третьем году."
     },
 
     {
-        text: "Именно тогда на этой студии произошёл странный инцидент. После него оригинал плёнки номер семнадцать исчез.",
-        pause: 0
+        text: "Именно тогда на этой студии произошёл странный инцидент. После него оригинал плёнки номер семнадцать исчез."
     },
 
     {
-        text: "Официальная версия гласила: плёнка была утеряна.",
-        pause: 0
+        text: "Официальная версия гласила: плёнка была утеряна."
     },
 
     {
-        text: "Но сегодня её нашли.",
-        pause: 0
+        text: "Но сегодня её нашли."
     },
 
     {
-        text: "Вернее... должны были найти.",
-        pause: 0
+        text: "Вернее... должны были найти."
     },
 
     {
-        text: "Когда архивист открывает сейф, плёнки там уже нет.",
-        pause: 0
+        text: "Когда архивист открывает сейф, плёнки там уже нет."
     },
 
     {
-        text: "Дверь архива заперта. Камеры отключились всего на четыре минуты.",
-        pause: 0
+        text: "Дверь архива заперта. Камеры отключились всего на четыре минуты."
     },
 
     {
-        text: "Последний человек, который видел плёнку, утверждает, что ничего не трогал.",
-        pause: 0
+        text: "Последний человек, который видел плёнку, утверждает, что ничего не трогал."
     },
 
     {
-        text: "Но в старых документах снова появляется одна и та же дата.",
-        pause: 0
+        text: "Но в старых документах снова появляется одна и та же дата."
     },
 
     {
-        text: "Тысяча девятьсот шестьдесят третий год.",
-        pause: 0
+        text: "Тысяча девятьсот шестьдесят третий год."
     },
 
     {
-        text: "Кто-то явно не хочет, чтобы прошлое было раскрыто.",
-        pause: 0
+        text: "Кто-то явно не хочет, чтобы прошлое было раскрыто."
     },
 
     {
-        text: "Ваша задача — выяснить, куда исчезла плёнка номер семнадцать.",
-        pause: 0
+        text: "Ваша задача — выяснить, куда исчезла плёнка номер семнадцать."
     },
 
     {
-        text: "Кто забрал её из архива?",
-        pause: 0
+        text: "Кто забрал её из архива?"
     },
 
     {
-        text: "И что на самом деле произошло здесь в тысяча девятьсот шестьдесят третьем году?",
-        pause: 0
+        text: "И что на самом деле произошло здесь в тысяча девятьсот шестьдесят третьем году?"
     },
 
     {
-        text: "Расследование начинается сейчас.",
-        pause: 0
+        text: "Расследование начинается сейчас."
     }
 
 ];
@@ -1046,7 +1947,7 @@ let introSkipped = false;
 let introUtterance = null;
 
 /* =========================================================
-   ЗАПУСК
+   ЗАПУСК ИГРЫ
 ========================================================= */
 
 function startGame() {
@@ -1092,7 +1993,7 @@ function startGame() {
 }
 
 /* =========================================================
-   ПОКАЗ ФРАЗЫ
+   ВСТУПЛЕНИЕ
 ========================================================= */
 
 function showIntroPart() {
@@ -1112,10 +2013,6 @@ function showIntroPart() {
 
     line.classList.remove("show");
 
-    /*
-       Очень короткая смена текста.
-       Это НЕ пауза в озвучке.
-    */
     setTimeout(() => {
 
         if (
@@ -1145,7 +2042,7 @@ function showIntroPart() {
 }
 
 /* =========================================================
-   ОПРЕДЕЛЕНИЕ РУССКОГО ГОЛОСА
+   РУССКИЙ ГОЛОС
 ========================================================= */
 
 function getRussianVoice() {
@@ -1161,10 +2058,6 @@ function getRussianVoice() {
         return null;
     }
 
-    /*
-       Сначала ищем русский голос.
-    */
-
     const russian =
         voices.filter(voice =>
             voice.lang &&
@@ -1175,11 +2068,6 @@ function getRussianVoice() {
     if (!russian.length) {
         return null;
     }
-
-    /*
-       Предпочитаем более естественные
-       системные голоса, если они есть.
-    */
 
     const preferredNames = [
         "dmitry",
@@ -1207,7 +2095,6 @@ function getRussianVoice() {
 
 /* =========================================================
    ОЗВУЧКА
-   БЕЗ ИСКУССТВЕННЫХ ПАУЗ МЕЖДУ ФРАЗАМИ
 ========================================================= */
 
 function speakIntroPart(text, storyIndex) {
@@ -1219,7 +2106,6 @@ function speakIntroPart(text, storyIndex) {
     if (!("speechSynthesis" in window)) {
 
         introIndex++;
-
         showIntroPart();
 
         return;
@@ -1231,17 +2117,8 @@ function speakIntroPart(text, storyIndex) {
         new SpeechSynthesisUtterance(text);
 
     introUtterance.lang = "ru-RU";
-
-    /*
-       Спокойная скорость диктора.
-    */
-    introUtterance.rate = 0.92;
-
-    /*
-       Немного более низкий голос.
-    */
-    introUtterance.pitch = 0.9;
-
+    introUtterance.rate = 0.95;
+    introUtterance.pitch = 0.95;
     introUtterance.volume = 1;
 
     const russianVoice =
@@ -1260,11 +2137,6 @@ function speakIntroPart(text, storyIndex) {
         ) {
             return;
         }
-
-        /*
-           Сразу следующая фраза.
-           Никаких 1000 / 1500 / 2000 мс ожидания.
-        */
 
         introIndex++;
 
@@ -1291,7 +2163,7 @@ function speakIntroPart(text, storyIndex) {
 }
 
 /* =========================================================
-   КОНЕЦ ВСТУПЛЕНИЯ
+   ЗАВЕРШЕНИЕ ВСТУПЛЕНИЯ
 ========================================================= */
 
 function finishIntroStory() {
@@ -1337,7 +2209,7 @@ function finishIntroStory() {
 }
 
 /* =========================================================
-   ПРОПУСК ВСТУПЛЕНИЯ
+   ПРОПУСК
 ========================================================= */
 
 function skipIntro() {
@@ -1395,7 +2267,6 @@ function finishIntro() {
 ========================================================= */
 
 const items = {
-
     archive_key: {
         name: "Ключ от архивного шкафа",
         description:
@@ -1504,7 +2375,7 @@ const rooms = {
                     text:
                         "На дне коробки остался след от катушки."
                 }
-                }
+            }
 
         ]
     },
@@ -1540,7 +2411,6 @@ const rooms = {
             {
                 id: "projection_rack",
                 name: "Стеллаж с плёнками",
-
                 description:
                     "На стеллаже несколько катушек.",
 
@@ -1825,6 +2695,7 @@ const rooms = {
                     "Журнал дежурств.",
 
                 subject: "Физика",
+
                 question:
                     "Почему дверную ручку делают далеко от петель?",
 
@@ -2029,6 +2900,7 @@ const rooms = {
 
         ]
     }
+
 };
 
 /* =========================================================
@@ -2038,165 +2910,117 @@ const rooms = {
 const characters = {
 
     marina: {
-
         name: "Марина Соколова",
         job: "Архивист",
-
         riddle:
             "Я могу быть дан человеку, но меня нельзя положить в карман. Если меня нарушить — доверие исчезнет. Что это?",
-
         answer: "обещание",
-
         hint1:
             "Это связано с тем, что человек может дать другому.",
-
         hint2:
             "Когда человек говорит «я обязательно это сделаю», он даёт это.",
-
         dialogue:
             "Марина нервничает и постоянно смотрит на дверь архива.",
-
         info:
             "В 20:31 я проверяла плёнку №17. После этого она оставалась в архиве."
     },
 
     viktor: {
-
         name: "Виктор Лебедев",
         job: "Киномеханик",
-
         riddle:
             "Меня можно смотреть, но нельзя потрогать. Через меня можно увидеть события прошлого. Что это?",
-
         answer: "фильм",
-
         hint1:
             "Это связано с кино.",
-
         hint2:
             "Его показывают в кинотеатре.",
-
         dialogue:
             "Виктор выглядит спокойно, но явно не хочет долго разговаривать.",
-
         info:
             "В 20:40 я был в проекционной. Камера №3 отключилась позже."
     },
 
     alexey: {
-
         name: "Алексей Орлов",
         job: "Режиссёр",
-
         riddle:
             "Чем больше из меня берут, тем больше я становлюсь. Что это?",
-
         answer: "дыра",
-
         hint1:
             "Это отсутствие чего-либо.",
-
         hint2:
             "Если вырезать часть стены, она появится.",
-
         dialogue:
             "Режиссёр отвечает коротко и явно что-то скрывает.",
-
         info:
             "История с оригиналом началась ещё в 1963 году."
     },
 
     elena: {
-
         name: "Елена Воронова",
         job: "Костюмер",
-
         riddle:
             "У актёра её может не быть в обычной жизни, но на сцене она становится очень важной. Что это?",
-
         answer: "роль",
-
         hint1:
             "Актёр получает её в фильме.",
-
         hint2:
             "Её играют.",
-
         dialogue:
             "Елена говорит, что в старых костюмах сохранились странные следы.",
-
         info:
             "Вчера я видела красную нить на костюме, которого никто не должен был трогать."
     },
 
     sergey: {
-
         name: "Сергей Крылов",
         job: "Охранник",
-
         riddle:
             "Я всегда рядом с тобой при свете, но исчезаю в темноте. Что я?",
-
         answer: "тень",
-
         hint1:
             "Она появляется из-за света.",
-
         hint2:
             "Ты видишь её на полу или стене.",
-
         dialogue:
             "Сергей показывает журнал дежурств.",
-
         info:
             "Камера №3 отключилась в 20:43. До этого в коридоре находился человек."
     },
 
     ilya: {
-
         name: "Илья Морозов",
         job: "Журналист",
-
         riddle:
             "Его можно знать, но нельзя увидеть. Его можно хранить и раскрыть. Что это?",
-
         answer: "секрет",
-
         hint1:
             "Его часто скрывают.",
-
         hint2:
             "Если его раскрыть — тайна перестаёт быть тайной.",
-
         dialogue:
             "Илья слишком заинтересован расследованием.",
-
         info:
             "В старом дневнике я нашёл фразу: «Виктор знает, где оригинал»."
     },
 
     nikolay: {
-
         name: "Николай Белов",
         job: "Водитель",
-
         riddle:
             "Она уже произошла, но о ней можно читать в книгах и документах. Что это?",
-
         answer: "история",
-
         hint1:
             "Она связана с прошлым.",
-
         hint2:
             "Мы изучаем её в школе.",
-
         dialogue:
             "Николай говорит, что в день исчезновения плёнки видел человека у архива.",
-
         info:
             "Около 20:45 кто-то быстро прошёл из архива к проекционной."
     }
+
 };
 
 /* =========================================================
@@ -2238,7 +3062,6 @@ function openRoom(roomId) {
                     <div class="spot-title">
                         ✓ ${spot.name}
                     </div>
-
                     <div class="spot-description">
                         Уже осмотрено.
                     </div>
@@ -2256,15 +3079,12 @@ function openRoom(roomId) {
 
             html += `
                 <div class="spot locked">
-
                     <div class="spot-title">
                         🔒 ${spot.name}
                     </div>
-
                     <div class="spot-description">
                         Нужен предмет: ${needed}
                     </div>
-
                 </div>
             `;
 
@@ -2390,7 +3210,7 @@ function openQuestion(roomId, spotId) {
     };
 
     document.getElementById("questionTitle").innerText =
-        "🔎 " + spot.name;
+        "🔎" + spot.name;
 
     document.getElementById("questionSubject").innerHTML =
         `<span class="subject">${spot.subject || "Вопрос"}</span>`;
@@ -2484,7 +3304,7 @@ function answerCorrect() {
 }
 
 /* =========================================================
-   НЕ ОТВЕТИЛИ
+   НЕВЕРНЫЙ ОТВЕТ
 ========================================================= */
 
 function answerWrong() {
@@ -2567,6 +3387,7 @@ function collectWithoutQuestion(roomId, spotId) {
     }
 
     if (spot.rewardClue) {
+
         foundClues.push(
             spot.rewardClue.text
         );
@@ -2591,7 +3412,6 @@ function createItemFromReward(reward) {
         inventory.find(
             x => x.name === reward.name
         );
-
     if (existing) {
         return null;
     }
@@ -2630,7 +3450,7 @@ function hasItem(requiredId) {
 }
 
 /* =========================================================
-   ПЕРСОНАЖИ
+   ПЕРСОНАЖ
 ========================================================= */
 
 function openCharacter(characterId) {
@@ -2688,7 +3508,7 @@ function openCharacter(characterId) {
                 <input
                     id="riddleInput"
                     type="text"
-                    placeholder="Ответ ведущего..."
+                    placeholder="Введите ответ..."
                     autocomplete="off">
 
                 <button
@@ -2716,7 +3536,7 @@ function openCharacter(characterId) {
 }
 
 /* =========================================================
-   ПРОВЕРКА ЗАГАДКИ
+   ЗАГАДКИ
 ========================================================= */
 
 let characterAttempts = {};
@@ -2798,10 +3618,10 @@ function checkRiddle() {
         ).innerHTML = `
             <div class="question-result">
 
-                ❌ Неверно.
+                <b>❌ Неверно.</b>
 
                 <p>
-                    Подсказка:
+                    💡 Подсказка №1:
                     ${character.hint1}
                 </p>
 
@@ -2816,14 +3636,14 @@ function checkRiddle() {
     ).innerHTML = `
         <div class="question-result">
 
-            ❌ Второй ответ тоже неверный.
+            <b>❌ Второй ответ тоже неверный.</b>
 
             <p>
-                Подсказка:
+                💡 Подсказка №2:
                 ${character.hint2}
             </p>
 
-            <p>
+            <p style="color:#888;">
                 Разговор пока заканчивается.
                 К этому персонажу можно вернуться позже.
             </p>
@@ -2887,7 +3707,9 @@ function updateNotebook() {
     if (inventory.length === 0) {
 
         itemsBox.innerHTML =
-            `<div class="empty">Предметов пока нет.</div>`;
+            `<div class="empty">
+                Предметов пока нет.
+            </div>`;
 
     } else {
 
@@ -2898,7 +3720,7 @@ function updateNotebook() {
 
                         <b>${item.name}</b>
 
-                        <span style="color:#999;">
+                        <span>
                             ${item.description}
                         </span>
 
@@ -2941,13 +3763,14 @@ function updateCounter() {
         );
 
     if (counter) {
+
         counter.innerText =
             solvedCharacters.length;
     }
 }
 
 /* =========================================================
-   ЗАКРЫТИЕ ОКОН
+   ЗАКРЫТИЕ
 ========================================================= */
 
 function closeModal(id) {
@@ -2988,7 +3811,7 @@ document.addEventListener(
             ) {
 
                 element.classList.add("hidden");
-            }
+                }
 
         });
 
