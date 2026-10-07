@@ -13,13 +13,11 @@
 :root {
     --bg: #08090a;
     --panel: #121416;
-    --panel2: #181a1d;
-    --panel3: #202328;
     --gold: #c8a15a;
-    --gold-light: #e3c47b;
+    --gold2: #e3c47b;
     --red: #9e4d43;
     --text: #e8e4db;
-    --muted: #8b8b86;
+    --muted: #888;
     --line: rgba(205,175,112,.25);
     --green: #64856b;
 }
@@ -31,23 +29,23 @@ html {
 body {
     margin: 0;
     background:
-        radial-gradient(circle at 50% -10%, #27231c 0%, #101112 35%, #070808 100%);
+        radial-gradient(circle at 50% -10%, #27231c 0, #101112 35%, #070808 100%);
     color: var(--text);
     font-family: Arial, sans-serif;
     min-height: 100vh;
 }
 
-body::before {
+body:before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 9999;
     opacity: .13;
-    background-image:
+    background:
         repeating-linear-gradient(
             0deg,
-            transparent 0px,
+            transparent 0,
             transparent 3px,
             rgba(255,255,255,.025) 4px
         );
@@ -55,10 +53,11 @@ body::before {
 
 button,
 input {
-    font-family: inherit;
+    font: inherit;
 }
 
 button {
+    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -66,43 +65,9 @@ button {
     display: none !important;
 }
 
-/* =========================================================
-   ОБЩИЕ ЭФФЕКТЫ
-========================================================= */
-
-.gold {
-    color: var(--gold);
-}
-
-.fade-in {
-    animation: fadeIn .5s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulseGold {
-    0%,100% {
-        box-shadow: 0 0 0 rgba(200,161,90,0);
-    }
-
-    50% {
-        box-shadow: 0 0 25px rgba(200,161,90,.16);
-    }
-}
-
-/* =========================================================
-   ГЛАВНОЕ МЕНЮ
-========================================================= */
+/* =========================
+   МЕНЮ
+========================= */
 
 #menu {
     min-height: 100vh;
@@ -110,8 +75,6 @@ button {
     justify-content: center;
     align-items: center;
     padding: 25px;
-    position: relative;
-    overflow: hidden;
 
     background:
         radial-gradient(
@@ -119,36 +82,7 @@ button {
             rgba(188,151,86,.14),
             transparent 35%
         ),
-        linear-gradient(
-            135deg,
-            #080909,
-            #171513 50%,
-            #070808
-        );
-}
-
-#menu::before {
-    content: "FILM 17";
-    position: absolute;
-    top: 8%;
-    left: -5%;
-    font-family: Georgia, serif;
-    font-size: clamp(90px, 20vw, 260px);
-    letter-spacing: 10px;
-    color: rgba(255,255,255,.018);
-    transform: rotate(-12deg);
-}
-
-#menu::after {
-    content: "ЗВЕЗДА • 1963 • АРХИВ • 17";
-    position: absolute;
-    bottom: 30px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: rgba(255,255,255,.18);
-    letter-spacing: 5px;
-    font-size: 10px;
+        linear-gradient(135deg, #080909, #171513 50%, #070808);
 }
 
 .menu-box {
@@ -156,7 +90,6 @@ button {
     max-width: 820px;
     text-align: center;
     padding: 65px 35px;
-    position: relative;
 
     background:
         linear-gradient(
@@ -168,50 +101,32 @@ button {
     border: 1px solid rgba(207,170,96,.35);
 
     box-shadow:
-        0 40px 100px rgba(0,0,0,.8),
+        0 40px 100px #000,
         inset 0 0 80px rgba(200,161,90,.025);
-
-    animation: pulseGold 5s infinite;
 }
 
-.menu-box::before,
-.menu-box::after {
-    content: "";
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    border-color: var(--gold);
-    opacity: .65;
-}
-
-.menu-box::before {
-    top: 14px;
-    left: 14px;
-    border-top: 1px solid;
-    border-left: 1px solid;
-}
-
-.menu-box::after {
-    right: 14px;
-    bottom: 14px;
-    border-right: 1px solid;
-    border-bottom: 1px solid;
-}
-
-.menu-case {
+.menu-case,
+.intro-case {
     color: var(--gold);
-    font-size: 13px;
-    letter-spacing: 7px;
-    margin-bottom: 25px;
+    font-size: 12px;
+    letter-spacing: 6px;
+}
+
+.menu-title,
+.intro-title,
+.map-title,
+.modal-title,
+.character-name {
+    font-family: Georgia, serif;
 }
 
 .menu-title {
-    font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(42px, 8vw, 82px);
     line-height: .94;
     letter-spacing: 4px;
+    margin: 25px 0;
+
     text-shadow: 0 5px 30px #000;
-    margin-bottom: 25px;
 }
 
 .menu-subtitle {
@@ -224,46 +139,46 @@ button {
 
 .start-btn {
     border: 1px solid var(--gold);
+
     background:
         linear-gradient(
             135deg,
             #cba75e,
             #a9823f
         );
+
     color: #17130c;
+
     padding: 17px 32px;
+
     font-size: 14px;
     letter-spacing: 2px;
     font-weight: bold;
-    cursor: pointer;
-    transition: .25s;
-    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+
+    transition: .2s;
 }
 
 .start-btn:hover {
-    background: linear-gradient(135deg,#e1c37b,#bd9852);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0,0,0,.55);
+    transform: translateY(-2px);
+    filter: brightness(1.08);
 }
 
-/* =========================================================
+/* =========================
    ВСТУПЛЕНИЕ
-========================================================= */
+========================= */
 
 #intro {
     position: fixed;
     inset: 0;
     z-index: 1000;
+
     background:
-        radial-gradient(
-            circle at center,
-            #24211b 0%,
-            #0c0d0e 58%,
-            #050606 100%
-        );
+        radial-gradient(circle at center, #24211b 0, #0c0d0e 58%, #050606 100%);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     padding: 25px;
 }
 
@@ -273,22 +188,15 @@ button {
     text-align: center;
 }
 
-.intro-case {
-    color: var(--gold);
-    font-size: 12px;
-    letter-spacing: 6px;
-    margin-bottom: 22px;
-}
-
 .intro-title {
-    font-family: Georgia, serif;
     font-size: clamp(35px, 7vw, 68px);
     letter-spacing: 3px;
-    margin-bottom: 45px;
+    margin: 22px 0 45px;
 }
 
 .intro-text {
     min-height: 240px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -296,13 +204,18 @@ button {
 
 .intro-line {
     max-width: 790px;
+
     font-family: Georgia, serif;
+
     font-size: clamp(20px, 3vw, 29px);
+
     line-height: 1.65;
+
     color: #dedbd2;
+
     opacity: 0;
-    transition: opacity .3s ease;
-    text-shadow: 0 2px 15px #000;
+
+    transition: .3s;
 }
 
 .intro-line.show {
@@ -311,24 +224,32 @@ button {
 
 .intro-progress {
     margin: 30px auto 20px;
+
     max-width: 540px;
+
     height: 2px;
+
     background: #292a2a;
-    overflow: hidden;
 }
 
 .intro-progress-bar {
     height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg,#8d6936,#e0bd72);
-    transition: width .3s ease;
+    width: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6936,
+            #e0bd72
+        );
+
+    transition: .3s;
 }
 
 .intro-status {
     color: #666;
     font-size: 10px;
     letter-spacing: 3px;
-    margin-top: 20px;
 }
 
 .intro-status.active {
@@ -337,25 +258,23 @@ button {
 
 .skip-intro {
     border: 1px solid #454545;
-    background: transparent;
-    color: #777;
-    padding: 10px 18px;
-    cursor: pointer;
-    margin-top: 15px;
-    font-size: 11px;
-    letter-spacing: 1px;
-}
 
-.skip-intro:hover {
-    color: white;
-    border-color: var(--gold);
+    background: transparent;
+
+    color: #777;
+
+    padding: 10px 18px;
+
+    margin-top: 15px;
+
+    font-size: 11px;
 }
 
 .intro-start {
     margin-top: 25px;
+
     opacity: 0;
     pointer-events: none;
-    transition: opacity .5s ease;
 }
 
 .intro-start.show {
@@ -363,64 +282,54 @@ button {
     pointer-events: auto;
 }
 
-/* =========================================================
-   ИГРА
-========================================================= */
+/* =========================
+   ШАПКА
+========================= */
 
 #game {
     min-height: 100vh;
-    background:
-        radial-gradient(
-            ellipse at 50% 0%,
-            rgba(151,120,65,.08),
-            transparent 45%
-        );
 }
-
-/* =========================================================
-   ШАПКА
-========================================================= */
 
 .header {
     min-height: 72px;
+
     background:
         linear-gradient(
             180deg,
             rgba(27,27,25,.98),
             rgba(14,15,16,.98)
         );
+
     border-bottom: 1px solid var(--line);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: 12px 24px;
+
     gap: 20px;
+
     position: sticky;
     top: 0;
+
     z-index: 50;
-    backdrop-filter: blur(12px);
 }
 
 .header-title {
     font-family: Georgia, serif;
-    letter-spacing: 1px;
     font-size: 14px;
-}
-
-.header-title::first-letter {
-    color: var(--gold);
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
 .counter {
     color: #888;
     font-size: 12px;
-    letter-spacing: 1px;
 }
 
 .counter span {
@@ -428,83 +337,100 @@ button {
     font-weight: bold;
 }
 
-.header-btn {
+.header-btn,
+.small-btn {
     border: 1px solid #48433a;
+
     background: #1c1d1e;
+
     color: #ddd;
+
     padding: 10px 15px;
-    cursor: pointer;
-    transition: .2s;
+
     font-size: 11px;
+
     letter-spacing: 1px;
 }
 
-.header-btn:hover {
+.header-btn:hover,
+.small-btn:hover {
     border-color: var(--gold);
-    color: var(--gold-light);
-    background: #24231f;
+    color: var(--gold2);
 }
 
-/* =========================================================
+/* =========================
    КАРТА
-========================================================= */
+========================= */
 
 .map-area {
     padding: 35px 25px 70px;
+
     max-width: 1250px;
+
     margin: auto;
 }
 
 .map-heading {
     text-align: center;
-    margin-bottom: 25px;
 }
 
 .map-title {
-    font-family: Georgia, serif;
-    font-size: clamp(28px,5vw,42px);
+    font-size: clamp(28px, 5vw, 42px);
+
     letter-spacing: 4px;
+
     margin: 5px 0 8px;
 }
 
 .map-subtitle {
     text-align: center;
+
     color: #777;
+
     margin-bottom: 28px;
+
     font-size: 12px;
+
     letter-spacing: 2px;
+
     text-transform: uppercase;
 }
 
 .map-meta {
     display: flex;
+
     justify-content: center;
+
     flex-wrap: wrap;
+
     gap: 12px;
+
     margin-bottom: 25px;
 }
 
 .meta-chip {
     border: 1px solid #363631;
-    background: rgba(22,23,23,.8);
+
+    background: #161717cc;
+
     padding: 7px 12px;
+
     color: #888;
+
     font-size: 10px;
-    letter-spacing: 1px;
 }
 
 .meta-chip strong {
     color: var(--gold);
 }
 
-/* =========================================================
-   ПЛАН СТУДИИ
-========================================================= */
-
 .studio-wrap {
     position: relative;
+
     max-width: 1050px;
+
     margin: auto;
+
     padding: 18px;
 
     background:
@@ -517,25 +443,16 @@ button {
     border: 1px solid rgba(202,166,91,.35);
 
     box-shadow:
-        0 35px 90px rgba(0,0,0,.65),
-        inset 0 0 70px rgba(0,0,0,.5);
-}
-
-.studio-wrap::before {
-    content: "АРХИВНАЯ КОПИЯ • СТУДИЯ «ЗВЕЗДА»";
-    position: absolute;
-    top: 6px;
-    left: 20px;
-    font-size: 8px;
-    letter-spacing: 3px;
-    color: #625b4d;
+        0 35px 90px #000,
+        inset 0 0 70px #0008;
 }
 
 .studio {
     position: relative;
+
     width: 100%;
     height: 650px;
-    margin: auto;
+
     overflow: hidden;
 
     background:
@@ -555,102 +472,40 @@ button {
     border: 1px solid #4d493f;
 }
 
-/* линии коридоров */
-
-.studio::before {
-    content: "";
-    position: absolute;
-    left: 31%;
-    right: 31%;
-    top: 29%;
-    bottom: 29%;
-    background:
-        linear-gradient(
-            90deg,
-            transparent 49.6%,
-            rgba(186,151,84,.13) 49.6%,
-            rgba(186,151,84,.13) 50.4%,
-            transparent 50.4%
-        );
-    border-top: 1px dashed rgba(200,161,90,.18);
-    border-bottom: 1px dashed rgba(200,161,90,.18);
-    pointer-events: none;
-}
-
-/* центральная дорожка */
-
-.studio::after {
-    content: "CENTRAL CORRIDOR";
-    position: absolute;
-    left: 50%;
-    top: 43%;
-    transform: translate(-50%,-50%) rotate(-90deg);
-    color: rgba(200,161,90,.13);
-    font-size: 9px;
-    letter-spacing: 4px;
-    pointer-events: none;
-}
-
-/* =========================================================
-   КОМНАТЫ
-========================================================= */
-
 .room {
     position: absolute;
+
     border: 1px solid #57544c;
+
     background:
         linear-gradient(
             145deg,
             rgba(34,35,34,.97),
             rgba(19,20,21,.98)
         );
+
     cursor: pointer;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     text-align: center;
+
     padding: 10px;
-    transition: .25s;
-    overflow: hidden;
-}
 
-.room::before {
-    content: "";
-    position: absolute;
-    inset: 5px;
-    border: 1px solid rgba(255,255,255,.035);
-    pointer-events: none;
-}
-
-.room::after {
-    content: "";
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: rgba(200,161,90,.05);
-    filter: blur(15px);
-    opacity: 0;
-    transition: .3s;
+    transition: .2s;
 }
 
 .room:hover {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(46,43,35,.98),
-            rgba(23,24,25,.98)
-        );
     border-color: var(--gold);
-    transform: translateY(-2px);
-    z-index: 5;
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.5),
-        inset 0 0 35px rgba(200,161,90,.06);
-}
 
-.room:hover::after {
-    opacity: 1;
+    transform: translateY(-2px);
+
+    z-index: 5;
+
+    box-shadow: 0 15px 35px #0008;
 }
 
 .room-content {
@@ -660,45 +515,39 @@ button {
 
 .room-icon {
     font-size: 32px;
+
     display: block;
+
     margin-bottom: 9px;
-    filter: grayscale(.2);
 }
 
 .room-name {
     display: block;
+
     font-family: Georgia, serif;
+
     font-size: 14px;
+
     letter-spacing: 2px;
-    color: #dedbd2;
 }
 
 .room-number {
     display: block;
+
     margin-top: 7px;
+
     color: #6e6a60;
+
     font-size: 9px;
-    letter-spacing: 2px;
 }
 
 .room-status {
     margin-top: 9px;
+
     font-size: 8px;
-    letter-spacing: 1px;
+
     color: #6e6e69;
 }
-
-.room-status::before {
-    content: "●";
-    color: #75623e;
-    margin-right: 4px;
-}
-
-.room:hover .room-status {
-    color: var(--gold-light);
-}
-
-/* расположение */
 
 .archive {
     left: 2%;
@@ -747,45 +596,36 @@ button {
     top: 37%;
     width: 29%;
     height: 26%;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            rgba(255,255,255,.018) 0,
-            rgba(255,255,255,.018) 2px,
-            transparent 2px,
-            transparent 18px
-        ),
-        #151718;
-}
 
-/* =========================================================
-   ЛЕГЕНДА КАРТЫ
-========================================================= */
+    background: #151718;
+}
 
 .map-legend {
     max-width: 1050px;
-    margin: 15px auto 0;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    color: #6e6d68;
-    font-size: 9px;
-    letter-spacing: 1px;
-}
 
-.legend-left,
-.legend-right {
+    margin: 15px auto 0;
+
     display: flex;
-    gap: 15px;
+
+    justify-content: space-between;
+
     flex-wrap: wrap;
+
+    gap: 12px;
+
+    color: #6e6d68;
+
+    font-size: 9px;
 }
 
 .legend-dot {
     display: inline-block;
+
     width: 7px;
     height: 7px;
+
     border-radius: 50%;
+
     margin-right: 5px;
 }
 
@@ -801,155 +641,147 @@ button {
     background: var(--red);
 }
 
-/* =========================================================
+/* =========================
    МОДАЛЬНЫЕ ОКНА
-========================================================= */
+========================= */
 
 .modal {
     position: fixed;
+
     inset: 0;
-    background: rgba(0,0,0,.84);
+
+    background: #000d;
+
     backdrop-filter: blur(8px);
+
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     padding: 20px;
+
     z-index: 100;
 }
 
 .modal-box {
     width: 100%;
+
     max-width: 760px;
+
     max-height: 90vh;
+
     overflow-y: auto;
+
     background:
         linear-gradient(
             145deg,
             #1b1c1d,
             #101112
         );
+
     border: 1px solid #514a3d;
+
     padding: 30px;
-    box-shadow:
-        0 30px 100px #000,
-        inset 0 0 50px rgba(200,161,90,.025);
-    animation: modalIn .25s ease;
-}
 
-@keyframes modalIn {
-    from {
-        opacity: 0;
-        transform: scale(.97) translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+    box-shadow: 0 30px 100px #000;
 }
 
 .modal-title {
-    font-family: Georgia, serif;
     font-size: 30px;
-    letter-spacing: 1px;
+
     margin-bottom: 7px;
 }
 
 .modal-subtitle {
     color: #85847d;
+
     margin-bottom: 25px;
+
     font-size: 13px;
+
     line-height: 1.5;
 }
 
 .close-btn {
     float: right;
+
     background: transparent;
-    border: 1px solid transparent;
+
+    border: 0;
+
     color: #777;
+
     font-size: 26px;
-    cursor: pointer;
+
     width: 35px;
     height: 35px;
-    transition: .2s;
 }
 
 .close-btn:hover {
     color: var(--gold);
-    border-color: #514a3d;
 }
 
-/* =========================================================
-   ТОЧКИ ПОИСКА
-========================================================= */
+/* =========================
+   ТОЧКИ
+========================= */
 
 .spot {
     position: relative;
+
     border: 1px solid #35383a;
+
     background:
         linear-gradient(
             100deg,
             #202224,
             #181a1c
         );
-    padding: 17px 18px 17px 21px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: .2s;
-    overflow: hidden;
-}
 
-.spot::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--gold);
-    opacity: 0;
+    padding: 17px 18px 17px 21px;
+
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
     transition: .2s;
 }
 
 .spot:hover {
     border-color: #706343;
-    transform: translateX(3px);
-}
 
-.spot:hover::before {
-    opacity: 1;
+    transform: translateX(3px);
 }
 
 .spot.done {
     opacity: .45;
-    cursor: default;
-}
 
-.spot.done::before {
-    background: var(--green);
-    opacity: 1;
+    cursor: default;
 }
 
 .spot.locked {
     opacity: .5;
+
     cursor: not-allowed;
 }
 
 .spot-title {
     font-weight: bold;
+
     margin-bottom: 6px;
-    letter-spacing: .4px;
 }
 
 .spot-description {
     color: #858680;
+
     font-size: 13px;
+
     line-height: 1.4;
 }
 
-/* =========================================================
+/* =========================
    ВОПРОСЫ
-========================================================= */
+========================= */
 
 .question-box {
     text-align: center;
@@ -957,190 +789,187 @@ button {
 
 .subject {
     display: inline-block;
+
     padding: 6px 12px;
-    background: rgba(200,161,90,.08);
-    border: 1px solid rgba(200,161,90,.25);
+
+    background: #c8a15a14;
+
+    border: 1px solid #c8a15a40;
+
     color: var(--gold);
+
     margin: 10px 0 20px;
+
     font-size: 10px;
+
     letter-spacing: 2px;
-    text-transform: uppercase;
 }
 
 .question {
     font-family: Georgia, serif;
+
     font-size: 23px;
+
     line-height: 1.5;
+
     margin: 20px 0 30px;
-    color: #e5e1d8;
 }
 
 .question-buttons {
     display: flex;
+
     gap: 12px;
+
     justify-content: center;
+
     flex-wrap: wrap;
 }
 
 .answer-btn {
     border: 1px solid transparent;
+
     padding: 14px 23px;
-    color: white;
+
+    color: #fff;
+
     font-weight: bold;
-    cursor: pointer;
+
     font-size: 12px;
+
     letter-spacing: 1px;
-    transition: .2s;
 }
 
 .correct-btn {
     background: #3f6147;
-    border-color: #5f8065;
-}
 
-.correct-btn:hover {
-    background: #507957;
-    transform: translateY(-2px);
+    border-color: #5f8065;
 }
 
 .wrong-btn {
     background: #633b38;
-    border-color: #80504b;
-}
 
-.wrong-btn:hover {
-    background: #774640;
-    transform: translateY(-2px);
+    border-color: #80504b;
 }
 
 .question-result {
     margin-top: 20px;
+
     padding: 17px;
+
     border: 1px solid #444;
+
     background:
         linear-gradient(
             135deg,
             #252729,
             #1b1d1f
         );
+
     line-height: 1.55;
 }
 
 .reward {
     margin-top: 10px;
-    color: var(--gold-light);
+
+    color: var(--gold2);
 }
 
-/* =========================================================
+/* =========================
    ПЕРСОНАЖИ
-========================================================= */
+========================= */
 
 .character-box {
     background:
-        linear-gradient(
+        linear-gradient (
             145deg,
             #222426,
             #17191a
         );
-    border: 1px solid #42413b;
-    padding: 24px;
-    position: relative;
-}
 
-.character-box::before {
-    content: "ДОПРОС";
-    position: absolute;
-    right: 18px;
-    top: 18px;
-    color: #514b40;
-    font-size: 9px;
-    letter-spacing: 3px;
+    border: 1px solid #42413b;
+
+    padding: 24px;
 }
 
 .character-name {
     font-size: 29px;
-    font-family: Georgia, serif;
+
     margin-bottom: 5px;
 }
 
 .character-job {
     color: var(--gold);
+
     letter-spacing: 2px;
+
     font-size: 10px;
+
     text-transform: uppercase;
+
     margin-bottom: 24px;
 }
 
 .dialogue {
     line-height: 1.7;
+
     color: #bbb9b1;
+
     margin-bottom: 22px;
+
     padding-left: 15px;
+
     border-left: 1px solid #62583f;
 }
 
 .riddle {
     border-left: 3px solid var(--gold);
+
     padding: 17px;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(200,161,90,.07),
-            rgba(255,255,255,.015)
-        );
+
+    background: #c8a15a12;
+
     margin: 18px 0;
+
     font-family: Georgia, serif;
+
     font-size: 17px;
+
     line-height: 1.55;
 }
 
 .riddle-answer {
     display: flex;
+
     gap: 10px;
+
     flex-wrap: wrap;
 }
 
 .riddle-answer input {
     flex: 1;
+
     min-width: 180px;
+
     background: #101112;
+
     border: 1px solid #454641;
-    color: white;
+
+    color: #fff;
+
     padding: 13px;
+
     font-size: 16px;
-    outline: none;
+
+    outline: 0;
 }
 
 .riddle-answer input:focus {
     border-color: var(--gold);
 }
 
-.small-btn {
-    border: 1px solid #635638;
-    background: #2b2924;
-    color: #eee;
-    padding: 12px 18px;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.small-btn:hover {
-    background: #3a3429;
-    color: var(--gold-light);
-}
-
-/* =========================================================
+/* =========================
    БЛОКНОТ
-========================================================= */
-
-#notebookModal .modal-box {
-    background:
-        linear-gradient(
-            145deg,
-            #211f1b,
-            #151514
-        );
-}
+========================= */
 
 .notebook-section {
     margin-bottom: 28px;
@@ -1148,46 +977,115 @@ button {
 
 .notebook-section h3 {
     color: var(--gold);
-    margin-bottom: 12px;
+
     font-family: Georgia, serif;
+
     font-size: 18px;
-    letter-spacing: 1px;
 }
 
 .clue {
     padding: 13px 14px;
+
     border-bottom: 1px solid #302f2b;
+
     color: #d0cec7;
+
     line-height: 1.5;
 }
 
 .item {
     padding: 14px;
+
     border: 1px solid #3d3b35;
+
     margin-bottom: 8px;
-    background: rgba(255,255,255,.025);
+
+    background: #ffffff06;
 }
 
 .item b {
     display: block;
+
     margin-bottom: 5px;
 }
 
 .item span {
     display: block;
+
     color: #777;
+
     font-size: 13px;
 }
 
 .empty {
     color: #666;
+
     font-style: italic;
+
     padding: 10px 0;
 }
 
-/* =========================================================
-   СКРОЛЛБАР
-========================================================= */
+/* =========================
+   ФИНАЛ
+========================= */
+
+.final-box {
+    text-align: center;
+
+    max-width: 850px;
+}
+
+.suspect-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.suspect-btn {
+    border: 1px solid #49443a;
+
+    background: #1c1d1e;
+
+    color: #ddd;
+
+    padding: 15px;
+}
+
+.suspect-btn:hover {
+    border-color: var(--gold);
+
+    color: var(--gold2);
+}
+
+.final-result {
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: #181a1b;
+
+    border: 1px solid #514a3d;
+
+    line-height: 1.7;
+}
+
+.final-title {
+    font-family: Georgia, serif;
+
+    color: var(--gold);
+
+    font-size: 30px;
+
+    margin-bottom: 20px;
+}
+
+/* =========================
+   SCROLL
+========================= */
 
 ::-webkit-scrollbar {
     width: 7px;
@@ -1201,27 +1099,21 @@ button {
     background: #454038;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #75633e;
-}
+/* =========================
+   MOBILE
+========================= */
 
-/* =========================================================
-   АДАПТАЦИЯ
-========================================================= */
-
-max-width: 700px {
+max-width:700px {
 
     .header {
         padding: 12px;
-        flex-wrap: wrap;
-    }
 
-    .header-title {
-        font-size: 12px;
+        flex-wrap: wrap;
     }
 
     .header-right {
         width: 100%;
+
         justify-content: space-between;
     }
 
@@ -1235,6 +1127,7 @@ max-width: 700px {
 
     .studio {
         height: 540px;
+
         background-size: 20px 20px;
     }
 
@@ -1244,11 +1137,13 @@ max-width: 700px {
 
     .room-icon {
         font-size: 23px;
+
         margin-bottom: 5px;
     }
 
     .room-name {
         font-size: 9px;
+
         letter-spacing: 1px;
     }
 
@@ -1258,10 +1153,6 @@ max-width: 700px {
 
     .room-status {
         font-size: 6px;
-    }
-
-    .studio::after {
-        display: none;
     }
 
     .modal-box {
@@ -1291,13 +1182,9 @@ max-width: 700px {
     .menu-title {
         font-size: 43px;
     }
-
-    .map-legend {
-        font-size: 8px;
-    }
 }
 
-max-width: 450px {
+max-width:450px {
 
     .studio {
         height: 480px;
@@ -1321,8 +1208,8 @@ max-width: 450px {
         letter-spacing: 2px;
     }
 
-    .map-subtitle {
-        font-size: 9px;
+    .suspect-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
@@ -1330,9 +1217,9 @@ max-width: 450px {
 
 <body>
 
-<!-- =====================================================
+<!-- =========================
      ГЛАВНОЕ МЕНЮ
-===================================================== -->
+========================= -->
 
 <div id="menu">
 
@@ -1344,14 +1231,18 @@ max-width: 450px {
 
         <div class="menu-title">
             ПОСЛЕДНЯЯ
-ПЛЁНКА
+
+            ПЛЁНКА
         </div>
 
         <div class="menu-subtitle">
             Тайна старой киностудии
         </div>
 
-        <button class="start-btn" onclick="startGame()">
+        <button
+            class="start-btn"
+            onclick="startGame()"
+        >
             НАЧАТЬ РАССЛЕДОВАНИЕ
         </button>
 
@@ -1359,9 +1250,9 @@ max-width: 450px {
 
 </div>
 
-<!-- =====================================================
+<!-- =========================
      ВСТУПЛЕНИЕ
-===================================================== -->
+========================= -->
 
 <div id="intro" class="hidden">
 
@@ -1380,19 +1271,24 @@ max-width: 450px {
         </div>
 
         <div class="intro-progress">
-            <div id="introProgress"
-                 class="intro-progress-bar">
-            </div>
+            <div
+                id="introProgress"
+                class="intro-progress-bar"
+            ></div>
         </div>
 
-        <div id="introStatus" class="intro-status">
+        <div
+            id="introStatus"
+            class="intro-status"
+        >
             ● ВОСПРОИЗВЕДЕНИЕ...
         </div>
 
         <button
             id="skipIntro"
             class="skip-intro"
-            onclick="skipIntro()">
+            onclick="skipIntro()"
+        >
             ПРОПУСТИТЬ ВСТУПЛЕНИЕ
         </button>
 
@@ -1400,7 +1296,8 @@ max-width: 450px {
             <button
                 id="introStart"
                 class="start-btn intro-start"
-                onclick="finishIntro()">
+                onclick="finishIntro()"
+            >
                 НАЧАТЬ РАССЛЕДОВАНИЕ
             </button>
         </div>
@@ -1409,307 +1306,240 @@ max-width: 450px {
 
 </div>
 
-<!-- =====================================================
+<!-- =========================
      ИГРА
-===================================================== -->
+========================= -->
 
 <div id="game" class="hidden">
 
-    <header class="header">
+<header class="header">
 
-        <div class="header-title">
-            🎬 ДЕЛО №001 — ПОСЛЕДНЯЯ ПЛЁНКА
+    <div class="header-title">
+        🎬 ДЕЛО №001 — ПОСЛЕДНЯЯ ПЛЁНКА
+    </div>
+
+    <div class="header-right">
+
+        <div class="counter">
+            ДОПРОШЕНО:
+            <span id="solvedCounter">0</span>/7
         </div>
 
-        <div class="header-right">
+        <button
+            id="finalBtn"
+            class="header-btn hidden"
+            onclick="openFinal()"
+        >
+            🎬 РАЗГАДКА
+        </button>
 
-            <div class="counter">
-                ДОПРОШЕНО:
-                <span id="solvedCounter">0</span>/7
-            </div>
+        <button
+            class="header-btn"
+            onclick="openNotebook()"
+        >
+            📓 БЛОКНОТ
+        </button>
 
-            <button
-                class="header-btn"
-                onclick="openNotebook()">
-                📓 БЛОКНОТ
-            </button>
+    </div>
 
+</header>
+
+<main class="map-area">
+
+    <div class="map-heading">
+
+        <div class="map-title">
+            СТУДИЯ «ЗВЕЗДА»
         </div>
 
-    </header>
-
-    <main class="map-area">
-
-        <div class="map-heading">
-
-            <div class="map-title">
-                СТУДИЯ «ЗВЕЗДА»
-            </div>
-
-            <div class="map-subtitle">
-                Архивный план здания · выберите помещение
-            </div>
-
-            <div class="map-meta">
-
-                <div class="meta-chip">
-                    ДАТА: <strong>31.10.2026</strong>
-                </div>
-
-                <div class="meta-chip">
-                    ВРЕМЯ: <strong>21:17</strong>
-                </div>
-
-                <div class="meta-chip">
-                    ДЕЛО: <strong>001</strong>
-                </div>
-
-                <div class="meta-chip">
-                    ОБЪЕКТ: <strong>ПЛЁНКА №17</strong>
-                </div>
-
-            </div>
-
+        <div class="map-subtitle">
+            Архивный план здания · выберите помещение
         </div>
 
-        <div class="studio-wrap">
-
-            <div class="studio">
-
-                <!-- АРХИВ -->
-
-                <div
-                    class="room archive"
-                    onclick="openRoom('archive')">
-
-                    <div class="room-content">
-
-                        <span class="room-icon">
-                            📁
-                        </span>
-
-                        <span class="room-name">
-                            АРХИВ
-                        </span>
-
-                        <span class="room-number">
-                            ПОМЕЩЕНИЕ 01
-                        </span>
-
-                        <div class="room-status">
-                            ДОКУМЕНТЫ · ПЛЁНКИ
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- ПРОЕКЦИОННАЯ -->
-
-                <div
-                    class="room projection"
-                    onclick="openRoom('projection')">
-
-                    <div class="room-content">
-
-                        <span class="room-icon">
-                            📽️
-                        </span>
-
-                        <span class="room-name">
-                            ПРОЕКЦИОННАЯ
-                        </span>
-
-                        <span class="room-number">
-                            ПОМЕЩЕНИЕ 02
-                        </span>
-
-                        <div class="room-status">
-                            ПРОЕКТОР · КАТУШКИ
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- КАБИНЕТ -->
-
-                <div
-                    class="room director"
-                    onclick="openRoom('director')">
-
-                    <div class="room-content">
-
-                        <span class="room-icon">
-                            🎬
-                        </span>
-
-                        <span class="room-name">
-                            КАБИНЕТ
-РЕЖИССЁРА
-                        </span>
-
-                        <span class="room-number">
-                            ПОМЕЩЕНИЕ 03
-                        </span>
-
-                        <div class="room-status">
-                            СЕЙФ · ДОКУМЕНТЫ
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- КОСТЮМЕРНАЯ -->
-
-                <div
-                    class="room costume"
-                    onclick="openRoom('costume')">
-
-                    <div class="room-content">
-
-                        <span class="room-icon">
-                            🎭
-                        </span>
-
-                        <span class="room-name">
-                            КОСТЮМЕРНАЯ
-                        </span>
-
-                        <span class="room-number">
-                            ПОМЕЩЕНИЕ 04
-                        </span>
-
-                        <div class="room-status">
-                            КОСТЮМЫ · ЗЕРКАЛО
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- ОХРАНА -->
-
-                <div
-                    class="room security"
-                    onclick="openRoom('security')">
-
-                    <div class="room-content">
-
-                        <span class="room-icon">
-                            📹
-                        </span>
-
-                        <span class="room-name">
-                            ОХРАНА
-                        </span>
-
-                        <span class="room-number">
-                            ПОМЕЩЕНИЕ 05
-                        </span>
-
-                        <div class="room-status">
-                            КАМЕРЫ · КЛЮЧИ
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- ЗАКУЛИСЬЕ -->
-
-                <div
-                    class="room backstage"
-                    onclick="openRoom('backstage')">
-
-                    <div class="room-content">
-
-                        <span class="room-icon">
-                            🎭
-                        </span>
-
-                        <span class="room-name">
-                            ЗАКУЛИСЬЕ
-                        </span>
-
-                        <span class="room-number">
-                            ПОМЕЩЕНИЕ 06
-                        </span>
-
-                        <div class="room-status">
-                            ДЕКОРАЦИИ · СКЛАД
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- КОРИДОР -->
-
-                <div
-                    class="room corridor"
-                    onclick="openRoom('corridor')">
-
-                    <div class="room-content">
-
-                        <span class="room-icon">
-                            🚪
-                        </span>
-
-                        <span class="room-name">
-                            КОРИДОР
-                        </span>
-
-                        <span class="room-number">
-                            СЕКТОР C
-                        </span>
-
-                        <div class="room-status">
-                            ЦЕНТРАЛЬНЫЙ ПРОХОД
-                        </div>
-
-                    </div>
-
-                </div>
-
+        <div class="map-meta">
+
+            <div class="meta-chip">
+                ДАТА:
+                <strong>31.10.2026</strong>
+            </div>
+
+            <div class="meta-chip">
+                ВРЕМЯ:
+                <strong>21:17</strong>
+            </div>
+
+            <div class="meta-chip">
+                ДЕЛО:
+                <strong>001</strong>
+            </div>
+
+            <div class="meta-chip">
+                ОБЪЕКТ:
+                <strong>ПЛЁНКА №17</strong>
             </div>
 
         </div>
 
-        <div class="map-legend">
+    </div>
 
-            <div class="legend-left">
+    <div class="studio-wrap">
 
-                <span>
-                    <i class="legend-dot gold"></i>
-                    ДОСТУПНО ДЛЯ ОСМОТРА
-                </span>
+        <div class="studio">
 
-                <span>
-                    <i class="legend-dot gray"></i>
-                    ОБЫЧНАЯ ЗОНА
-                </span>
-
-                <span>
-                    <i class="legend-dot red"></i>
-                    ОСОБОЕ ВНИМАНИЕ
-                </span>
-
+            <div
+                class="room archive"
+                onclick="openRoom('archive')"
+            >
+                <div class="room-content">
+                    <span class="room-icon">📁</span>
+                    <span class="room-name">АРХИВ</span>
+                    <span class="room-number">ПОМЕЩЕНИЕ 01</span>
+                    <div class="room-status">
+                        ДОКУМЕНТЫ · ПЛЁНКИ
+                    </div>
+                </div>
             </div>
 
-            <div class="legend-right">
-                АРХИВНАЯ СХЕМА №17-А
+            <div
+                class="room projection"
+                onclick="openRoom('projection')"
+            >
+                <div class="room-content">
+                    <span class="room-icon">📽️</span>
+                    <span class="room-name">ПРОЕКЦИОННАЯ</span>
+                    <span class="room-number">ПОМЕЩЕНИЕ 02</span>
+                    <div class="room-status">
+                        ПРОЕКТОР · КАТУШКИ
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="room director"
+                onclick="openRoom('director')"
+            >
+                <div class="room-content">
+                    <span class="room-icon">🎬</span>
+                    <span class="room-name">
+                        КАБИНЕТ
+
+                        РЕЖИССЁРА
+                    </span>
+                    <span class="room-number">
+                        ПОМЕЩЕНИЕ 03
+                    </span>
+                    <div class="room-status">
+                        СЕЙФ · ДОКУМЕНТЫ
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="room costume"
+                onclick="openRoom('costume')"
+            >
+                <div class="room-content">
+                    <span class="room-icon">🎭</span>
+                    <span class="room-name">
+                        КОСТЮМЕРНАЯ
+                    </span>
+                    <span class="room-number">
+                        ПОМЕЩЕНИЕ 04
+                    </span>
+                    <div class="room-status">
+                        КОСТЮМЫ · ЗЕРКАЛО
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="room security"
+                onclick="openRoom('security')"
+            >
+                <div class="room-content">
+                    <span class="room-icon">📹</span>
+                    <span class="room-name">
+                        ОХРАНА
+                    </span>
+                    <span class="room-number">
+                        ПОМЕЩЕНИЕ 05
+                    </span>
+                    <div class="room-status">
+                        КАМЕРЫ · КЛЮЧИ
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="room backstage"
+                onclick="openRoom('backstage')"
+            >
+                <div class="room-content">
+                    <span class="room-icon">🎭</span>
+                    <span class="room-name">
+                        ЗАКУЛИСЬЕ
+                    </span>
+                    <span class="room-number">
+                        ПОМЕЩЕНИЕ 06
+                    </span>
+                    <div class="room-status">
+                        ДЕКОРАЦИИ · СКЛАД
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="room corridor"
+                onclick="openRoom('corridor')"
+            >
+                <div class="room-content">
+                    <span class="room-icon">🚪</span>
+                    <span class="room-name">
+                        КОРИДОР
+                    </span>
+                    <span class="room-number">
+                        СЕКТОР C
+                    </span>
+                    <div class="room-status">
+                        ЦЕНТРАЛЬНЫЙ ПРОХОД
+                    </div>
+                </div>
             </div>
 
         </div>
 
-    </main>
+    </div>
+
+    <div class="map-legend">
+
+        <span>
+            <i class="legend-dot gold"></i>
+            ДОСТУПНО ДЛЯ ОСМОТРА
+        </span>
+
+        <span>
+            <i class="legend-dot gray"></i>
+            ОБЫЧНАЯ ЗОНА
+        </span>
+
+        <span>
+            <i class="legend-dot red"></i>
+            ОСОБОЕ ВНИМАНИЕ
+        </span>
+
+        <span>
+            АРХИВНАЯ СХЕМА №17-А
+        </span>
+
+    </div>
+
+</main>
 
 </div>
 
-<!-- =====================================================
-     ОКНО КОМНАТЫ
-===================================================== -->
+<!-- =========================
+     КОМНАТА
+========================= -->
 
 <div id="roomModal" class="modal hidden">
 
@@ -1717,17 +1547,20 @@ max-width: 450px {
 
         <button
             class="close-btn"
-            onclick="closeModal('roomModal')">
+            onclick="closeModal('roomModal')"
+        >
             ×
         </button>
 
-        <div id="roomTitle"
-             class="modal-title">
-        </div>
+        <div
+            id="roomTitle"
+            class="modal-title"
+        ></div>
 
-        <div id="roomSubtitle"
-             class="modal-subtitle">
-        </div>
+        <div
+            id="roomSubtitle"
+            class="modal-subtitle"
+        ></div>
 
         <div id="roomContent"></div>
 
@@ -1735,9 +1568,9 @@ max-width: 450px {
 
 </div>
 
-<!-- =====================================================
-     ОКНО ВОПРОСА
-===================================================== -->
+<!-- =========================
+     ВОПРОС
+========================= -->
 
 <div id="questionModal" class="modal hidden">
 
@@ -1745,31 +1578,36 @@ max-width: 450px {
 
         <button
             class="close-btn"
-            onclick="closeModal('questionModal')">
+            onclick="closeModal('questionModal')"
+        >
             ×
         </button>
 
-        <div id="questionTitle"
-             class="modal-title">
-        </div>
+        <div
+            id="questionTitle"
+            class="modal-title"
+        ></div>
 
         <div id="questionSubject"></div>
 
-        <div id="questionText"
-             class="question">
-        </div>
+        <div
+            id="questionText"
+            class="question"
+        ></div>
 
         <div class="question-buttons">
 
             <button
                 class="answer-btn correct-btn"
-                onclick="answerCorrect()">
+                onclick="answerCorrect()"
+            >
                 ✓ ОТВЕТ ЗАСЧИТАН
             </button>
 
             <button
                 class="answer-btn wrong-btn"
-                onclick="answerWrong()">
+                onclick="answerWrong()"
+            >
                 ✕ НЕ ЗНАЮ
             </button>
 
@@ -1781,9 +1619,9 @@ max-width: 450px {
 
 </div>
 
-<!-- =====================================================
-     ОКНО ПЕРСОНАЖА
-===================================================== -->
+<!-- =========================
+     ПЕРСОНАЖ
+========================= -->
 
 <div id="characterModal" class="modal hidden">
 
@@ -1791,7 +1629,8 @@ max-width: 450px {
 
         <button
             class="close-btn"
-            onclick="closeModal('characterModal')">
+            onclick="closeModal('characterModal')"
+        >
             ×
         </button>
 
@@ -1801,9 +1640,9 @@ max-width: 450px {
 
 </div>
 
-<!-- =====================================================
+<!-- =========================
      БЛОКНОТ
-===================================================== -->
+========================= -->
 
 <div id="notebookModal" class="modal hidden">
 
@@ -1811,7 +1650,8 @@ max-width: 450px {
 
         <button
             class="close-btn"
-            onclick="closeModal('notebookModal')">
+            onclick="closeModal('notebookModal')"
+        >
             ×
         </button>
 
@@ -1851,10 +1691,40 @@ max-width: 450px {
 
 </div>
 
+<!-- =========================
+     ФИНАЛ
+========================= -->
+
+<div id="finalModal" class="modal hidden">
+
+    <div class="modal-box final-box">
+
+        <button
+            class="close-btn"
+            onclick="closeModal('finalModal')"
+        >
+            ×
+        </button>
+
+        <div class="modal-title">
+            🎬 ФИНАЛ РАССЛЕДОВАНИЯ
+        </div>
+
+        <div class="modal-subtitle">
+            Все показания собраны.
+            Теперь назовите виновного.
+        </div>
+
+        <div id="finalContent"></div>
+
+    </div>
+
+</div>
+
 <script>
 
 /* =========================================================
-   СОСТОЯНИЕ
+   СОСТОЯНИЕ ИГРЫ
 ========================================================= */
 
 let inventory = [];
@@ -1866,183 +1736,55 @@ let currentRoom = null;
 let currentQuestion = null;
 let currentCharacter = null;
 
+let characterAttempts = {};
+
 /* =========================================================
    ВСТУПЛЕНИЕ
 ========================================================= */
 
 const introStory = [
 
-    {
-        text: "Старая киностудия «Звезда». Тридцать первое октября две тысячи двадцать шестого года. Двадцать один час семнадцать минут."
-    },
+    "Старая киностудия «Звезда». Тридцать первое октября две тысячи двадцать шестого года. Двадцать один час семнадцать минут.",
 
-    {
-        text: "Через несколько часов здесь должен состояться юбилейный показ фильма, который считался утраченным почти шестьдесят лет."
-    },
+    "Через несколько часов здесь должен состояться юбилейный показ фильма, который считался утраченным почти шестьдесят лет.",
 
-    {
-        text: "Всё началось ещё в тысяча девятьсот шестьдесят третьем году."
-    },
+    "Всё началось ещё в тысяча девятьсот шестьдесят третьем году.",
 
-    {
-        text: "Именно тогда на этой студии произошёл странный инцидент. После него оригинал плёнки номер семнадцать исчез."
-    },
+    "Именно тогда на этой студии произошёл странный инцидент. Посленего оригинал плёнки номер семнадцать исчез.",
 
-    {
-        text: "Официальная версия гласила: плёнка была утеряна."
-    },
+    "Официальная версия гласила: плёнка была утеряна.",
 
-    {
-        text: "Но сегодня её нашли."
-    },
+    "Но сегодня её нашли.",
 
-    {
-        text: "Вернее... должны были найти."
-    },
+    "Вернее... должны были найти.",
 
-    {
-        text: "Когда архивист открывает сейф, плёнки там уже нет."
-    },
+    "Когда архивист открывает сейф, плёнки там уже нет.",
 
-    {
-        text: "Дверь архива заперта. Камеры отключились всего на четыре минуты."
-    },
+    "Дверь архива заперта. Камеры отключились всего на четыре минуты.",
 
-    {
-        text: "Последний человек, который видел плёнку, утверждает, что ничего не трогал."
-    },
+    "Последний человек, который видел плёнку, утверждает, что ничего не трогал.",
 
-    {
-        text: "Но в старых документах снова появляется одна и та же дата."
-    },
+    "Но в старых документах снова появляется одна и та же дата.",
 
-    {
-        text: "Тысяча девятьсот шестьдесят третий год."
-    },
+    "Тысяча девятьсот шестьдесят третий год.",
 
-    {
-        text: "Кто-то явно не хочет, чтобы прошлое было раскрыто."
-    },
+    "Кто-то явно не хочет, чтобы прошлое было раскрыто.",
 
-    {
-        text: "Ваша задача — выяснить, куда исчезла плёнка номер семнадцать."
-    },
+    "Ваша задача — выяснить, куда исчезла плёнка номер семнадцать.",
 
-    {
-        text: "Кто забрал её из архива?"
-    },
+    "Кто забрал её из архива?",
 
-    {
-        text: "И что на самом деле произошло здесь в тысяча девятьсот шестьдесят третьем году?"
-    },
+    "И что на самом деле произошло здесь в тысяча девятьсот шестьдесят третьем году?",
 
-    {
-        text: "Расследование начинается сейчас."
-    }
+    "Расследование начинается сейчас."
 
 ];
 
 let introIndex = 0;
 let introSkipped = false;
-let introUtterance = null;
 
 /* =========================================================
-   ЗАПУСК ИГРЫ
-========================================================= */
-
-function startGame() {
-
-    document.getElementById("menu")
-        .classList.add("hidden");
-
-    document.getElementById("intro")
-        .classList.remove("hidden");
-
-    document.getElementById("game")
-        .classList.add("hidden");
-
-    introIndex = 0;
-    introSkipped = false;
-
-    document.getElementById("introStart")
-        .classList.remove("show");
-
-    document.getElementById("skipIntro")
-        .classList.remove("hidden");
-
-    document.getElementById("introStatus")
-        .innerText = "● ВОСПРОИЗВЕДЕНИЕ...";
-
-    document.getElementById("introStatus")
-        .classList.add("active");
-
-    document.getElementById("introProgress")
-        .style.width = "0%";
-
-    document.getElementById("introLine")
-        .innerText = "";
-
-    document.getElementById("introLine")
-        .classList.remove("show");
-
-    if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-    }
-
-    showIntroPart();
-}
-
-/* =========================================================
-   ВСТУПЛЕНИЕ
-========================================================= */
-
-function showIntroPart() {
-
-    if (introSkipped) return;
-
-    if (introIndex >= introStory.length) {
-        finishIntroStory();
-        return;
-    }
-
-    const currentIndex = introIndex;
-    const part = introStory[currentIndex];
-
-    const line =
-        document.getElementById("introLine");
-
-    line.classList.remove("show");
-
-    setTimeout(() => {
-
-        if (
-            introSkipped ||
-            currentIndex !== introIndex
-        ) {
-            return;
-        }
-
-        line.innerText = part.text;
-        line.classList.add("show");
-
-        const progress =
-            ((currentIndex + 1) /
-            introStory.length) * 100;
-
-        document.getElementById("introProgress")
-            .style.width = progress + "%";
-
-        speakIntroPart(
-            part.text,
-            currentIndex
-        );
-
-    }, 100);
-
-}
-
-/* =========================================================
-   РУССКИЙ ГОЛОС
+   ОЗВУЧКА
 ========================================================= */
 
 function getRussianVoice() {
@@ -2051,120 +1793,178 @@ function getRussianVoice() {
         return null;
     }
 
-    const voices =
-        window.speechSynthesis.getVoices();
+    const voices = speechSynthesis.getVoices();
 
-    if (!voices.length) {
-        return null;
-    }
-
-    const russian =
-        voices.filter(voice =>
+    const russian = voices.filter(
+        voice =>
             voice.lang &&
-            voice.lang.toLowerCase()
-                .startsWith("ru")
-        );
+            voice.lang.toLowerCase().startsWith("ru")
+    );
 
-    if (!russian.length) {
-        return null;
+    return (
+        russian.find(
+            voice =>
+                /dmitry|pavel|irina|svetlana|google/i
+                    .test(voice.name)
+        )
+        || russian[0]
+        || null
+    );
+}
+
+function speak(text, rate = 0.92, pitch = 0.95) {
+
+    if (!("speechSynthesis" in window)) {
+        return;
     }
 
-    const preferredNames = [
-        "dmitry",
-        "pavel",
-        "irina",
-        "svetlana",
-        "google"
-    ];
+    speechSynthesis.cancel();
 
-    for (const preferred of preferredNames) {
+    const utterance =
+        new SpeechSynthesisUtterance(text);
 
-        const found = russian.find(voice =>
-            voice.name
-                .toLowerCase()
-                .includes(preferred)
-        );
+    utterance.lang = "ru-RU";
+    utterance.rate = rate;
+    utterance.pitch = pitch;
+    utterance.volume = 1;
 
-        if (found) {
-            return found;
-        }
+    const voice = getRussianVoice();
+
+    if (voice) {
+        utterance.voice = voice;
     }
 
-    return russian[0];
+    speechSynthesis.speak(utterance);
 }
 
 /* =========================================================
-   ОЗВУЧКА
+   СТАРТ
 ========================================================= */
 
-function speakIntroPart(text, storyIndex) {
+function startGame() {
+
+    menu.classList.add("hidden");
+
+    intro.classList.remove("hidden");
+
+    game.classList.add("hidden");
+
+    introIndex = 0;
+    introSkipped = false;
+
+    introStart.classList.remove("show");
+
+    skipIntro.classList.remove("hidden");
+
+    introStatus.innerText =
+        "● ВОСПРОИЗВЕДЕНИЕ...";
+
+    introStatus.classList.add("active");
+
+    introProgress.style.width = "0%";
+
+    introLine.innerText = "";
+
+    introLine.classList.remove("show");
+
+    if ("speechSynthesis" in window) {
+        speechSynthesis.cancel();
+    }
+
+    showIntroPart();
+}
+
+function showIntroPart() {
 
     if (introSkipped) {
         return;
     }
 
-    if (!("speechSynthesis" in window)) {
+    if (introIndex >= introStory.length) {
 
-        introIndex++;
-        showIntroPart();
+        finishIntroStory();
 
         return;
     }
 
-    window.speechSynthesis.cancel();
+    const index = introIndex;
 
-    introUtterance =
-        new SpeechSynthesisUtterance(text);
+    introLine.classList.remove("show");
 
-    introUtterance.lang = "ru-RU";
-    introUtterance.rate = 0.95;
-    introUtterance.pitch = 0.95;
-    introUtterance.volume = 1;
-
-    const russianVoice =
-        getRussianVoice();
-
-    if (russianVoice) {
-        introUtterance.voice =
-            russianVoice;
-    }
-
-    introUtterance.onend = function() {
+    setTimeout(() => {
 
         if (
             introSkipped ||
-            storyIndex !== introIndex
+            index !== introIndex
         ) {
             return;
         }
 
-        introIndex++;
+        introLine.innerText =
+            introStory[index];
 
-        showIntroPart();
-    };
+        introLine.classList.add("show");
 
-    introUtterance.onerror = function() {
+        introProgress.style.width =
+            ((index + 1) /
+            introStory.length *
+            100) + "%";
 
-        if (
-            introSkipped ||
-            storyIndex !== introIndex
-        ) {
-            return;
+        if ("speechSynthesis" in window) {
+
+            speechSynthesis.cancel();
+
+            const utterance =
+                new SpeechSynthesisUtterance(
+                    introStory[index]
+                );
+
+            utterance.lang = "ru-RU";
+
+            utterance.rate = 0.95;
+
+            utterance.pitch = 0.95;
+
+            const voice = getRussianVoice();
+
+            if (voice) {
+                utterance.voice = voice;
+            }
+
+            utterance.onend = () => {
+
+                if (
+                    !introSkipped &&
+                    index === introIndex
+                ) {
+
+                    introIndex++;
+
+                    showIntroPart();
+                }
+
+            };
+
+            utterance.onerror =
+                utterance.onend;
+
+            speechSynthesis.speak(
+                utterance
+            );
+
+        } else {
+
+            introIndex++;
+
+            setTimeout(
+                showIntroPart,
+                100
+            );
+
         }
 
-        introIndex++;
-
-        showIntroPart();
-    };
-
-    window.speechSynthesis.speak(
-        introUtterance
-    );
+    }, 100);
 }
-
-/* =========================================================
-   ЗАВЕРШЕНИЕ ВСТУПЛЕНИЯ
-========================================================= */
 
 function finishIntroStory() {
 
@@ -2175,89 +1975,66 @@ function finishIntroStory() {
     introSkipped = true;
 
     if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
+        speechSynthesis.cancel();
     }
 
-    document.getElementById("introLine")
-        .innerText =
+    introLine.innerText =
         "РАССЛЕДОВАНИЕ НАЧИНАЕТСЯ.";
 
-    document.getElementById("introLine")
-        .classList.add("show");
+    introLine.classList.add("show");
 
-    document.getElementById("introProgress")
-        .style.width = "100%";
+    introProgress.style.width = "100%";
 
-    document.getElementById("introStatus")
-        .innerText =
+    introStatus.innerText =
         "● РАССЛЕДОВАНИЕ НАЧИНАЕТСЯ";
 
-    document.getElementById("skipIntro")
-        .classList.add("hidden");
+    skipIntro.classList.add("hidden");
 
     setTimeout(() => {
 
-        document.getElementById("intro")
-            .classList.add("hidden");
+        intro.classList.add("hidden");
 
-        document.getElementById("game")
-            .classList.remove("hidden");
+        game.classList.remove("hidden");
 
         updateCounter();
 
-    }, 1000);
+    }, 700);
 }
-
-/* =========================================================
-   ПРОПУСК
-========================================================= */
 
 function skipIntro() {
 
     introSkipped = true;
 
     if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
+        speechSynthesis.cancel();
     }
 
-    document.getElementById("introLine")
-        .innerText =
+    introLine.innerText =
         "РАССЛЕДОВАНИЕ НАЧИНАЕТСЯ.";
 
-    document.getElementById("introLine")
-        .classList.add("show");
+    introLine.classList.add("show");
 
-    document.getElementById("introProgress")
-        .style.width = "100%";
+    introProgress.style.width = "100%";
 
-    document.getElementById("introStatus")
-        .innerText =
+    introStatus.innerText =
         "● ВСТУПЛЕНИЕ ПРОПУЩЕНО";
 
-    document.getElementById("skipIntro")
-        .classList.add("hidden");
+    skipIntro.classList.add("hidden");
 
-    document.getElementById("introStart")
-        .classList.add("show");
+    introStart.classList.add("show");
 }
-
-/* =========================================================
-   ПЕРЕХОД К ИГРЕ
-========================================================= */
 
 function finishIntro() {
 
     introSkipped = true;
 
     if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
+        speechSynthesis.cancel();
     }
 
-    document.getElementById("intro")
-        .classList.add("hidden");
+    intro.classList.add("hidden");
 
-    document.getElementById("game")
-        .classList.remove("hidden");
+    game.classList.remove("hidden");
 
     updateCounter();
 }
@@ -2267,28 +2044,40 @@ function finishIntro() {
 ========================================================= */
 
 const items = {
+
     archive_key: {
         name: "Ключ от архивного шкафа",
+
         description:
-            "Старый металлический ключ с биркой «А-17»."
+            "Старый металлический ключ с биркой «А-17». Открывает архивный шкаф и сейф режиссёрского кабинета."
     },
 
     duplicate_key: {
         name: "Дубликат ключа С-2",
+
         description:
-            "Ключ от служебной двери в коридоре."
+            "Ключ от служебной двери. Позволяет попасть в старый проход за архивом."
     },
 
     red_thread: {
         name: "Красная нить",
+
         description:
-            "Небольшой кусок красной ткани."
+            "Кусочек красной ткани. Такая же нить обнаружена на старом костюме, который вчера трогали."
     },
 
     tool: {
         name: "Инструмент проекционной",
+
         description:
-            "Металлический инструмент со свежими следами."
+            "Металлический инструмент со свежими следами. Подходит для ручного отключения панели камеры №3."
+    },
+
+    film17: {
+        name: "Плёнка №17",
+
+        description:
+            "Оригинальная киноплёнка, считавшаяся пропавшей с 1963 года."
     }
 
 };
@@ -2299,607 +2088,661 @@ const items = {
 
 const rooms = {
 
-    archive: {
+archive: {
 
-        name: "📁 Архив",
+    name: "📁 Архив",
 
-        description:
-            "Помещение с киноплёнками, документами и старыми шкафами.",
+    description:
+        "Помещение с киноплёнками, документами и старыми шкафами.",
 
-        character: "marina",
+    character: "marina",
 
-        spots: [
+    spots: [
 
-            {
-                id: "archive_desk",
-                name: "Стол архивиста",
-                description:
-                    "На столе лежат журналы учёта.",
+        {
+            id: "archive_desk",
 
-                subject: "Физика",
+            name: "Стол архивиста",
 
-                question:
-                    "Почему архивные документы лучше хранить в сухом помещении?",
+            description:
+                "На столе лежат журналы учёта.",
 
-                rewardClue: {
-                    text:
-                        "В журнале указано: плёнка №17 проверялась в 20:31."
-                }
-            },
+            subject: "Физика",
 
-            {
-                id: "archive_shelves",
-                name: "Полки с плёнками",
-                description:
-                    "На одной из полок лежит старая коробка.",
+            question:
+                "Почему архивные документы лучше хранить в сухом помещении?",
 
-                subject: "Физика",
+            rewardClue: {
+                text:
+                    "В журнале указано: плёнка №17 проверялась в 20:31."
+            }
+        },
 
-                question:
-                    "Почему старые фотографии со временем могут выцветать?",
+        {
+            id: "archive_shelves",
 
-                rewardClue: {
-                    text:
-                        "На коробке обнаружена отметка: «1963»."
-                }
-            },
+            name: "Полки с плёнками",
 
-            {
+            description:
+                "На одной из полок лежит старая коробка.",
+
+            subject: "Физика",
+
+            question:
+                "Почему старые фотографии со временем могут выцветать?",
+
+            rewardItem: {
                 id: "archive_key",
-                name: "Запертый шкаф",
-
-                description:
-                    "Дверца закрыта на ключ.",
-
-                requires: "archive_key",
-
-                rewardClue: {
-                    text:
-                        "В шкафу найден старый документ о передаче оригинала плёнки."
-                }
+                name: items.archive_key.name,
+                description: items.archive_key.description
             },
 
-            {
-                id: "archive_boxes",
-                name: "Коробки",
-
-                description:
-                    "Несколько пустых коробок из-под киноплёнок.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему металлический ключ кажется холоднее деревянного предмета в той же комнате?",
-
-                rewardClue: {
-                    text:
-                        "На дне коробки остался след от катушки."
-                }
+            rewardClue: {
+                text:
+                    "На коробке обнаружена отметка: «1963». Вместе с коробкой найден ключ А-17."
             }
+        },
 
-        ]
-    },
+        {
+            id: "archive_key",
 
-    projection: {
+            name: "Запертый шкаф",
 
-        name: "🎥 Проекционная",
+            description:
+                "Дверца закрыта на ключ.",
 
-        description:
-            "Старый проектор, катушки и оборудование.",
+            requires: "archive_key",
 
-        character: "viktor",
-
-        spots: [
-
-            {
-                id: "projection_projector",
-                name: "Старый проектор",
-                description:
-                    "Лампа и механизм проектора.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему кинопроектор во время работы нужно охлаждать?",
-
-                rewardClue: {
-                    text:
-                        "На проекторе обнаружена записка: «20:45 — выключить свет»."
-                }
-            },
-
-            {
-                id: "projection_rack",
-                name: "Стеллаж с плёнками",
-                description:
-                    "На стеллаже несколько катушек.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему киноплёнку нельзя долго оставлять под ярким светом?",
-
-                rewardClue: {
-                    text:
-                        "Катушка №17 выглядит значительно новее остальных."
-                }
-            },
-
-            {
-                id: "projection_toolbox",
-                name: "Ящик с инструментами",
-
-                description:
-                    "Металлические инструменты.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему металлические инструменты после контакта с водой могут ржаветь?",
-
-                rewardItem: {
-                    name: "Инструмент проекционной",
-                    description:
-                        "Инструмент со свежими следами."
-                },
-
-                rewardClue: {
-                    text:
-                        "На одном из инструментов обнаружены свежие следы."
-                }
-            },
-
-            {
-                id: "projection_clock",
-                name: "Настенные часы",
-
-                description:
-                    "Часы остановились.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему работа некоторых механических часов может немного изменяться при изменении температуры?",
-
-                rewardClue: {
-                    text:
-                        "Часы остановились на 20:47."
-                }
+            rewardClue: {
+                text:
+                    "В шкафу найден старый документ о передаче оригинала плёнки."
             }
+        },
 
-        ]
-    },
+        {
+            id: "archive_boxes",
 
-    director: {
+            name: "Коробки",
 
-        name: "🎬 Кабинет режиссёра",
+            description:
+                "Несколько пустых коробок из-под киноплёнок.",
 
-        description:
-            "Большой кабинет с сейфом, фотографиями и книгами.",
+            subject: "Физика",
 
-        character: "alexey",
+            question:
+                "Почему металлический ключ кажется холоднее деревянного предмета в той же комнате?",
 
-        spots: [
-
-            {
-                id: "director_desk",
-                name: "Стол режиссёра",
-                description:
-                    "На столе лежат документы.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему чернила на некоторых видах бумаги могут проступать на обратную сторону?",
-
-                rewardClue: {
-                    text:
-                        "На листе написано: «Не дать им найти оригинал раньше времени»."
-                }
-            },
-
-            {
-                id: "director_safe",
-                name: "Сейф",
-
-                description:
-                    "Старый металлический сейф.",
-
-                requires: "archive_key",
-
-                rewardClue: {
-                    text:
-                        "В сейфе найден документ с инициалами В.Л."
-                }
-            },
-
-            {
-                id: "director_photo",
-                name: "Старая фотография",
-
-                description:
-                    "Фотография сотрудников студии.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему страницы старых книг со временем желтеют?",
-
-                rewardClue: {
-                    text:
-                        "На фотографии стоят инициалы «В.Л.» и дата 1963."
-                }
-            },
-
-            {
-                id: "director_books",
-                name: "Книжный шкаф",
-
-                description:
-                    "Старые книги по истории кино.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему толстая металлическая дверь нагревается с одной стороны медленнее, чем тонкий лист металла?",
-
-                rewardClue: {
-                    text:
-                        "Между страниц найдено упоминание конфликта 1963 года."
-                }
+            rewardClue: {
+                text:
+                    "На дне коробки остался след от катушки."
             }
+        }
 
-        ]
-    },
+    ]
 
-    costume: {
+},
 
-        name: "👗 Костюмерная",
+projection: {
 
-        description:
-            "Старые костюмы, шкафы и зеркало.",
+    name: "🎥 Проекционная",
 
-        character: "elena",
+    description:
+        "Старый проектор, катушки и оборудование.",
 
-        spots: [
+    character: "viktor",
 
-            {
-                id: "costume_wardrobe",
-                name: "Шкаф с костюмами",
-                description:
-                    "На вешалках висят старые костюмы.",
+    spots: [
 
-                subject: "Физика",
+        {
+            id: "projection_projector",
 
-                question:
-                    "Почему мокрая одежда обычно кажется холоднее сухой?",
+            name: "Старый проектор",
 
-                rewardClue: {
-                    text:
-                        "На старом костюме обнаружена бирка 1963 года."
-                }
-            },
+            description:
+                "Лампа и механизм проектора.",
 
-            {
-                id: "costume_mirror",
-                name: "Зеркало",
+            subject: "Физика",
 
-                description:
-                    "Большое зеркало у стены.",
+            question:
+                "Почему кинопроектор во время работы нужно охлаждать?",
 
-                subject: "Физика",
-
-                question:
-                    "Почему зеркало запотевает после горячего душа?",
-
-                rewardClue: {
-                    text:
-                        "На зеркале кто-то написал: «Не доверяй первому рассказу»."
-                }
-            },
-
-            {
-                id: "costume_locker",
-                name: "Запертый шкафчик",
-
-                description:
-                    "Шкафчик закрыт.",
-
-                requires: "archive_key",
-
-                rewardClue: {
-                    text:
-                        "Внутри найден старый пропуск."
-                }
-            },
-
-            {
-                id: "costume_thread",
-                name: "Коробка с нитками",
-
-                description:
-                    "Разноцветные катушки.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему свойства некоторых материалов могут изменяться при намокании?",
-
-                rewardItem: {
-                    name: "Красная нить",
-                    description:
-                        "Кусочек красной ткани."
-                },
-
-                rewardClue: {
-                    text:
-                        "На коробке отсутствует одна катушка красной нити."
-                }
+            rewardClue: {
+                text:
+                    "На проекторе обнаружена записка: «20:45 — выключить свет»."
             }
+        },
 
-        ]
-    },
+        {
+            id: "projection_rack",
 
-    security: {
+            name: "Стеллаж с плёнками",
 
-        name: "🔐 Охрана",
+            description:
+                "На стеллаже несколько катушек.",
 
-        description:
-            "Мониторы камер, журнал и шкаф с ключами.",
+            subject: "Физика",
 
-        character: "sergey",
+            question:
+                "Почему киноплёнку нельзя долго оставлять под ярким светом?",
 
-        spots: [
-
-            {
-                id: "security_monitor",
-                name: "Мониторы",
-
-                description:
-                    "На экранах видны камеры студии.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему экран телефона на ярком солнце бывает сложнее рассмотреть?",
-
-                rewardClue: {
-                    text:
-                        "Камера №3 отключилась в 20:43. На записи виден человек в коридоре."
-                }
-            },
-
-            {
-                id: "security_camera",
-                name: "Панель камер",
-
-                description:
-                    "Провода и переключатели.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему повреждённый электрический кабель может быть опасен?",
-
-                rewardClue: {
-                    text:
-                        "Кабель камеры №3 был отключён вручную."
-                }
-            },
-
-            {
-                id: "security_desk",
-                name: "Стол охраны",
-
-                description:
-                    "Журнал дежурств.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему дверную ручку делают далеко от петель?",
-
-                rewardClue: {
-                    text:
-                        "В журнале: 20:40 — Виктор в проекционной; 20:43 — сбой камеры."
-                }
-            },
-
-            {
-                id: "security_cabinet",
-                name: "Шкаф с ключами",
-
-                description:
-                    "Ключи от служебных помещений.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему при нажатии на рычаг дальше от точки опоры его легче повернуть?",
-
-                rewardItem: {
-                    name: "Дубликат ключа С-2",
-                    description:
-                        "Ключ от служебной двери."
-                },
-
-                rewardClue: {
-                    text:
-                        "В шкафу найден дубликат ключа С-2."
-                }
+            rewardClue: {
+                text:
+                    "Катушка №17 выглядит значительно новее остальных."
             }
+        },
 
-        ]
-    },
+        {
+            id: "projection_toolbox",
 
-    backstage: {
+            name: "Ящик с инструментами",
 
-        name: "🎭 Закулисье",
+            description:
+                "Металлические инструменты.",
 
-        description:
-            "Склад декораций, старые газеты и ящики.",
+            subject: "Физика",
 
-        character: "ilya",
+            question:
+                "Почему металлические инструменты после контакта с водой могут ржаветь?",
 
-        spots: [
-
-            {
-                id: "backstage_decorations",
-                name: "Декорации",
-
-                description:
-                    "Старые декорации стоят вдоль стены.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему большие деревянные декорации часто делают полыми внутри?",
-
-                rewardClue: {
-                    text:
-                        "За декорацией обнаружен скрытый проход."
-                }
+            rewardItem: {
+                id: "tool",
+                name: items.tool.name,
+                description: items.tool.description
             },
 
-            {
-                id: "backstage_suitcase",
-                name: "Старый чемодан",
-
-                description:
-                    "Чемодан покрыт пылью.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему чемодан на колёсах легче тянуть, чем тащить по полу?",
-
-                rewardClue: {
-                    text:
-                        "Внутри дневник: «Виктор знает, где спрятан оригинал»."
-                }
-            },
-
-            {
-                id: "backstage_newspapers",
-                name: "Старые газеты",
-
-                description:
-                    "Газеты за разные годы.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему сложенную в несколько раз бумагу труднее порвать?",
-
-                rewardClue: {
-                    text:
-                        "Газета сообщает о конфликте на студии в 1963 году."
-                }
-            },
-
-            {
-                id: "backstage_crate",
-                name: "Деревянный ящик",
-
-                description:
-                    "На ящике старая маркировка.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему широкая коробка обычно устойчивее высокой и узкой?",
-
-                rewardClue: {
-                    text:
-                        "На ящике маркировка архива: 17-А."
-                }
+            rewardClue: {
+                text:
+                    "На одном из инструментов обнаружены свежие следы. Им можно было вручную отключить камеру №3."
             }
+        },
 
-        ]
-    },
+        {
+            id: "projection_clock",
 
-    corridor: {
+            name: "Настенные часы",
 
-        name: "🚪 Коридор",
+            description:
+                "Часы остановились.",
 
-        description:
-            "Центральный коридор старой киностудии.",
+            subject: "Физика",
 
-        character: "nikolay",
+            question:
+                "Почему работа некоторых механических часов может немного изменяться при изменении температуры?",
 
-        spots: [
-
-            {
-                id: "corridor_coat",
-                name: "Пальто",
-
-                description:
-                    "Старое пальто висит на крючке.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему зимой несколько слоёв одежды обычно теплее одного толстого слоя?",
-
-                rewardClue: {
-                    text:
-                        "В кармане найден билет на юбилейный показ."
-                }
-            },
-
-            {
-                id: "corridor_footprints",
-                name: "Следы",
-
-                description:
-                    "На полу заметны следы.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему мокрый пол позволяет заметить следы человека?",
-
-                rewardClue: {
-                    text:
-                        "Следы идут от архива в сторону проекционной."
-                }
-            },
-
-            {
-                id: "corridor_door",
-                name: "Служебная дверь",
-
-                description:
-                    "Дверь закрыта.",
-
-                requires: "duplicate_key",
-
-                rewardClue: {
-                    text:
-                        "За дверью обнаружен проход к старому архивному помещению."
-                }
-            },
-
-            {
-                id: "corridor_notice",
-                name: "Доска объявлений",
-
-                description:
-                    "Старые объявления сотрудников.",
-
-                subject: "Физика",
-
-                question:
-                    "Почему батареи часто устанавливают под окнами?",
-
-                rewardClue: {
-                    text:
-                        "Объявление: «Архив закрывается после 21:00»."
-                }
+            rewardClue: {
+                text:
+                    "Часы остановились на 20:47."
             }
+        }
 
-        ]
-    }
+    ]
+
+},
+
+director: {
+
+    name: "🎬 Кабинет режиссёра",
+
+    description:
+        "Большой кабинет с сейфом, фотографиями и книгами.",
+
+    character: "alexey",
+
+    spots: [
+
+        {
+            id: "director_desk",
+
+            name: "Стол режиссёра",
+
+            description:
+                "На столе лежат документы.",
+
+            subject: "Физика",
+
+            question:
+                "Почему чернила на некоторых видах бумаги могут проступать на обратную сторону?",
+
+            rewardClue: {
+                text:
+                    "На листе написано: «Не дать им найти оригинал раньше времени»."
+            }
+        },
+
+        {
+            id: "director_safe",
+
+            name: "Сейф",
+
+            description:
+                "Старый металлический сейф.",
+
+            requires: "archive_key",
+
+            rewardClue: {
+                text:
+                    "В сейфе найден документ с инициалами В.Л. Документ связывает Виктора с историей оригинала."
+            }
+        },
+
+        {
+            id: "director_photo",
+
+            name: "Старая фотография"
+            ,
+
+            description:
+                "Фотография сотрудников студии.",
+
+            subject: "Физика",
+
+            question:
+                "Почему страницы старых книг со временем желтеют?",
+
+            rewardClue: {
+                text:
+                    "На фотографии стоят инициалы «В.Л.» и дата 1963."
+            }
+        },
+
+        {
+            id: "director_books",
+
+            name: "Книжный шкаф",
+
+            description:
+                "Старые книги по истории кино.",
+
+            subject: "Физика",
+
+            question:
+                "Почему толстая металлическая дверь нагревается с одной стороны медленнее, чем тонкий лист металла?",
+
+            rewardClue: {
+                text:
+                    "Между страниц найдено упоминание конфликта 1963 года."
+            }
+        }
+
+    ]
+
+},
+
+costume: {
+
+    name: "👗 Костюмерная",
+
+    description:
+        "Старые костюмы, шкафы и зеркало.",
+
+    character: "elena",
+
+    spots: [
+
+        {
+            id: "costume_wardrobe",
+
+            name: "Шкаф с костюмами",
+
+            description:
+                "На вешалках висят старые костюмы.",
+
+            subject: "Физика",
+
+            question:
+                "Почему мокрая одежда обычно кажется холоднее сухой?",
+
+            rewardClue: {
+                text:
+                    "На старом костюме обнаружена бирка 1963 года."
+            }
+        },
+
+        {
+            id: "costume_mirror",
+
+            name: "Зеркало",
+
+            description:
+                "Большое зеркало у стены.",
+
+            subject: "Физика",
+
+            question:
+                "Почему зеркало запотевает после горячего душа?",
+
+            rewardClue: {
+                text:
+                    "На зеркале кто-то написал: «Не доверяй первому рассказу»."
+            }
+        },
+
+        {
+            id: "costume_locker",
+
+            name: "Запертый шкафчик",
+
+            description:
+                "Шкафчик закрыт.",
+
+            requires: "archive_key",
+
+            rewardClue: {
+                text:
+                    "Внутри найден старый пропуск."
+            }
+        },
+
+        {
+            id: "costume_thread",
+
+            name: "Коробка с нитками",
+
+            description:
+                "Разноцветные катушки.",
+
+            subject: "Физика",
+
+            question:
+                "Почему свойства некоторых материалов могут изменяться при намокании?",
+
+            rewardItem: {
+                id: "red_thread",
+                name: items.red_thread.name,
+                description: items.red_thread.description
+            },
+
+            rewardClue: {
+                text:
+                    "На коробке отсутствует одна катушка красной нити."
+            }
+        }
+
+    ]
+
+},
+
+security: {
+
+    name: "🔐 Охрана",
+
+    description:
+        "Мониторы камер, журнал и шкаф с ключами.",
+
+    character: "sergey",
+
+    spots: [
+
+        {
+            id: "security_monitor",
+
+            name: "Мониторы",
+
+            description:
+                "На экранах видны камеры студии.",
+
+            subject: "Физика",
+
+            question:
+                "Почему экран телефона на ярком солнце бывает сложнее рассмотреть?",
+
+            rewardClue: {
+                text:
+                    "Камера №3 отключилась в 20:43. На записи виден человек в коридоре."
+            }
+        },
+
+        {
+            id: "security_camera",
+
+            name: "Панель камер",
+
+            description:
+                "Провода и переключатели.",
+
+            subject: "Физика",
+
+            question:
+                "Почему повреждённый электрический кабель может быть опасен?",
+
+            rewardClue: {
+                text:
+                    "Кабель камеры №3 был отключён вручную."
+            }
+        },
+
+        {
+            id: "security_desk",
+
+            name: "Стол охраны",
+
+            description:
+                "Журнал дежурств.",
+
+            subject: "Физика",
+
+            question:
+                "Почему дверную ручку делают далеко от петель?",
+
+            rewardClue: {
+                text:
+                    "В журнале: 20:40 — Виктор в проекционной; 20:43 — сбой камеры."
+            }
+        },
+
+        {
+            id: "security_cabinet",
+
+            name: "Шкаф с ключами",
+
+            description:
+                "Ключи от служебных помещений.",
+
+            subject: "Физика",
+
+            question:
+                "Почему при нажатии на рычаг дальше от точки опоры его легче повернуть?",
+
+            rewardItem: {
+                id: "duplicate_key",
+                name: items.duplicate_key.name,
+                description: items.duplicate_key.description
+            },
+
+            rewardClue: {
+                text:
+                    "В шкафу найден дубликат ключа С-2. Он ведёт в старый проход."
+            }
+        }
+
+    ]
+
+},
+
+backstage: {
+
+    name: "🎭 Закулисье",
+
+    description:
+        "Склад декораций, старые газеты и ящики.",
+
+    character: "ilya",
+
+    spots: [
+
+        {
+            id: "backstage_decorations",
+
+            name: "Декорации",
+
+            description:
+                "Старые декорации стоят вдоль стены.",
+
+            subject: "Физика",
+
+            question:
+                "Почему большие деревянные декорации часто делают полыми внутри?",
+
+            rewardClue: {
+                text:
+                    "За декорацией обнаружен скрытый проход."
+            }
+        },
+
+        {
+            id: "backstage_suitcase",
+
+            name: "Старый чемодан",
+
+            description:
+                "Чемодан покрыт пылью.",
+
+            subject: "Физика",
+
+            question:
+                "Почему чемодан на колёсах легче тянуть, чем тащить по полу?",
+
+            rewardClue: {
+                text:
+                    "Внутри дневник: «Виктор знает, где спрятан оригинал»."
+            }
+        },
+
+        {
+            id: "backstage_newspapers",
+
+            name: "Старые газеты",
+
+            description:
+                "Газеты за разные годы.",
+
+            subject: "Физика",
+
+            question:
+                "Почему сложенную в несколько раз бумагу труднее порвать?",
+
+            rewardClue: {
+                text:
+                    "Газета сообщает о конфликте на студии в 1963 году."
+            }
+        },
+
+        {
+            id: "backstage_crate",
+
+            name: "Деревянный ящик",
+
+            description:
+                "На ящике старая маркировка.",
+
+            subject: "Физика",
+
+            question:
+                "Почему широкая коробка обычно устойчивее высокой и узкой?",
+
+            rewardClue: {
+                text:
+                    "На ящике маркировка архива: 17-А."
+            }
+        }
+
+    ]
+
+},
+
+corridor: {
+
+    name: "🚪 Коридор",
+
+    description:
+        "Центральный коридор старой киностудии.",
+
+    character: "nikolay",
+
+    spots: [
+
+        {
+            id: "corridor_coat",
+
+            name: "Пальто",
+
+            description:
+                "Старое пальто висит на крючке.",
+
+            subject: "Физика",
+
+            question:
+                "Почему зимой несколько слоёв одежды обычно теплее одного толстого слоя?",
+
+            rewardClue: {
+                text:
+                    "В кармане найден билет на юбилейный показ."
+            }
+        },
+
+        {
+            id: "corridor_footprints",
+
+            name: "Следы",
+
+            description:
+                "На полу заметны следы.",
+
+            subject: "Физика",
+
+            question:
+                "Почему мокрый пол позволяет заметить следы человека?",
+
+            rewardClue: {
+                text:
+                    "Следы идут от архива в сторону проекционной."
+            }
+        },
+
+        {
+            id: "corridor_door",
+
+            name: "Служебная дверь",
+
+            description:
+                "Дверь закрыта.",
+
+            requires: "duplicate_key",
+
+            rewardClue: {
+                text:
+                    "За дверью обнаружен проход к старому архивному помещению. Путь соединяет архив и проекционную."
+            },
+
+            rewardItem: {
+                id: "film17",
+                name: items.film17.name,
+                description: items.film17.description
+            }
+        },
+
+        {
+            id: "corridor_notice",
+
+            name: "Доска объявлений",
+
+            description:
+                "Старые объявления сотрудников.",
+
+            subject: "Физика",
+
+            question:
+                "Почему батареи часто устанавливают под окнами?",
+
+            rewardClue: {
+                text:
+                    "Объявление: «Архив закрывается после 21:00»."
+            }
+        }
+
+    ]
+
+}
 
 };
 
@@ -2909,134 +2752,227 @@ const rooms = {
 
 const characters = {
 
-    marina: {
-        name: "Марина Соколова",
-        job: "Архивист",
-        riddle:
-            "Я могу быть дан человеку, но меня нельзя положить в карман. Если меня нарушить — доверие исчезнет. Что это?",
-        answer: "обещание",
-        hint1:
-            "Это связано с тем, что человек может дать другому.",
-        hint2:
-            "Когда человек говорит «я обязательно это сделаю», он даёт это.",
-        dialogue:
-            "Марина нервничает и постоянно смотрит на дверь архива.",
-        info:
-            "В 20:31 я проверяла плёнку №17. После этого она оставалась в архиве."
-    },
+marina: {
 
-    viktor: {
-        name: "Виктор Лебедев",
-        job: "Киномеханик",
-        riddle:
-            "Меня можно смотреть, но нельзя потрогать. Через меня можно увидеть события прошлого. Что это?",
-        answer: "фильм",
-        hint1:
-            "Это связано с кино.",
-        hint2:
-            "Его показывают в кинотеатре.",
-        dialogue:
-            "Виктор выглядит спокойно, но явно не хочет долго разговаривать.",
-        info:
-            "В 20:40 я был в проекционной. Камера №3 отключилась позже."
-    },
+    name: "Марина Соколова",
 
-    alexey: {
-        name: "Алексей Орлов",
-        job: "Режиссёр",
-        riddle:
-            "Чем больше из меня берут, тем больше я становлюсь. Что это?",
-        answer: "дыра",
-        hint1:
-            "Это отсутствие чего-либо.",
-        hint2:
-            "Если вырезать часть стены, она появится.",
-        dialogue:
-            "Режиссёр отвечает коротко и явно что-то скрывает.",
-        info:
-            "История с оригиналом началась ещё в 1963 году."
-    },
+    job: "Архивист",
 
-    elena: {
-        name: "Елена Воронова",
-        job: "Костюмер",
-        riddle:
-            "У актёра её может не быть в обычной жизни, но на сцене она становится очень важной. Что это?",
-        answer: "роль",
-        hint1:
-            "Актёр получает её в фильме.",
-        hint2:
-            "Её играют.",
-        dialogue:
-            "Елена говорит, что в старых костюмах сохранились странные следы.",
-        info:
-            "Вчера я видела красную нить на костюме, которого никто не должен был трогать."
-    },
+    riddle:
+        "Я могу быть дан человеку, но меня нельзя положить в карман. Если меня нарушить — доверие исчезнет. Что это?",
 
-    sergey: {
-        name: "Сергей Крылов",
-        job: "Охранник",
-        riddle:
-            "Я всегда рядом с тобой при свете, но исчезаю в темноте. Что я?",
-        answer: "тень",
-        hint1:
-            "Она появляется из-за света.",
-        hint2:
-            "Ты видишь её на полу или стене.",
-        dialogue:
-            "Сергей показывает журнал дежурств.",
-        info:
-            "Камера №3 отключилась в 20:43. До этого в коридоре находился человек."
-    },
+    answer: "обещание",
 
-    ilya: {
-        name: "Илья Морозов",
-        job: "Журналист",
-        riddle:
-            "Его можно знать, но нельзя увидеть. Его можно хранить и раскрыть. Что это?",
-        answer: "секрет",
-        hint1:
-            "Его часто скрывают.",
-        hint2:
-            "Если его раскрыть — тайна перестаёт быть тайной.",
-        dialogue:
-            "Илья слишком заинтересован расследованием.",
-        info:
-            "В старом дневнике я нашёл фразу: «Виктор знает, где оригинал»."
-    },
+    hint1:
+        "Это связано с тем, что человек может дать другому.",
 
-    nikolay: {
-        name: "Николай Белов",
-        job: "Водитель",
-        riddle:
-            "Она уже произошла, но о ней можно читать в книгах и документах. Что это?",
-        answer: "история",
-        hint1:
-            "Она связана с прошлым.",
-        hint2:
-            "Мы изучаем её в школе.",
-        dialogue:
-            "Николай говорит, что в день исчезновения плёнки видел человека у архива.",
-        info:
-            "Около 20:45 кто-то быстро прошёл из архива к проекционной."
-    }
+    hint2:
+        "Когда человек говорит «я обязательно это сделаю», он даёт это.",
+
+    dialogue:
+        "Марина нервничает и постоянно смотрит на дверь архива.",
+
+    info:
+        "В 20:31 я проверяла плёнку №17. После этого она оставалась в архиве."
+
+},
+
+viktor: {
+
+    name: "Виктор Лебедев",
+
+    job: "Киномеханик",
+
+    riddle:
+        "Меня можно смотреть, но нельзя потрогать. Через меня можно увидеть события прошлого. Что это?",
+
+    answer: "фильм",
+
+    hint1:
+        "Это связано с кино.",
+
+    hint2:
+        "Его показывают в кинотеатре.",
+
+    dialogue:
+        "Виктор выглядит спокойно, но явно не хочет долго разговаривать.",
+
+    info:
+        "В 20:40 я был в проекционной. Камера №3 отключилась позже."
+
+},
+
+alexey: {
+
+    name: "Алексей Орлов",
+
+    job: "Режиссёр",
+
+    riddle:
+        "Чем больше из меня берут, тем больше я становлюсь. Что это?",
+
+    answer: "дыра",
+
+    hint1:
+        "Это отсутствие чего-либо.",
+
+    hint2:
+        "Если вырезать часть стены, она появится.",
+
+    dialogue:
+        "Режиссёр отвечает коротко и явно что-то скрывает.",
+
+    info:
+        "История с оригиналом началась ещё в 1963 году."
+
+},
+
+elena: {
+
+    name: "Елена Воронова",
+
+    job: "Костюмер",
+
+    riddle:
+        "У актёра её может не быть в обычной жизни, но на сцене она становится очень важной. Что это?",
+
+    answer: "роль",
+
+    hint1:
+        "Актёр получает её в фильме.",
+
+    hint2:
+        "Её играют.",
+
+    dialogue:
+        "Елена говорит, что в старых костюмах сохранились странные следы.",
+
+    info:
+        "Вчера я видела красную нить на костюме, которого никто не должен был трогать."
+
+},
+
+sergey: {
+
+    name: "Сергей Крылов",
+
+    job: "Охранник",
+
+    riddle:
+        "Я всегда рядом с тобой при свете, но исчезаю в темноте. Что я?",
+
+    answer: "тень",
+
+    hint1:
+        "Она появляется из-за света.",
+
+    hint2:
+        "Ты видишь её на полу или стене.",
+
+    dialogue:
+        "Сергей показывает журнал дежурств.",
+
+    info:
+        "Камера №3 отключилась в 20:43. До этого в коридоре находился человек."
+
+},
+
+ilya: {
+
+    name: "Илья Морозов",
+
+    job: "Журналист",
+
+    riddle:
+        "Его можно знать, но нельзя увидеть. Его можно хранить и раскрыть. Что это?",
+
+    answer: "секрет",
+
+    hint1:
+        "Его часто скрывают.",
+
+    hint2:
+        "Если его раскрыть — тайна перестаёт быть тайной.",
+
+    dialogue:
+        "Илья слишком заинтересован расследованием.",
+
+    info:
+        "В старом дневнике я нашёл фразу: «Виктор знает, где оригинал»."
+
+},
+
+nikolay: {
+
+    name: "Николай Белов",
+
+    job: "Водитель",
+
+    riddle:
+        "Она уже произошла, но о ней можно читать в книгах и документах. Что это?",
+
+    answer: "история",
+
+    hint1:
+        "Она связана с прошлым.",
+
+    hint2:
+        "Мы изучаем её в школе.",
+
+    dialogue:
+        "Николай говорит, что в день исчезновения плёнки видел человека у архива.",
+
+    info:
+        "Около 20:45 кто-то быстро прошёл из архива к проекционной."
+
+}
 
 };
+
+/* =========================================================
+   ПРОВЕРКА ПРЕДМЕТОВ
+========================================================= */
+
+function hasItem(id) {
+
+    return inventory.some(
+        item => item.id === id
+    );
+
+}
+
+function createItem(reward) {
+
+    if (!reward) {
+        return null;
+    }
+
+    if (hasItem(reward.id)) {
+        return null;
+    }
+
+    return {
+        id: reward.id,
+        name: reward.name,
+        description: reward.description
+    };
+
+}
 
 /* =========================================================
    ОТКРЫТИЕ КОМНАТЫ
 ========================================================= */
 
-function openRoom(roomId) {
+function openRoom(id) {
 
-    currentRoom = roomId;
+    currentRoom = id;
 
-    const room = rooms[roomId];
+    const room = rooms[id];
 
-    document.getElementById("roomTitle").innerText =
+    roomTitle.innerText =
         room.name;
 
-    document.getElementById("roomSubtitle").innerText =
+    roomSubtitle.innerText =
         room.description;
 
     let html = "";
@@ -3044,11 +2980,8 @@ function openRoom(roomId) {
     room.spots.forEach(spot => {
 
         const done =
-            searchedSpots.includes(spot.id);
-
-        const blocked =
             searchedSpots.includes(
-                "blocked_" + spot.id
+                spot.id
             );
 
         const locked =
@@ -3059,12 +2992,15 @@ function openRoom(roomId) {
 
             html += `
                 <div class="spot done">
+
                     <div class="spot-title">
                         ✓ ${spot.name}
                     </div>
+
                     <div class="spot-description">
                         Уже осмотрено.
                     </div>
+
                 </div>
             `;
 
@@ -3073,37 +3009,21 @@ function openRoom(roomId) {
 
         if (locked) {
 
-            const needed =
-                items[spot.requires]?.name ||
-                "необходимый предмет";
+            const required =
+                items[spot.requires];
 
             html += `
                 <div class="spot locked">
+
                     <div class="spot-title">
                         🔒 ${spot.name}
                     </div>
-                    <div class="spot-description">
-                        Нужен предмет: ${needed}
-                    </div>
-                </div>
-            `;
-
-            return;
-        }
-
-        if (blocked) {
-
-            html += `
-                <div
-                    class="spot"
-                    onclick="openQuestion('${roomId}', '${spot.id}')">
-
-                    <div class="spot-title">
-                        🔄 ${spot.name}
-                    </div>
 
                     <div class="spot-description">
-                        Вопрос не решён. Попробовать снова.
+                        Нужен предмет:
+                        ${required
+                            ? required.name
+                            : "необходимый предмет"}
                     </div>
 
                 </div>
@@ -3112,42 +3032,26 @@ function openRoom(roomId) {
             return;
         }
 
-        if (spot.question) {
+        html += `
+            <div
+                class="spot"
+                onclick="${
+                    spot.question
+                    ? `openQuestion('${id}','${spot.id}')`
+                    : `collectWithoutQuestion('${id}','${spot.id}')`
+                }"
+            >
 
-            html += `
-                <div
-                    class="spot"
-                    onclick="openQuestion('${roomId}', '${spot.id}')">
-
-                    <div class="spot-title">
-                        🔎 ${spot.name}
-                    </div>
-
-                    <div class="spot-description">
-                        Осмотреть место
-                    </div>
-
+                <div class="spot-title">
+                    🔎 ${spot.name}
                 </div>
-            `;
 
-        } else {
-
-            html += `
-                <div
-                    class="spot"
-                    onclick="collectWithoutQuestion('${roomId}', '${spot.id}')">
-
-                    <div class="spot-title">
-                        🔎 ${spot.name}
-                    </div>
-
-                    <div class="spot-description">
-                        Осмотреть место
-                    </div>
-
+                <div class="spot-description">
+                    Осмотреть место
                 </div>
-            `;
-        }
+
+            </div>
+        `;
 
     });
 
@@ -3164,11 +3068,13 @@ function openRoom(roomId) {
         html += `
             <div
                 class="spot"
-                style="border-color:#806638;margin-top:20px;"
-                onclick="openCharacter('${room.character}')">
+                style="border-color:#806638;margin-top:20px"
+                onclick="openCharacter('${room.character}')"
+            >
 
                 <div class="spot-title">
-                    👤 Поговорить: ${character.name}
+                    👤 Поговорить:
+                    ${character.name}
                 </div>
 
                 <div class="spot-description">
@@ -3181,13 +3087,13 @@ function openRoom(roomId) {
 
             </div>
         `;
+
     }
 
-    document.getElementById("roomContent").innerHTML =
-        html;
+    roomContent.innerHTML = html;
 
-    document.getElementById("roomModal")
-        .classList.remove("hidden");
+    roomModal.classList.remove("hidden");
+
 }
 
 /* =========================================================
@@ -3196,10 +3102,8 @@ function openRoom(roomId) {
 
 function openQuestion(roomId, spotId) {
 
-    const room = rooms[roomId];
-
     const spot =
-        room.spots.find(
+        rooms[roomId].spots.find(
             x => x.id === spotId
         );
 
@@ -3209,20 +3113,23 @@ function openQuestion(roomId, spotId) {
         spot
     };
 
-    document.getElementById("questionTitle").innerText =
-        "🔎" + spot.name;
+    questionTitle.innerText =
+        "🔎 " + spot.name;
 
-    document.getElementById("questionSubject").innerHTML =
-        `<span class="subject">${spot.subject || "Вопрос"}</span>`;
+    questionSubject.innerHTML =
+        `<span class="subject">
+            ${spot.subject || "Вопрос"}
+        </span>`;
 
-    document.getElementById("questionText").innerText =
+    questionText.innerText =
         spot.question;
 
-    document.getElementById("questionResult").innerHTML =
-        "";
+    questionResult.innerHTML = "";
 
-    document.getElementById("questionModal")
-        .classList.remove("hidden");
+    questionModal.classList.remove(
+        "hidden"
+    );
+
 }
 
 /* =========================================================
@@ -3231,28 +3138,40 @@ function openQuestion(roomId, spotId) {
 
 function answerCorrect() {
 
-    if (!currentQuestion) return;
+    if (!currentQuestion) {
+        return;
+    }
 
     const spot =
         currentQuestion.spot;
 
-    if (searchedSpots.includes(spot.id)) {
+    if (
+        searchedSpots.includes(
+            spot.id
+        )
+    ) {
         return;
     }
 
     searchedSpots =
         searchedSpots.filter(
-            id => id !== "blocked_" + spot.id
+            x =>
+                x !==
+                "blocked_" + spot.id
         );
 
-    searchedSpots.push(spot.id);
+    searchedSpots.push(
+        spot.id
+    );
 
-    let rewardHTML = "";
+    let reward = "";
+
+    /* ПРЕДМЕТ */
 
     if (spot.rewardItem) {
 
         const item =
-            createItemFromReward(
+            createItem(
                 spot.rewardItem
             );
 
@@ -3260,213 +3179,223 @@ function answerCorrect() {
 
             inventory.push(item);
 
-            rewardHTML += `
+            reward += `
                 <div class="reward">
+
                     🎒 Получен предмет:
                     <b>${item.name}</b>
+
+                    
+
+                    ${item.description}
+
                 </div>
             `;
+
         }
+
     }
 
-    if (spot.rewardClue) {
+    /* УЛИКА */
+
+    if (
+        spot.rewardClue &&
+        !foundClues.includes(
+            spot.rewardClue.text
+        )
+    ) {
 
         foundClues.push(
             spot.rewardClue.text
         );
 
-        rewardHTML += `
+        reward += `
             <div class="reward">
+
                 🔎 Найдена улика:
+
+                
+
                 ${spot.rewardClue.text}
+
             </div>
         `;
+
     }
 
-    document.getElementById("questionResult").innerHTML = `
+    questionResult.innerHTML = `
+
         <div class="question-result">
+
             <b>✓ Ответ засчитан!</b>
-            ${rewardHTML}
+
+            ${reward}
+
         </div>
+
     `;
 
     updateNotebook();
 
+    /*
+        Раньше здесь было 10 секунд.
+        Теперь всего 900 мс.
+    */
+
     setTimeout(() => {
 
-        closeModal("questionModal");
+        closeModal(
+            "questionModal"
+        );
 
         if (currentRoom) {
-            openRoom(currentRoom);
+            openRoom(
+                currentRoom
+            );
         }
 
-    }, 10000);
+    }, 900);
+
 }
 
 /* =========================================================
-   НЕВЕРНЫЙ ОТВЕТ
+   НЕПРАВИЛЬНЫЙ ОТВЕТ
 ========================================================= */
 
 function answerWrong() {
 
-    if (!currentQuestion) return;
+    if (!currentQuestion) {
+        return;
+    }
 
     const spot =
         currentQuestion.spot;
 
-    if (!searchedSpots.includes(spot.id)) {
+    if (
+        !searchedSpots.includes(
+            "blocked_" + spot.id
+        )
+    ) {
 
-        if (
-            !searchedSpots.includes(
-                "blocked_" + spot.id
-            )
-        ) {
+        searchedSpots.push(
+            "blocked_" + spot.id
+        );
 
-            searchedSpots.push(
-                "blocked_" + spot.id
-            );
-        }
     }
 
-    document.getElementById("questionResult").innerHTML = `
+    questionResult.innerHTML = `
+
         <div class="question-result">
 
             <b>❌ Ответ не засчитан.</b>
 
             <p>
-                Предмет или улика пока не получены.
-            </p>
-
-            <p style="color:#999;">
-                К этому вопросу можно вернуться позже.
+                Улика пока не получена.
             </p>
 
         </div>
+
     `;
+
+    /*
+        Было 10 секунд.
+        Теперь 900 мс.
+    */
 
     setTimeout(() => {
 
-        closeModal("questionModal");
+        closeModal(
+            "questionModal"
+        );
 
         if (currentRoom) {
-            openRoom(currentRoom);
+            openRoom(
+                currentRoom
+            );
         }
 
-    }, 10000);
+    }, 900);
+
 }
 
 /* =========================================================
-   ПРЕДМЕТ БЕЗ ВОПРОСА
+   МЕСТО БЕЗ ВОПРОСА
 ========================================================= */
 
-function collectWithoutQuestion(roomId, spotId) {
-
-    const room = rooms[roomId];
+function collectWithoutQuestion(
+    roomId,
+    spotId
+) {
 
     const spot =
-        room.spots.find(
+        rooms[roomId].spots.find(
             x => x.id === spotId
         );
 
-    if (searchedSpots.includes(spot.id)) {
+    if (
+        searchedSpots.includes(
+            spot.id
+        )
+    ) {
         return;
     }
 
-    searchedSpots.push(spot.id);
+    searchedSpots.push(
+        spot.id
+    );
+
+    /* ПРЕДМЕТ */
 
     if (spot.rewardItem) {
 
         const item =
-            createItemFromReward(
+            createItem(
                 spot.rewardItem
             );
 
         if (item) {
             inventory.push(item);
         }
+
     }
 
-    if (spot.rewardClue) {
+    /* УЛИКА */
+
+    if (
+        spot.rewardClue &&
+        !foundClues.includes(
+            spot.rewardClue.text
+        )
+    ) {
 
         foundClues.push(
             spot.rewardClue.text
-        );
+            );
+
     }
 
     updateNotebook();
 
     openRoom(roomId);
-}
 
-/* =========================================================
-   СОЗДАНИЕ ПРЕДМЕТА
-========================================================= */
-
-function createItemFromReward(reward) {
-
-    if (!reward) {
-        return null;
-    }
-
-    const existing =
-        inventory.find(
-            x => x.name === reward.name
-        );
-    if (existing) {
-        return null;
-    }
-
-    return {
-        name: reward.name,
-        description: reward.description
-    };
-}
-
-/* =========================================================
-   ПРОВЕРКА ПРЕДМЕТОВ
-========================================================= */
-
-function hasItem(requiredId) {
-
-    if (requiredId === "archive_key") {
-
-        return inventory.some(
-            item =>
-                item.name ===
-                "Ключ от архивного шкафа"
-        );
-    }
-
-    if (requiredId === "duplicate_key") {
-
-        return inventory.some(
-            item =>
-                item.name ===
-                "Дубликат ключа С-2"
-        );
-    }
-
-    return false;
 }
 
 /* =========================================================
    ПЕРСОНАЖ
 ========================================================= */
 
-function openCharacter(characterId) {
+function openCharacter(id) {
 
-    currentCharacter =
-        characterId;
+    currentCharacter = id;
 
     const character =
-        characters[characterId];
+        characters[id];
 
     const solved =
-        solvedCharacters.includes(
-            characterId
-        );
+        solvedCharacters.includes(id);
 
     let html = `
+
         <div class="character-box">
 
             <div class="character-name">
@@ -3480,27 +3409,35 @@ function openCharacter(characterId) {
             <div class="dialogue">
                 ${character.dialogue}
             </div>
+
     `;
 
     if (solved) {
 
         html += `
+
             <div class="question-result">
 
-                <b>✓ Персонаж уже допрошен</b>
+                <b>
+                    ✓ Персонаж уже допрошен
+                </b>
 
                 <p>
                     ${character.info}
                 </p>
 
             </div>
+
         `;
 
     } else {
 
         html += `
+
             <div class="riddle">
+
                 ${character.riddle}
+
             </div>
 
             <div class="riddle-answer">
@@ -3509,11 +3446,13 @@ function openCharacter(characterId) {
                     id="riddleInput"
                     type="text"
                     placeholder="Введите ответ..."
-                    autocomplete="off">
+                    autocomplete="off"
+                >
 
                 <button
                     class="small-btn"
-                    onclick="checkRiddle()">
+                    onclick="checkRiddle()"
+                >
                     ПРОВЕРИТЬ
                 </button>
 
@@ -3521,25 +3460,46 @@ function openCharacter(characterId) {
 
             <div
                 id="riddleResult"
-                style="margin-top:15px;">
-            </div>
+                style="margin-top:15px"
+            ></div>
+
         `;
+
     }
 
-    html += `</div>`;
+    html += `
+        </div>
+    `;
 
-    document.getElementById("characterContent")
-        .innerHTML = html;
+    characterContent.innerHTML =
+        html;
 
-    document.getElementById("characterModal")
-        .classList.remove("hidden");
+    characterModal.classList.remove(
+        "hidden"
+    );
+
+    /*
+        Озвучка персонажа.
+    */
+
+    setTimeout(() => {
+
+        speak(
+            character.dialogue +
+            " " +
+            character.riddle,
+
+            .92,
+            .95
+        );
+
+    }, 150);
+
 }
 
 /* =========================================================
-   ЗАГАДКИ
+   ЗАГАДКА ПЕРСОНАЖА
 ========================================================= */
-
-let characterAttempts = {};
 
 function checkRiddle() {
 
@@ -3564,27 +3524,38 @@ function checkRiddle() {
             .trim()
             .toLowerCase();
 
-    if (!characterAttempts[currentCharacter]) {
-        characterAttempts[currentCharacter] = 0;
-    }
+    characterAttempts[
+        currentCharacter
+    ] =
+        (characterAttempts[
+            currentCharacter
+        ] || 0) + 1;
 
-    characterAttempts[currentCharacter]++;
+    /* ПРАВИЛЬНО */
 
     if (
         answer ===
         character.answer.toLowerCase()
     ) {
 
-        solvedCharacters.push(
-            currentCharacter
-        );
+        if (
+            !solvedCharacters.includes(
+                currentCharacter
+            )
+        ) {
+
+            solvedCharacters.push(
+                currentCharacter
+            );
+
+        }
 
         updateCounter();
+
         updateNotebook();
 
-        document.getElementById(
-            "riddleResult"
-        ).innerHTML = `
+        riddleResult.innerHTML = `
+
             <div class="question-result">
 
                 <b>✓ Верно!</b>
@@ -3594,31 +3565,58 @@ function checkRiddle() {
                 </p>
 
             </div>
+
         `;
+
+        /*
+            Озвучиваем информацию персонажа.
+        */
+
+        speak(
+            character.info,
+            .90,
+            .95
+        );
+
+        /*
+            Было 10 секунд.
+            Теперь 1.2 секунды.
+        */
 
         setTimeout(() => {
 
-            closeModal("characterModal");
+            closeModal(
+                "characterModal"
+            );
 
             if (currentRoom) {
-                openRoom(currentRoom);
+
+                openRoom(
+                    currentRoom
+                );
+
             }
 
-        }, 10000);
+        }, 1200);
 
         return;
     }
 
+    /* ПЕРВАЯ ОШИБКА */
+
     if (
-        characterAttempts[currentCharacter] === 1
+        characterAttempts[
+            currentCharacter
+        ] === 1
     ) {
 
-        document.getElementById(
-            "riddleResult"
-        ).innerHTML = `
+        riddleResult.innerHTML = `
+
             <div class="question-result">
 
-                <b>❌ Неверно.</b>
+                <b>
+                ❌ Неверно.
+                </b>
 
                 <p>
                     💡 Подсказка №1:
@@ -3626,129 +3624,157 @@ function checkRiddle() {
                 </p>
 
             </div>
+
         `;
 
-        return;
     }
 
-    document.getElementById(
-        "riddleResult"
-    ).innerHTML = `
-        <div class="question-result">
+    /* ВТОРАЯ ОШИБКА */
 
-            <b>❌ Второй ответ тоже неверный.</b>
+    else {
 
-            <p>
-                💡 Подсказка №2:
-                ${character.hint2}
-            </p>
+        riddleResult.innerHTML = `
 
-            <p style="color:#888;">
-                Разговор пока заканчивается.
-                К этому персонажу можно вернуться позже.
-            </p>
+            <div class="question-result">
 
-        </div>
-    `;
+                <b>
+                    ❌ Второй ответ тоже неверный.
+                </b>
 
-    setTimeout(() => {
+                <p>
+                    💡 Подсказка №2:
+                    ${character.hint2}
+                </p>
 
-        closeModal("characterModal");
+                <p style="color:#888">
+                    Можно вернуться позже.
+                </p>
 
-    }, 10000);
+            </div>
+
+        `;
+
+        setTimeout(() => {
+
+            closeModal(
+                "characterModal"
+            );
+
+        }, 1400);
+
+    }
+
 }
 
 /* =========================================================
    БЛОКНОТ
 ========================================================= */
 
-function openNotebook() {
-
-    updateNotebook();
-
-    document.getElementById("notebookModal")
-        .classList.remove("hidden");
-}
-
 function updateNotebook() {
 
-    const clues =
-        document.getElementById(
-            "notebookClues"
-        );
+    /*
+        УЛИКИ
+    */
 
-    const itemsBox =
-        document.getElementById(
-            "notebookItems"
-        );
+    notebookClues.innerHTML =
+        foundClues.length
 
-    const charactersBox =
-        document.getElementById(
-            "notebookCharacters"
-        );
+        ?
 
-    if (foundClues.length === 0) {
-
-        clues.innerHTML =
-            `<div class="empty">Улик пока нет.</div>`;
-
-    } else {
-
-        clues.innerHTML =
-            foundClues.map(
+        foundClues
+            .map(
                 (clue, index) => `
+
                     <div class="clue">
-                        ${index + 1}. ${clue}
+
+                        ${index + 1}.
+                        ${clue}
+
                     </div>
+
                 `
-            ).join("");
-    }
+            )
+            .join("")
 
-    if (inventory.length === 0) {
+        :
 
-        itemsBox.innerHTML =
-            `<div class="empty">
-                Предметов пока нет.
-            </div>`;
+        `
+            <div class="empty">
+                Улик пока нет.
+            </div>
+        `;
 
-    } else {
+    /*
+        ПРЕДМЕТЫ
+    */
 
-        itemsBox.innerHTML =
-            inventory.map(
+    notebookItems.innerHTML =
+        inventory.length
+
+        ?
+
+        inventory
+            .map(
                 item => `
+
                     <div class="item">
 
-                        <b>${item.name}</b>
+                        <b>
+                            ${item.name}
+                        </b>
 
                         <span>
                             ${item.description}
                         </span>
 
                     </div>
+
                 `
-            ).join("");
-    }
+            )
+            .join("")
 
-    if (solvedCharacters.length === 0) {
+        :
 
-        charactersBox.innerHTML =
-            `<div class="empty">
-                Никто ещё не допрошен.
-            </div>`;
+        `
+            <div class="empty">
+                Предметов пока нет.
+            </div>
+        `;
 
-    } else {
+    /*
+        ПЕРСОНАЖИ
+    */
 
-        charactersBox.innerHTML =
-            solvedCharacters.map(
+    notebookCharacters.innerHTML =
+        solvedCharacters.length
+
+        ?
+
+        solvedCharacters
+            .map(
                 id => `
+
                     <div class="clue">
-                        ✓ ${characters[id].name}
+
+                        ✓
+                        ${characters[id].name}
+
                     </div>
+
                 `
-            ).join("");
-    }
+            )
+            .join("")
+
+        :
+
+        `
+            <div class="empty">
+                Никто ещё не допрошен.
+            </div>
+        `;
 
     updateCounter();
+
 }
 
 /* =========================================================
@@ -3757,20 +3783,48 @@ function updateNotebook() {
 
 function updateCounter() {
 
-    const counter =
-        document.getElementById(
-            "solvedCounter"
+    solvedCounter.innerText =
+        solvedCharacters.length;
+
+    /*
+        Кнопка финала появляется,
+        когда допрошены все 7 персонажей.
+    */
+
+    if (
+        solvedCharacters.length >= 7
+    ) {
+
+        finalBtn.classList.remove(
+            "hidden"
         );
 
-    if (counter) {
+    } else {
 
-        counter.innerText =
-            solvedCharacters.length;
+        finalBtn.classList.add(
+            "hidden"
+        );
+
     }
+
 }
 
 /* =========================================================
-   ЗАКРЫТИЕ
+   ОТКРЫТЬ БЛОКНОТ
+========================================================= */
+
+function openNotebook() {
+
+    updateNotebook();
+
+    notebookModal.classList.remove(
+        "hidden"
+    );
+
+}
+
+/* =========================================================
+   ЗАКРЫТЬ ОКНО
 ========================================================= */
 
 function closeModal(id) {
@@ -3779,41 +3833,350 @@ function closeModal(id) {
         document.getElementById(id);
 
     if (element) {
-        element.classList.add("hidden");
+        element.classList.add(
+            "hidden"
+        );
     }
+
 }
 
 /* =========================================================
-   ESC
+   ФИНАЛ
+========================================================= */
+
+function openFinal() {
+
+    if (
+        solvedCharacters.length < 7
+    ) {
+        return;
+    }
+
+    finalContent.innerHTML = `
+
+        <p>
+            Вы собрали все показания и улики.
+        </p>
+
+        <p>
+            Теперь назовите виновного.
+        </p>
+
+        <div class="suspect-grid">
+
+            ${Object.entries(characters)
+                .map(
+                    ([id, character]) => `
+
+                        <button
+                            class="suspect-btn"
+                            onclick="checkFinal('${id}')"
+                        >
+                            ${character.name}
+                        </button>
+
+                    `
+                )
+                .join("")
+            }
+
+        </div>
+
+    `;
+
+    finalModal.classList.remove(
+        "hidden"
+    );
+
+}
+
+/* =========================================================
+   ПРОВЕРКА ВИНОВНОГО
+========================================================= */
+
+function checkFinal(id) {
+
+    /*
+        Виновник:
+        Виктор Лебедев.
+    */
+
+    if (id !== "viktor") {
+
+        finalContent.innerHTML = `
+
+            <div class="final-result">
+
+                <div class="final-title">
+                    ❌ ВЕРСИЯ ОШИБОЧНА
+                </div>
+
+                <p>
+                    Эта версия не объясняет
+                    все найденные улики.
+                </p>
+
+                <button
+                    class="small-btn"
+                    onclick="openFinal()"
+                >
+                    ВЕРНУТЬСЯ К ВЫБОРУ
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    showTrueEnding();
+
+}
+
+/* =========================================================
+   НАСТОЯЩАЯ РАЗГАДКА
+========================================================= */
+
+function showTrueEnding() {
+
+    finalContent.innerHTML = `
+
+        <div class="final-result">
+
+            <div class="final-title">
+                🎬 ДЕЛО №001 РАСКРЫТО
+            </div>
+
+            <p>
+                <b>
+                    Виновник:
+                    Виктор Лебедев.
+                </b>
+            </p>
+
+            <p>
+                Плёнка №17 была спрятана
+                в старом архивном проходе.
+            </p>
+
+            <button
+                class="start-btn"
+                onclick="playEnding()"
+            >
+                🎙️ РАССКАЗАТЬ ВСЮ ИСТОРИЮ
+            </button>
+
+            <div
+                id="endingStatus"
+                style="
+                    margin-top:20px;
+                    color:#888;
+                "
+            ></div>
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   ПОЛНАЯ ФИНАЛЬНАЯ ОЗВУЧКА
+========================================================= */
+
+/*
+    ВАЖНО:
+
+    Здесь используется ОДНА
+    SpeechSynthesisUtterance.
+
+    Поэтому браузер не должен
+    делать паузу между отдельными
+    кусками текста.
+*/
+
+const endingText = `
+
+Расследование завершено.
+
+Теперь все события складываются
+в единую картину.
+
+В тысяча девятьсот шестьдесят третьем
+году на студии «Звезда» произошёл
+конфликт вокруг оригинала
+плёнки номер семнадцать.
+
+Плёнка содержала материал,
+который руководство студии
+не хотело показывать публике.
+
+После конфликта оригинал
+объявили утраченным.
+
+Но плёнка не исчезла.
+
+Её спрятали в старой системе
+помещений студии,
+а сведения об этом сохранились
+только в нескольких документах.
+
+Спустя десятилетия плёнку нашли
+и решили подготовить
+к юбилейному показу.
+
+Однако Виктор Лебедев
+знал историю оригинала
+и решил забрать плёнку
+до начала показа.
+
+В двадцать сорок
+он находился в проекционной.
+
+В двадцать сорок три
+камера номер три
+была отключена вручную.
+
+Найденный инструмент подтверждает,
+что это не была случайность.
+
+Следы из архива
+ведут к проекционной.
+
+А служебный ключ позволяет
+попасть в старый проход.
+
+Дневник прямо говорит,
+что Виктор знает,
+где находится оригинал.
+
+Документ с инициалами
+Вэ Лэ связывает его
+с событиями тысяча девятьсот
+шестьдесят третьего года.
+
+Виктор использовал старый проход,
+забрал плёнку номер семнадцать
+и спрятал её там,
+где её было трудно обнаружить.
+
+Он рассчитывал,
+что отключённая камера
+уничтожит главное доказательство.
+
+Но он не учёл
+архивные документы,
+показания свидетелей
+и старые предметы,
+сохранившие следы прошлого.
+
+Теперь всё стало ясно.
+
+Виктор Лебедев —
+виновник исчезновения плёнки.
+
+Плёнка номер семнадцать найдена.
+
+Тайна студии «Звезда»,
+которая хранилась больше
+шестидесяти лет,
+раскрыта.
+
+Дело номер один завершено.
+
+`;
+
+function playEnding() {
+
+    if (
+        !("speechSynthesis" in window)
+    ) {
+
+        endingStatus.innerText =
+            "Озвучка недоступна в этом браузере.";
+
+        return;
+    }
+
+    /*
+        ОСТАНАВЛИВАЕМ всё старое.
+    */
+
+    speechSynthesis.cancel();
+
+    /*
+        ВЕСЬ ФИНАЛ —
+        ОДИН UTTERANCE.
+    */
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            endingText
+        );
+
+    utterance.lang =
+        "ru-RU";
+
+    /*
+        Немного медленнее,
+        чтобы финал звучал
+        как рассказчик фильма.
+    */
+
+    utterance.rate =
+        0.88;
+
+    utterance.pitch =
+        0.85;
+
+    utterance.volume =
+        1;
+
+    const voice =
+        getRussianVoice();
+
+    if (voice) {
+        utterance.voice =
+            voice;
+    }
+
+    endingStatus.innerText =
+        "● ИДЁТ ФИНАЛЬНАЯ ОЗВУЧКА...";
+
+    utterance.onend = () => {
+
+        endingStatus.innerText =
+            "● ДЕЛО №001 ЗАВЕРШЕНО";
+
+    };
+
+    speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+/* =========================================================
+   ESC — ЗАКРЫТИЕ ОКНА
 ========================================================= */
 
 document.addEventListener(
     "keydown",
-    function(event) {
+    event => {
 
-        if (event.key !== "Escape") {
-            return;
+        if (event.key === "Escape") {
+
+            [
+                "roomModal",
+                "questionModal",
+                "characterModal",
+                "notebookModal",
+                "finalModal"
+
+            ].forEach(closeModal);
+
         }
-
-        [
-            "roomModal",
-            "questionModal",
-            "characterModal",
-            "notebookModal"
-        ].forEach(id => {
-
-            const element =
-                document.getElementById(id);
-
-            if (
-                element &&
-                !element.classList.contains("hidden")
-            ) {
-
-                element.classList.add("hidden");
-                }
-
-        });
 
     }
 );
