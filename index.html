@@ -2999,22 +2999,7 @@ function answerCorrect() {
     `;
 
     updateNotebook();
-
-    setTimeout(() => {
-
-        closeModal(
-            "questionModal"
-        );
-
-        if (currentRoom) {
-
-            openRoom(
-                currentRoom
-            );
-
-        }
-
-    }, 5000);
+    
 }
 
 /* =========================================================
@@ -3054,21 +3039,6 @@ function answerWrong() {
         </div>
     `;
 
-    setTimeout(() => {
-
-        closeModal(
-            "questionModal"
-        );
-
-        if (currentRoom) {
-
-            openRoom(
-                currentRoom
-            );
-
-        }
-
-    }, 900);
 }
 
 /* =========================================================
@@ -3320,22 +3290,10 @@ function checkRiddle() {
             character.voice
         );
 
-        setTimeout(() => {
-
-            closeModal(
-                "characterModal"
-            );
-
-            if (currentRoom) {
-
-                openRoom(
-                    currentRoom
-                );
-
-            }
-
-        }, 1200);
-
+        // Окно не закрываем автоматически.
+// Игрок сам прочитает информацию
+// и закроет окно крестиком.
+        
         return;
     }
 
