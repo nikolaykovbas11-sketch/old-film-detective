@@ -1426,7 +1426,12 @@ max-width:450px {
             <div id="notebookCharacters"></div>
 
         </div>
-
+<div class="notebook-section">
+    <h3>💬 ДИАЛОГИ</h3>
+    <div id="notebookDialogues"></div>
+    
+        </div>
+        
     </div>
 
 </div>
@@ -1491,7 +1496,10 @@ const notebookModal = document.getElementById("notebookModal");
 const notebookClues = document.getElementById("notebookClues");
 const notebookItems = document.getElementById("notebookItems");
 const notebookCharacters = document.getElementById("notebookCharacters");
+const notebookDialogues = document.getElementById("notebookDialogues");
 
+let savedDialogues = [];
+    
 const finalModal = document.getElementById("finalModal");
 const finalContent = document.getElementById("finalContent");
 const finalBtn = document.getElementById("finalBtn");
@@ -3120,6 +3128,16 @@ function openCharacter(id) {
     const solved =
         solvedCharacters.includes(id);
 
+    if (!savedDialogues.some(dialogue => dialogue.id === id)) {
+    savedDialogues.push({
+        id: id,
+        name: character.name,
+        job: character.job,
+        dialogue: character.dialogue,
+        info: ""
+    });
+}
+
     let html = `
         <div class="character-box">
 
@@ -3265,6 +3283,14 @@ function checkRiddle() {
                 currentCharacter
             );
 
+        }
+        
+        const savedDialogue = savedDialogues.find(
+            dialogue => dialogue.id === currentCharacter
+        );
+
+        if (savedDialogue) {
+            savedDialogue.info = character.info;
         }
 
         updateCounter();
@@ -3440,6 +3466,22 @@ function updateNotebook() {
         `
             <div class="empty">
                 Никто ещё не допрошен.
+            </div>
+        `;
+    notebookDialogues.innerHTML =
+        savedDialogues.length
+        ?
+        savedDialogues.map(dialogue => `
+            <div class="item">
+                <b>${dialogue.name} — ${dialogue.job}</b>
+                <p>${dialogue.dialogue}</p>
+                ${dialogue.info ? `<p><b>Показания:</b> ${dialogue.info}</p>` : ""}
+            </div>
+        `).join("")
+        :
+        `
+            <div class="empty">
+                Диалогов пока нет.
             </div>
         `;
 
